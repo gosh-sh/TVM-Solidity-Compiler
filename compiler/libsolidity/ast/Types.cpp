@@ -3446,14 +3446,16 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshApplyBinPatchQ: id += "goshapplybinpatchq"; break;
 	case Kind::GoshApplyZipBinPatch: id += "goshapplyzipbinpatch"; break;
 	case Kind::GoshApplyZipBinPatchQ: id += "goshapplyzipbinpatchq"; break;
-    case Kind::GoshSHA1: id += "goshsha1"; break;
-    case Kind::GoshSHA256: id += "goshsha256"; break;
-    case Kind::GoshKECCAK256: id += "goshkeccak256"; break;
-    case Kind::GoshMINTECC: id += "goshmintecc"; break;
-    case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
-    case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
-    case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
-    case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
+  case Kind::GoshSHA1: id += "goshsha1"; break;
+  case Kind::GoshSHA256: id += "goshsha256"; break;
+  case Kind::GoshKECCAK256: id += "goshkeccak256"; break;
+	case Kind::GoshVergrth16: id += "goshvergrth16"; break;
+	case Kind::GoshPoseidon: id += "goshposeidon"; break;
+  case Kind::GoshMINTECC: id += "goshmintecc"; break;
+  case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
+  case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
+  case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
+  case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
 	}
 	id += "_" + stateMutabilityToString(m_stateMutability);
 	id += identifierList(m_parameterTypes) + "returns" + identifierList(m_returnParameterTypes);
@@ -5591,6 +5593,30 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}},
 				{{}},
 				FunctionType::Kind::GoshSHA1,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"vergrth16",
+			TypeProvider::function(
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory(), TypeProvider::uint256()},
+				{TypeProvider::boolean()},
+				{{}, {}, {}},
+				{{}},
+				FunctionType::Kind::GoshVergrth16,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"poseidon",
+			TypeProvider::function(
+				{TypeProvider::uint256(),  TypeProvider::uint256(), TypeProvider::uint256(), TypeProvider::bytesMemory(), TypeProvider::stringMemory(), TypeProvider::stringMemory(), TypeProvider::stringMemory()},
+				{TypeProvider::bytesMemory()},
+				{{}, {}, {}, {}, {}, {}, {}},
+				{{}},
+				FunctionType::Kind::GoshPoseidon,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
