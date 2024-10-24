@@ -2701,7 +2701,6 @@ public:
 		Gigaever = static_cast<int>(Token::SubGigaever),
 		GEver = static_cast<int>(Token::SubGEver),
 
-
 		Nanovmshell = static_cast<int>(Token::SubNanovmshell),
 		Microvmshell = static_cast<int>(Token::SubMicrovmshell),
 		Millivmshell = static_cast<int>(Token::SubMillivmshell),

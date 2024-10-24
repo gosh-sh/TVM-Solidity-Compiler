@@ -2578,26 +2578,26 @@ void FunctionCallCompiler::goshFunction() {
 				return "DIFF_PATCH_BINARY_ZIP";
 			case FunctionType::Kind::GoshApplyZipBinPatchQ:
 				return "DIFF_PATCH_BINARY_ZIPQ";
-      case FunctionType::Kind::GoshSHA1:
-        return "SHA1";
-      case FunctionType::Kind::GoshSHA256:
-        return "SHA256";
-      case FunctionType::Kind::GoshKECCAK256:
-        return "KECCAK256";
+      		case FunctionType::Kind::GoshSHA1:
+        		return "SHA1";
+      		case FunctionType::Kind::GoshSHA256:
+        		return "SHA256";
+      		case FunctionType::Kind::GoshKECCAK256:
+        		return "KECCAK256";
 			case FunctionType::Kind::GoshVergrth16:
-         return "VERGRTH16";
+         		return "VERGRTH16";
 			case FunctionType::Kind::GoshPoseidon:
-         return "POSEIDON";
-      case FunctionType::Kind::GoshMINTECC:
-         return "MINTECC";
-      case FunctionType::Kind::GoshCNVRTSHELLQ:
-         return "CNVRTSHELLQ";
-      case FunctionType::Kind::GoshMINTSHELL:
-         return "MINTSHELL";
-      case FunctionType::Kind::GoshCALCBKREWARD:
-         return "CALCBKREWARD";
-      case FunctionType::Kind::GoshCALCMINSTAKE:
-         return "CALCMINSTAKE";
+         		return "POSEIDON";
+      		case FunctionType::Kind::GoshMINTECC:
+         		return "MINTECC";
+      		case FunctionType::Kind::GoshCNVRTSHELLQ:
+         		return "CNVRTSHELLQ";
+      		case FunctionType::Kind::GoshMINTSHELL:
+         		return "MINTSHELL";
+      		case FunctionType::Kind::GoshCALCBKREWARD:
+         		return "CALCBKREWARD";
+      		case FunctionType::Kind::GoshCALCMINSTAKE:
+         		return "CALCMINSTAKE";
 			default:
 				solUnimplemented("Unsupported function call");
 		}

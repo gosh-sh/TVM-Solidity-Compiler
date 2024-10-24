@@ -387,7 +387,7 @@ namespace TokenTraits
 	}
 
 	// TODO RENAME
-	constexpr bool isTonSubdenomination(Token op) { return (Token::SubNano <= op && op <= Token::SubGEver); }
+	constexpr bool isTonSubdenomination(Token op) { return (Token::SubNano <= op && op <= Token::SubGVMShell); }
 	constexpr bool isTimeSubdenomination(Token op) { return op == Token::SubSecond || op == Token::SubMinute || op == Token::SubHour || op == Token::SubDay || op == Token::SubWeek || op == Token::SubYear; }
 	constexpr bool isReservedKeyword(Token op) { return (Token::After <= op && op <= Token::Var); }
 
