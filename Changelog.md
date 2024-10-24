@@ -1,3 +1,9 @@
+### 0.76.1 (2021-12-09)
+
+Compiler features:
+ * Supported `cnvrtshellq`, `mintecc`, `minetshell`, `CALCBKREWARD`, `CACMINSTAKE`, `vergrth16`, `poseidon` instructions.
+ * Supported `vmshell` units.
+
 ### 0.76.0 (2024-07-18)
 
 Compiler features:

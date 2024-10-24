@@ -78,7 +78,8 @@ bool SyntaxChecker::visit(PragmaDirective const& _pragma)
 	if (_pragma.tokens()[0] != Token::Identifier &&
 		!(
 			(_pragma.tokens().size() >= 3 && _pragma.tokens()[0] == Token::SubSmallTon && _pragma.tokens()[1] == Token::Sub && _pragma.tokens()[2] == Token::Identifier) ||
-			(_pragma.tokens().size() >= 3 && _pragma.tokens()[0] == Token::SubSmallEver && _pragma.tokens()[1] == Token::Sub && _pragma.tokens()[2] == Token::Identifier)
+			(_pragma.tokens().size() >= 3 && _pragma.tokens()[0] == Token::SubSmallEver && _pragma.tokens()[1] == Token::Sub && _pragma.tokens()[2] == Token::Identifier) ||
+			(_pragma.tokens().size() >= 3 && _pragma.tokens()[0] == Token::SubSmallVMShell && _pragma.tokens()[1] == Token::Sub && _pragma.tokens()[2] == Token::Identifier)
 		)
 	)
 		m_errorReporter.syntaxError(5226_error, _pragma.location(), "Invalid pragma \"" + _pragma.literals()[0] + "\"");
@@ -151,7 +152,7 @@ bool SyntaxChecker::visit(PragmaDirective const& _pragma)
 				" to set a version of the compiler.";
 		m_errorReporter.warning(6413_error, _pragma.location(), errorString);
 	}
-	else if (_pragma.literals()[0] == "ever" || _pragma.literals()[0] == "ton" || _pragma.literals()[0] == "tvm")
+	else if (_pragma.literals()[0] == "gosh" || _pragma.literals()[0] == "ever" || _pragma.literals()[0] == "ton" || _pragma.literals()[0] == "tvm")
 	{
 		if (m_versionPragma.has_value()) {
 			m_errorReporter.fatalTypeError(

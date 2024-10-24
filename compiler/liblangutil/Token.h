@@ -229,6 +229,17 @@ namespace solidity::langutil
 	K(SubMEver, "MEver", 0)                                            \
 	K(SubGigaever, "gigaever", 0)                                      \
 	K(SubGEver, "GEver", 0)                                            \
+	K(SubNanovmshell, "nanovmshell", 0)                                \
+	K(SubMicrovmshell, "microvmshell", 0)                              \
+	K(SubMillivmshell, "millivmshell", 0)                              \
+	K(SubVMShell, "VMShell", 0)                                        \
+	K(SubSmallVMShell, "vmshell", 0)                                   \
+	K(SubKilovmshell, "kilovmshell", 0)                                \
+	K(SubKVMShell, "kVMShell", 0)                                      \
+	K(SubMegavmshell, "megavmshell", 0)                                \
+	K(SubMVMShell, "MVMSHell", 0)                                      \
+	K(SubGigavmshell, "gigavmshell", 0)                                \
+	K(SubGVMShell, "GVMShell", 0)                                      \
 	K(SubSecond, "seconds", 0)                                         \
 	K(SubMinute, "minutes", 0)                                         \
 	K(SubHour, "hours", 0)                                             \
@@ -376,7 +387,7 @@ namespace TokenTraits
 	}
 
 	// TODO RENAME
-	constexpr bool isTonSubdenomination(Token op) { return (Token::SubNano <= op && op <= Token::SubGEver); }
+	constexpr bool isTonSubdenomination(Token op) { return (Token::SubNano <= op && op <= Token::SubGVMShell); }
 	constexpr bool isTimeSubdenomination(Token op) { return op == Token::SubSecond || op == Token::SubMinute || op == Token::SubHour || op == Token::SubDay || op == Token::SubWeek || op == Token::SubYear; }
 	constexpr bool isReservedKeyword(Token op) { return (Token::After <= op && op <= Token::Var); }
 

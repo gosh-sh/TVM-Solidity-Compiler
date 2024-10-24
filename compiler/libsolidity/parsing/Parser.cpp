@@ -260,7 +260,7 @@ ASTPointer<PragmaDirective> Parser::parsePragmaDirective(bool const _finishedPar
 	nodeFactory.markEndPosition();
 	expectToken(Token::Semicolon);
 
-	if (literals.size() >= 3 && (literals[0] == "ton" || literals[0] == "ever" || literals[0] == "tvm"))
+	if (literals.size() >= 3 && (literals[0] == "ton" || literals[0] == "ever" || literals[0] == "gosh" || literals[0] == "tvm"))
 	{
 		parsePragmaVersion(
 			nodeFactory.location(),

@@ -380,6 +380,23 @@ uint a14 = 1 GEver; // a14 == 1 000 000 000 000 000 000 (1e18) == 1e9 ever
 ```
 
 ```TVMSolidity
+uint a0 = 1 nano; // a0 == 1 == 1e-9 ever
+uint a1 = 1 nanovmshell; // a1 == 1 == 1e-9 ever
+uint a3 = 1 vmshell; // a3 == 1 000 000 000 (1e9)
+uint a4 = 1 VMShell; // a4 == 1 000 000 000 (1e9)
+uint a5 = 1 micro; // a5 == 1 000 == 1e-6 ever
+uint a6 = 1 microvmshell; // a6 == 1 000 == 1e-6 ever
+uint a7 = 1 milli; // a7 == 1 000 000 == 1e-3 ever
+uint a8 = 1 millivmshell; // a8 == 1 000 000 == 1e-3 ever
+uint a9 = 1 kilovmshell; // a9 == 1 000 000 000 000 (1e12) == 1e3 ever
+uint a10 = 1 kVMShell; // a10 == 1 000 000 000 000 (1e12) == 1e3 ever
+uint a11 = 1 megavmshell; // a11 == 1 000 000 000 000 000 (1e15) == 1e6 ever
+uint a12 = 1 MVMShell; // a12 == 1 000 000 000 000 000 (1e15) == 1e6 ever
+uint a13 = 1 gigavmshell; // a13 == 1 000 000 000 000 000 000 (1e18) == 1e9 ever
+uint a14 = 1 GVMShell; // a14 == 1 000 000 000 000 000 000 (1e18) == 1e9 ever
+```
+
+```TVMSolidity
 uint a0 = 1 nano; // a0 == 1
 uint a1 = 1 nanoton; // a1 == 1
 uint a2 = 1 nTon; // a2 == 1
