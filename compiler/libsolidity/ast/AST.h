@@ -2701,6 +2701,19 @@ public:
 		Gigaever = static_cast<int>(Token::SubGigaever),
 		GEver = static_cast<int>(Token::SubGEver),
 
+
+		Nanovmshell = static_cast<int>(Token::SubNanovmshell),
+		Microvmshell = static_cast<int>(Token::SubMicrovmshell),
+		Millivmshell = static_cast<int>(Token::SubMillivmshell),
+		VMShell = static_cast<int>(Token::SubVMShell),
+		SmallVMShell = static_cast<int>(Token::SubSmallVMShell),
+		Kilovmshell = static_cast<int>(Token::SubKilovmshell),
+		KVMShell = static_cast<int>(Token::SubKVMShell),
+		Megavmshell = static_cast<int>(Token::SubMegavmshell),
+		MVMShell = static_cast<int>(Token::SubMVMShell),
+		Gigavmshell = static_cast<int>(Token::SubGigavmshell),
+		GVMShell = static_cast<int>(Token::SubGVMShell),
+
 		Second = static_cast<int>(Token::SubSecond),
 		Minute = static_cast<int>(Token::SubMinute),
 		Hour = static_cast<int>(Token::SubHour),

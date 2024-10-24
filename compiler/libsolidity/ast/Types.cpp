@@ -1085,39 +1085,50 @@ std::tuple<bool, rational> RationalNumberType::isValidLiteral(Literal const& _li
 		case Literal::SubDenomination::Nanoever:
 		case Literal::SubDenomination::NTon:
 		case Literal::SubDenomination::Second:
+		case Literal::SubDenomination::Nanovmshell:
 			break;
 		case Literal::SubDenomination::Micro:
 		case Literal::SubDenomination::Microton:
 		case Literal::SubDenomination::Microever:
+		case Literal::SubDenomination::Microvmshell:
 			value *= bigint("1000");
 			break;
 		case Literal::SubDenomination::Milli:
 		case Literal::SubDenomination::Milliton:
 		case Literal::SubDenomination::Milliever:
+		case Literal::SubDenomination::Millivmshell:
 			value *= bigint("1000000");
 			break;
 		case Literal::SubDenomination::Ton:
 		case Literal::SubDenomination::Ever:
+		case Literal::SubDenomination::VMShell:
 		case Literal::SubDenomination::SmallTon:
 		case Literal::SubDenomination::SmallEver:
+		case Literal::SubDenomination::SmallVMShell:
 			value *= bigint("1000000000");
 			break;
 		case Literal::SubDenomination::Kiloton:
 		case Literal::SubDenomination::Kiloever:
+		case Literal::SubDenomination::Kilovmshell:
 		case Literal::SubDenomination::KTon:
 		case Literal::SubDenomination::KEver:
+		case Literal::SubDenomination::KVMShell:
 			value *= bigint("1000000000000");
 			break;
 		case Literal::SubDenomination::Megaton:
 		case Literal::SubDenomination::Megaever:
+		case Literal::SubDenomination::Megavmshell:
 		case Literal::SubDenomination::MTon:
 		case Literal::SubDenomination::MEver:
+		case Literal::SubDenomination::MVMShell:
 			value *= bigint("1000000000000000");
 			break;
 		case Literal::SubDenomination::Gigaton:
 		case Literal::SubDenomination::Gigaever:
+		case Literal::SubDenomination::Gigavmshell:
 		case Literal::SubDenomination::GTon:
 		case Literal::SubDenomination::GEver:
+		case Literal::SubDenomination::GVMShell:
 			value *= bigint("1000000000000000000");
 			break;
 		case Literal::SubDenomination::Minute:
