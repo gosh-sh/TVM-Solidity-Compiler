@@ -1659,6 +1659,7 @@ public:
     GoshCNVRTSHELLQ,
     GoshMINTSHELL,
     GoshCALCBKREWARD,
+    GoshCALCBKREWARDADJ,
     GoshCALCMINSTAKE,
 	};
 	struct Options

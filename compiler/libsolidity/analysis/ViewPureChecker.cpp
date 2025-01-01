@@ -409,6 +409,7 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "mintshell"},
             {MagicType::Kind::Gosh, "calcbkreward"},
             {MagicType::Kind::Gosh, "calcminstake"},
+            {MagicType::Kind::Gosh, "calcbkrewardadj"},
 			{MagicType::Kind::Math, "abs"},
 			{MagicType::Kind::Math, "divc"},
 			{MagicType::Kind::Math, "divmod"},

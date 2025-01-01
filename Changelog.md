@@ -1,4 +1,10 @@
-### 0.76.1 (2021-12-09)
+### 0.76.1 (2025-01-01)
+
+Compiler features:
+ * Supported `CALCBKREWARDADJ`instruction.
+ * Updated `CACMINSTAKE`, `CALCBKREWARD` instructions.
+
+### 0.76.1 (2024-12-09)
 
 Compiler features:
  * Supported `cnvrtshellq`, `mintecc`, `minetshell`, `CALCBKREWARD`, `CACMINSTAKE`, `vergrth16`, `poseidon` instructions.
