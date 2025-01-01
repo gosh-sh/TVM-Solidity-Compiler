@@ -632,7 +632,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
     	{"CNVRTSHELLQ", {1, 0}},
     	{"MINTSHELL", {1, 0}},
     	{"CALCBKREWARD", {7, 1, true}},
-    	{"CALCBKREWARDADJ", {4, 1, true}},
+    	{"CALCBKREWARDADJ", {5, 1, true}},
     	{"CALCMINSTAKE", {4, 1, true}},
 		{"SREFS", {1, 1, true}},
 		{"SREMPTY", {1, 1, true}},
