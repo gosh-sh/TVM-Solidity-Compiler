@@ -5708,9 +5708,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"calcbkrewardadj",
 			TypeProvider::function(
-				{TypeProvider::boolean(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::boolean(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
-				{{}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCBKREWARDADJ,
 				StateMutability::Pure,
