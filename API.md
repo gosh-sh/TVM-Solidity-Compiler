@@ -398,7 +398,7 @@ uint a14 = 1 GVMShell; // a14 == 1 000 000 000 000 000 000 (1e18) == 1e9 ever
 
 ```TVMSolidity
 uint a0 = 1 nano; // a0 == 1
-uint a1 = 1 nanoton; // a1 == 1
+uint a1 = 1 nanoton; // a1 == 1tvmrawreserve
 uint a2 = 1 nTon; // a2 == 1
 uint a3 = 1 ton; // a3 == 1 000 000 000 (1e9)
 uint a4 = 1 Ton; // a4 == 1 000 000 000 (1e9)
@@ -2495,9 +2495,6 @@ ignored. The contract's balance will be equal to zero after the message processi
 Parameter `flag` can also be modified:
 
 * `flag + 1` - means that the sender wants to pay transfer fees separately from contract's balance.
-* `flag + 2` - means that any errors arising while processing this message during the action phase
-should be ignored. But if the message has wrong format, then the transaction fails and `+ 2` has
-no effect.
 * `flag + 32` - means that the current account must be destroyed if its resulting balance is zero.
 For example, `flag: 128 + 32` is used to send all balance and destroy the contract.
 
@@ -4119,18 +4116,6 @@ Let's consider how much nanoevers (**reserve**) are reserved in all cases of **f
 
 * 0 -> `reserve = value` nanoevers.
 * 1 -> `reserve = remaining_balance - value` nanoevers.
-* 2 -> `reserve = min(value, remaining_balance)` nanoevers.
-* 3 = 2 + 1 -> `reserve = remaining_balance - min(value, remaining_balance)` nanoevers.
-
-* 4 -> `reserve = original_balance + value` nanoevers.
-* 5 = 4 + 1 -> `reserve = remaining_balance - (original_balance + value)` nanoevers.
-* 6 = 4 + 2 -> `reserve = min(original_balance + value, remaining_balance) = remaining_balance` nanoevers.
-* 7 = 4 + 2 + 1 -> `reserve = remaining_balance - min(original_balance + value, remaining_balance)` nanoevers.
-
-* 12 = 8 + 4 -> `reserve = original_balance - value` nanoevers.
-* 13 = 8 + 4 + 1 -> `reserve = remaining_balance - (original_balance - value)` nanoevers.
-* 14 = 8 + 4 + 2 -> `reserve = min(original_balance - value, remaining_balance)` nanoevers.
-* 15 = 8 + 4 + 2 + 1 -> `reserve = remaining_balance - min(original_balance - value, remaining_balance)` nanoevers.
 
 All other values of `flag` are invalid.
 
