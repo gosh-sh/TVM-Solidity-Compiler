@@ -1,7 +1,7 @@
 ### 0.76.1 (2025-01-01)
 
 Compiler features:
- * Deprecated +2 flag in transfer
+ * Deprecated +2 and 64 flag in transfer
  * Left only 0 and +1 flag in RAWRESERVE 
  * Supported `CALCBKREWARDADJ`instruction.
  * Updated `CACMINSTAKE`, `CALCBKREWARD` instructions.

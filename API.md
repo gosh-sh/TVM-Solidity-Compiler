@@ -2489,8 +2489,6 @@ Possible values of parameter `flag`:
 the `value`.
 * `128` - message carries all the remaining balance of the current smart contract. Parameter `value` is
 ignored. The contract's balance will be equal to zero after the message processing.
-* `64` - carries funds equal to the `value` parameter plus all the remaining value of the inbound message
-(that initiated the contract execution).
 
 Parameter `flag` can also be modified:
 

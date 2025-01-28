@@ -2445,7 +2445,7 @@ dependencies = [
 [[package]]
 name = "tvm_abi"
 version = "2.3.3"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=41f1c4a#41f1c4a578848ce6ec652ec04f384186d4a48b03"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=6628ec1#6628ec157fea94ae1e3963110edecaa8983049b0"
 dependencies = [
  "anyhow",
  "chrono",
@@ -2463,7 +2463,7 @@ dependencies = [
 [[package]]
 name = "tvm_assembler"
 version = "2.3.3"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=41f1c4a#41f1c4a578848ce6ec652ec04f384186d4a48b03"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=6628ec1#6628ec157fea94ae1e3963110edecaa8983049b0"
 dependencies = [
  "anyhow",
  "clap",
@@ -2481,7 +2481,7 @@ dependencies = [
 [[package]]
 name = "tvm_block"
 version = "2.3.3"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=41f1c4a#41f1c4a578848ce6ec652ec04f384186d4a48b03"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=6628ec1#6628ec157fea94ae1e3963110edecaa8983049b0"
 dependencies = [
  "anyhow",
  "base64 0.21.7",
@@ -2501,7 +2501,7 @@ dependencies = [
 [[package]]
 name = "tvm_types"
 version = "2.3.3"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=41f1c4a#41f1c4a578848ce6ec652ec04f384186d4a48b03"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=6628ec1#6628ec157fea94ae1e3963110edecaa8983049b0"
 dependencies = [
  "aes-ctr",
  "anyhow",
@@ -2531,7 +2531,7 @@ dependencies = [
 [[package]]
 name = "tvm_vm"
 version = "2.3.3"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=41f1c4a#41f1c4a578848ce6ec652ec04f384186d4a48b03"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=6628ec1#6628ec157fea94ae1e3963110edecaa8983049b0"
 dependencies = [
  "anyhow",
  "ark-bls12-381",
