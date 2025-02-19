@@ -398,7 +398,7 @@ uint a14 = 1 GVMShell; // a14 == 1 000 000 000 000 000 000 (1e18) == 1e9 ever
 
 ```TVMSolidity
 uint a0 = 1 nano; // a0 == 1
-uint a1 = 1 nanoton; // a1 == 1tvmrawreserve
+uint a1 = 1 nanoton; // a1 == 1
 uint a2 = 1 nTon; // a2 == 1
 uint a3 = 1 ton; // a3 == 1 000 000 000 (1e9)
 uint a4 = 1 Ton; // a4 == 1 000 000 000 (1e9)
