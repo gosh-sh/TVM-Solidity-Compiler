@@ -44,7 +44,7 @@ git clone https://github.com/everx-labs/TVM-Solidity-Compiler
 cd TVM-Solidity-Compiler
 ```
 
-Update variable `CMAKE_OSX_DEPLOYMENT_TARGET` in `compiler/CMakeLists.txt` with the appropriate version for your architecture. 
+Update variable [`CMAKE_OSX_DEPLOYMENT_TARGET`](https://github.com/gosh-sh/TVM-Solidity-Compiler/blob/92f893433651c9bcd94975832388930f2ac8fe0f/compiler/CMakeLists.txt#L28) in `compiler/CMakeLists.txt` with the appropriate version for your architecture. 
 In order to get your architecture version, run `cargo build --release` to get the compilation error displaying your acrhitecture. 
 Here, for example, the right version should be 15.2
 ```
