@@ -38,6 +38,10 @@ cmake --build . -- -j8
 
 #### MacOS
 
+Prerequisites:  
+- cmake (`brew install cmake`)
+- boost (`brew install boost`)
+
 Clone repo
 ```
 git clone https://github.com/everx-labs/TVM-Solidity-Compiler
