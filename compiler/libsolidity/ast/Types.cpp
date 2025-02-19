@@ -3467,6 +3467,8 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
   case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
+  case Kind::GoshCALCBKREWARDADJ: id += "goshcalcbkrewardadj"; break;
+  case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
 	}
 	id += "_" + stateMutabilityToString(m_stateMutability);
 	id += identifierList(m_parameterTypes) + "returns" + identifierList(m_returnParameterTypes);
@@ -5695,11 +5697,35 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"calcbkreward",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
-				{{}, {}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCBKREWARD,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcbkrewardadj",
+			TypeProvider::function(
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128()},
+				{{}, {}, {}, {}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCBKREWARDADJ,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcrepcoef",
+			TypeProvider::function(
+				{TypeProvider::uint128()}, 
+				{TypeProvider::uint128()},
+				{{}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCREPCOEF,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

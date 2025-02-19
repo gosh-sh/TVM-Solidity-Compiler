@@ -2596,6 +2596,10 @@ void FunctionCallCompiler::goshFunction() {
          		return "MINTSHELL";
       		case FunctionType::Kind::GoshCALCBKREWARD:
          		return "CALCBKREWARD";
+      		case FunctionType::Kind::GoshCALCBKREWARDADJ:
+         		return "CALCBKREWARDADJ";
+      		case FunctionType::Kind::GoshCALCREPCOEF:
+         		return "CALCREPCOEF";
       		case FunctionType::Kind::GoshCALCMINSTAKE:
          		return "CALCMINSTAKE";
 			default:

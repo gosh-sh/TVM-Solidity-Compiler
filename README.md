@@ -36,6 +36,29 @@ cmake ../compiler/ -DCMAKE_BUILD_TYPE=Release
 cmake --build . -- -j8
 ```
 
+#### MacOS
+
+Clone repo
+```
+git clone https://github.com/everx-labs/TVM-Solidity-Compiler
+cd TVM-Solidity-Compiler
+```
+
+Update variable [`CMAKE_OSX_DEPLOYMENT_TARGET`](https://github.com/gosh-sh/TVM-Solidity-Compiler/blob/92f893433651c9bcd94975832388930f2ac8fe0f/compiler/CMakeLists.txt#L28) in `compiler/CMakeLists.txt` with the appropriate version for your architecture. 
+In order to get your architecture version, run `cargo build --release` to get the compilation error displaying your acrhitecture. 
+Here, for example, the right version should be 15.2
+```
+clang++: warning: overriding '-mmacosx-version-min=11.0' option with '--target=arm64-apple-macosx15.2' [-Woverriding-t-option]
+```
+
+Now build and copy to the `~/.cargo/bin` folder (or any other folder that you use for global binaries) to be available globally 
+
+```shell
+cargo build --release
+cp target/release/sold ~/.cargo/bin/sold
+```
+
+
 #### Windows 10
 
 Install Visual Studio Build Tools 2019, Git bash, cmake.

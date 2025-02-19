@@ -1,4 +1,12 @@
-### 0.76.1 (2021-12-09)
+### 0.77.0 (2025-02-19)
+
+Compiler features:
+ * Deprecated +2 and 64 flag in transfer
+ * Left only 0 and +1 flag in RAWRESERVE 
+ * Supported `CALCBKREWARDADJ`instruction.
+ * Updated `CACMINSTAKE`, `CALCBKREWARD` instructions.
+
+### 0.76.1 (2024-12-09)
 
 Compiler features:
  * Supported `cnvrtshellq`, `mintecc`, `minetshell`, `CALCBKREWARD`, `CACMINSTAKE`, `vergrth16`, `poseidon` instructions.
