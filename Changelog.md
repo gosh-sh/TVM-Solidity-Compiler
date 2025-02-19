@@ -1,4 +1,4 @@
-### 0.76.1 (2025-01-01)
+### 0.77.0 (2025-02-19)
 
 Compiler features:
  * Deprecated +2 and 64 flag in transfer
