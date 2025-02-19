@@ -44,8 +44,8 @@ git clone https://github.com/everx-labs/TVM-Solidity-Compiler
 cd TVM-Solidity-Compiler
 ```
 
-Update variable `CMAKE_OSX_DEPLOYMENT_TARGET` in `compilet/CMakeLists.txt` with the appropriate version for your architecture. 
-Try running `cargo build --release` to get the compilation error displaying your acrhitecture. 
+Update variable `CMAKE_OSX_DEPLOYMENT_TARGET` in `compiler/CMakeLists.txt` with the appropriate version for your architecture. 
+In order to get your architecture version, run `cargo build --release` to get the compilation error displaying your acrhitecture. 
 Here, for example, the right version should be 15.2
 ```
 clang++: warning: overriding '-mmacosx-version-min=11.0' option with '--target=arm64-apple-macosx15.2' [-Woverriding-t-option]
