@@ -48,9 +48,9 @@ jobs:
           - x86_64-apple-darwin
           - aarch64-apple-darwin
         include:
-          - target: x86_64-apple-darwin
+          - target: x86_64-apple-macosx14.2
             image: macos-13
-          - target: aarch64-apple-darwin
+          - target: arm64-apple-macosx15.0
             image: macos-15
 
     steps:
