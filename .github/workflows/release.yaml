@@ -52,7 +52,7 @@ jobs:
 
   build_linux_arm:
     name: Build ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     strategy:
       fail-fast: false
       matrix:
@@ -71,51 +71,18 @@ jobs:
           sudo apt update
           sudo apt install -y \
             build-essential \
-            binutils-multiarch \
             cmake \
-            g++-aarch64-linux-gnu \
-            libc6-dev-arm64-cross \
-            gcc-aarch64-linux-gnu
-
-          # wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2
-          # tar --bzip2 -xf boost_1_81_0.tar.bz2
-          # cd boost_1_81_0
-          # ./bootstrap.sh --prefix=/usr --with-libraries=filesystem toolset=gcc architecture=arm
-          # sudo ./b2 link=static install --with-filesystem
+            clang \
+            libboost-all-dev \
+            libboost-dev \
+            libboost-filesystem-dev
 
           aarch64-linux-gnu-gcc --version
           aarch64-linux-gnu-g++ --version
 
-          # file $(which rustup)  # for debug
-          # rustup target add aarch64-unknown-linux-gnu
-          # rustup toolchain install --force-non-host stable-aarch64-unknown-linux-gnu
-
-      - name: Boost
-        run: |
-          curl -O -L https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.gz
-          tar xfz boost_1_81_0.tar.gz
-          cd boost_1_81_0
-          ./bootstrap.sh --with-libraries=filesystem
-          sudo ./b2 architecture=arm address-model=64 -s NO_LZMA=1 -s NO_ZSTD=1 abi=aapcs install
-        env:
-          CC: aarch64-linux-gnu-gcc
-          CXX: aarch64-linux-gnu-g++
-
       - run: |
-          # export BOOST_ROOT=/usr/local
-          # export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
-          # export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-          RUSTFLAGS="-L /usr/local/lib" cargo build -r --target ${{ matrix.target }}
-          file ./target/${{ matrix.target }}/release/sold
-          cd target/${{ matrix.target }}/release
-          tar czvf sold-${{ matrix.target }}.tar.gz sold
-        env:
-          RUSTFLAGS: "-L /usr/local/lib"
-          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
-          CC_aarch64_unknown_linux_gnu: aarch64-linux-gnu-gcc
-          CXX_aarch64_unknown_linux_gnu: aarch64-linux-gnu-g++
-          CC: aarch64-linux-gnu-gcc
-          CXX: aarch64-linux-gnu-g++
+          cargo build --release --target ${{ matrix.target }}
+          ./target/${{ matrix.target }}/release/sold --version
 
       - name: Publish
         uses: softprops/action-gh-release@v1
