@@ -38,21 +38,34 @@ jobs:
       - run: cargo test --release --all-targets --target ${{ matrix.target }}
       - run: cargo run --release --target ${{ matrix.target }} -- --version
 
-  build_mac:
+  build_mac_x86:
     name: Build ${{ matrix.target }}
-    runs-on: ${{ matrix.image }}
+    runs-on: macos-13
     strategy:
-      fail-fast: false
       matrix:
-        target:
-          - x86_64-apple-darwin
-          - aarch64-apple-darwin
-        include:
-          - target: x86_64-apple-macosx14.2
-            image: macos-13
-          - target: arm64-apple-macosx15.0
-            image: macos-15
+        target: [x86_64-apple-darwin]
+    env:
+      CMAKE_OSX_DEPLOYMENT_TARGET: 14.2
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: |
+          brew install boost
+          brew info boost
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
 
+  build_mac_arm:
+    name: Build ${{ matrix.target }}
+    runs-on: macos-15
+    strategy:
+      matrix:
+        target: [aarch64-apple-darwin]
+    env:
+      CMAKE_OSX_DEPLOYMENT_TARGET: 15.0
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
