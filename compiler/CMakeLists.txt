@@ -24,8 +24,8 @@ eth_policy()
 
 # project name and version should be set after cmake_policy CMP0048
 set(PROJECT_VERSION "0.77.0")
-# OSX target needed in order to support std::visit
-set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
+  # OSX target needed in order to support std::visit
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "15.4")
 project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
 
 include(TestBigEndian)
@@ -34,9 +34,9 @@ if (IS_BIG_ENDIAN)
 	message(FATAL_ERROR "${PROJECT_NAME} currently does not support big endian systems.")
 endif()
 
-option(SOLC_LINK_STATIC "Link solc executable statically on supported platforms" OFF)
+option(SOLC_LINK_STATIC "Link solc executable statically on supported platforms" ON)
 option(WITH_TESTS "Run solc tests" OFF)
-option(SOLC_STATIC_STDLIBS "Link solc against static versions of libgcc and libstdc++ on supported platforms" OFF)
+option(SOLC_STATIC_STDLIBS "Link solc against static versions of libgcc and libstdc++ on supported platforms" ON)
 option(STRICT_Z3_VERSION "Use the latest version of Z3" ON)
 option(PEDANTIC "Enable extra warnings and pedantic build flags. Treat all warnings as errors." ON)
 option(PROFILE_OPTIMIZER_STEPS "Output performance metrics for the optimiser steps." OFF)
@@ -90,4 +90,5 @@ endif()
 
 if (NOT EMSCRIPTEN)
 	add_subdirectory(solc)
+	target_link_libraries(solc PRIVATE Boost::process)
 endif()

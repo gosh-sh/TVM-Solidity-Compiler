@@ -29,6 +29,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/process.hpp>
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/pipe.hpp>
+#include <boost/process/v1/io.hpp>
 
 using solidity::langutil::InternalCompilerError;
 using solidity::util::errinfo_comment;
@@ -53,23 +56,19 @@ ReadCallback::Result SMTSolverCommand::solve(std::string const& _kind, std::stri
 		auto queryFile = boost::filesystem::ofstream(queryFileName);
 		queryFile << _query;
 
-		auto eldBin = boost::process::search_path(m_solverCmd);
-
-		if (eldBin.empty())
-			return ReadCallback::Result{false, m_solverCmd + " binary not found."};
-
-		boost::process::ipstream pipe;
-		boost::process::child eld(
-			eldBin,
-			queryFileName,
-			boost::process::std_out > pipe
+		std::vector<std::string> data;
+		boost::process::v1::ipstream pipe_stream;
+		boost::process::v1::child eld(
+		    m_solverCmd,
+		    boost::process::v1::std_out > pipe_stream
 		);
 
-		std::vector<std::string> data;
 		std::string line;
-		while (eld.running() && std::getline(pipe, line))
+		while (pipe_stream && std::getline(pipe_stream, line))
+		{
 			if (!line.empty())
 				data.push_back(line);
+		}
 
 		eld.wait();
 
