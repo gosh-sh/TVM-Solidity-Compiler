@@ -1,0 +1,23 @@
+name: PR Build
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build_linux:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [x86_64-unknown-linux-gnu]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: sudo apt update && sudo apt install -y build-essential libboost-all-dev
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
