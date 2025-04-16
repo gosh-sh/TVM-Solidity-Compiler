@@ -37,3 +37,29 @@ jobs:
       - run: cargo build --release --all-targets --target ${{ matrix.target }}
       - run: cargo test --release --all-targets --target ${{ matrix.target }}
       - run: cargo run --release --target ${{ matrix.target }} -- --version
+
+  build_mac:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.image }}
+    strategy:
+      matrix:
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+        include:
+          - target: x86_64-apple-darwin
+            image: macos-13
+          - target: aarch64-apple-darwin
+            image: macos-15
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: |
+          brew install boost
+          brew info boost
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
