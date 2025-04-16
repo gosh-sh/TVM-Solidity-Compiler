@@ -1,0 +1,79 @@
+name: PR Build
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build_linux:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [x86_64-unknown-linux-gnu]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: sudo apt update && sudo apt install -y build-essential libboost-all-dev
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
+
+  build_linux_arm:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      matrix:
+        target: [aarch64-unknown-linux-gnu]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: sudo apt update && sudo apt install -y build-essential libboost-all-dev
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
+
+  build_mac_x86:
+    name: Build ${{ matrix.target }}
+    runs-on: macos-13
+    strategy:
+      matrix:
+        target: [x86_64-apple-darwin]
+    env:
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.7"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: |
+          brew install boost
+          brew info boost
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
+
+  build_mac_arm:
+    name: Build ${{ matrix.target }}
+    runs-on: macos-15
+    strategy:
+      matrix:
+        target: [aarch64-apple-darwin]
+    env:
+      CMAKE_OSX_DEPLOYMENT_TARGET: "15.0"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: |
+          brew install boost
+          brew info boost
+      - run: cargo build --release --all-targets --target ${{ matrix.target }}
+      - run: cargo test --release --all-targets --target ${{ matrix.target }}
+      - run: cargo run --release --target ${{ matrix.target }} -- --version
