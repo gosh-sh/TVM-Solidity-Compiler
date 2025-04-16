@@ -45,7 +45,7 @@ jobs:
       matrix:
         target: [x86_64-apple-darwin]
     env:
-      CMAKE_OSX_DEPLOYMENT_TARGET: 14.2
+      CMAKE_OSX_DEPLOYMENT_TARGET: "14.2"
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
@@ -65,7 +65,7 @@ jobs:
       matrix:
         target: [aarch64-apple-darwin]
     env:
-      CMAKE_OSX_DEPLOYMENT_TARGET: 15.0
+      CMAKE_OSX_DEPLOYMENT_TARGET: "15.0"
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
