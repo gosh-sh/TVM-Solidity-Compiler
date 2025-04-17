@@ -3469,6 +3469,7 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
   case Kind::GoshCALCBKREWARDADJ: id += "goshcalcbkrewardadj"; break;
   case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
+  case Kind::GoshULTIMATEADD: id += "goshultimateadd"; break;
 	}
 	id += "_" + stateMutabilityToString(m_stateMutability);
 	id += identifierList(m_parameterTypes) + "returns" + identifierList(m_returnParameterTypes);
@@ -5752,6 +5753,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				  FunctionType::Kind::GoshUnzip,
 				  StateMutability::Pure,
 					nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"ultimateadd",
+			TypeProvider::function(
+				{TypeProvider::uint64(), TypeProvider::uint64()}, 
+				{TypeProvider::uint64()},
+				{{}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshULTIMATEADD,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
 		return members;
 	}
