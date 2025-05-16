@@ -3766,6 +3766,7 @@ dependencies = [
 [[package]]
 name = "tvm_abi"
 version = "2.10.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=feature%2Fnode-1512-instruction-that-executes-a-rust-program-from-an-game-in#81e04a0c4eecff0c636b89bfb77b538d30bef76c"
 dependencies = [
  "anyhow",
  "chrono",
@@ -3783,6 +3784,7 @@ dependencies = [
 [[package]]
 name = "tvm_assembler"
 version = "2.10.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=feature%2Fnode-1512-instruction-that-executes-a-rust-program-from-an-game-in#81e04a0c4eecff0c636b89bfb77b538d30bef76c"
 dependencies = [
  "anyhow",
  "ark-ff",
@@ -3811,6 +3813,7 @@ dependencies = [
 [[package]]
 name = "tvm_block"
 version = "2.10.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=feature%2Fnode-1512-instruction-that-executes-a-rust-program-from-an-game-in#81e04a0c4eecff0c636b89bfb77b538d30bef76c"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3830,6 +3833,7 @@ dependencies = [
 [[package]]
 name = "tvm_types"
 version = "2.10.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=feature%2Fnode-1512-instruction-that-executes-a-rust-program-from-an-game-in#81e04a0c4eecff0c636b89bfb77b538d30bef76c"
 dependencies = [
  "aes-ctr",
  "base64 0.22.1",
@@ -3857,6 +3861,7 @@ dependencies = [
 [[package]]
 name = "tvm_vm"
 version = "2.10.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=feature%2Fnode-1512-instruction-that-executes-a-rust-program-from-an-game-in#81e04a0c4eecff0c636b89bfb77b538d30bef76c"
 dependencies = [
  "anyhow",
  "ark-bls12-381",
