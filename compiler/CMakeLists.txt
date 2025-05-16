@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.13.0)
-cmake_policy(SET CMP0167 OLD)
 
 
 set(ETH_CMAKE_DIR   "${CMAKE_CURRENT_LIST_DIR}/cmake"   CACHE PATH "The path to the cmake directory")

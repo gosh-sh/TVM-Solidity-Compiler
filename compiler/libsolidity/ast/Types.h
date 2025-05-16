@@ -1656,6 +1656,7 @@ public:
 		GoshVergrth16,
 		GoshPoseidon,
     GoshMINTECC,
+	GoshRUNWASM,
     GoshCNVRTSHELLQ,
     GoshMINTSHELL,
     GoshCALCBKREWARD,
