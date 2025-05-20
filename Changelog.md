@@ -1,7 +1,7 @@
 ### 0.77.1 (2025-05-20)
 
 Compiler features:
- * Supported `CALCBMREWARD`instruction.
+ * Supported `CALCBMREWARD`, `CALCBMREWARDADJ`, `CALCMINSTAKEBM`instruction.
 
 ### 0.77.0 (2025-02-19)
 
@@ -9,7 +9,7 @@ Compiler features:
  * Deprecated +2 and 64 flag in transfer
  * Left only 0 and +1 flag in RAWRESERVE 
  * Supported `CALCBKREWARDADJ`instruction.
- * Updated `CACMINSTAKE`, `CALCBKREWARD` instructions.
+ * Updated `CALCMINSTAKE`, `CALCBKREWARD` instructions.
 
 ### 0.76.1 (2024-12-09)
 
