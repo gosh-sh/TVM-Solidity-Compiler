@@ -3466,6 +3466,7 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
   case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
   case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
+  case Kind::GoshCALCBMREWARD: id += "goshcalcbmreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
   case Kind::GoshCALCBKREWARDADJ: id += "goshcalcbkrewardadj"; break;
   case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
@@ -5702,6 +5703,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}, {}, {}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCBKREWARD,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcbmreward",
+			TypeProvider::function(
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128()},
+				{{}, {}, {}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCBMREWARD,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

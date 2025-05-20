@@ -1,3 +1,8 @@
+### 0.77.1 (2025-05-20)
+
+Compiler features:
+ * Supported `CALCBMREWARD`instruction.
+
 ### 0.77.0 (2025-02-19)
 
 Compiler features:

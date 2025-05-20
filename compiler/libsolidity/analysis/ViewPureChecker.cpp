@@ -408,6 +408,7 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "cnvrtshellq"},
             {MagicType::Kind::Gosh, "mintshell"},
             {MagicType::Kind::Gosh, "calcbkreward"},
+            {MagicType::Kind::Gosh, "calcbmreward"},
             {MagicType::Kind::Gosh, "calcminstake"},
             {MagicType::Kind::Gosh, "calcbkrewardadj"},
             {MagicType::Kind::Gosh, "calcrepcoef"},
