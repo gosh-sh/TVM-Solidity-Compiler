@@ -1,4 +1,4 @@
-### 0.77.1 (2025-05-20)
+### 0.77.1 (2025-05-21)
 
 Compiler features:
  * Supported `CALCBMREWARD`, `CALCBMREWARDADJ`, `CALCMINSTAKEBM`instruction.
