@@ -2596,12 +2596,18 @@ void FunctionCallCompiler::goshFunction() {
          		return "MINTSHELL";
       		case FunctionType::Kind::GoshCALCBKREWARD:
          		return "CALCBKREWARD";
+			case FunctionType::Kind::GoshCALCBMREWARD:
+				return "CALCBMREWARD";
       		case FunctionType::Kind::GoshCALCBKREWARDADJ:
          		return "CALCBKREWARDADJ";
+			case FunctionType::Kind::GoshCALCBMREWARDADJ:
+				return "CALCBMREWARDADJ";
       		case FunctionType::Kind::GoshCALCREPCOEF:
          		return "CALCREPCOEF";
       		case FunctionType::Kind::GoshCALCMINSTAKE:
          		return "CALCMINSTAKE";
+			case FunctionType::Kind::GoshCALCMINSTAKEBM:
+				return "CALCMINSTAKEBM";
 			default:
 				solUnimplemented("Unsupported function call");
 		}
