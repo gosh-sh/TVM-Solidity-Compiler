@@ -532,7 +532,7 @@ contract stdlib {
             //  created_lt:uint64 created_at:uint32 = CommonMsgInfo;
             s.load(uint3,
                 address, address,
-                varuint16, mapping(uint32 => varuint32), varuint16
+                varuint16, mapping(uint32 => varuint16), varuint16
             );
             return s.load(varuint16);
         } else {

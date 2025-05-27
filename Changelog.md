@@ -1,3 +1,8 @@
+### 0.77.2 (2025-05-27)
+
+Compiler features:
+ * Supported `BURNECC` instruction.
+
 ### 0.77.1 (2025-05-21)
 
 Compiler features:

@@ -1592,7 +1592,7 @@ MappingType const* TypeProvider::mapping(Type const* _keyType, ASTString _keyNam
 MappingType const *TypeProvider::extraCurrencyCollection()
 {
 	auto keyType = TypeProvider::uint(32);
-	auto valueType = TypeProvider::varinteger(32, IntegerType::Modifier::Unsigned);
+	auto valueType = TypeProvider::varinteger(16, IntegerType::Modifier::Unsigned);
 	return createAndGet<MappingType>(keyType, "", valueType, "");
 }
 
