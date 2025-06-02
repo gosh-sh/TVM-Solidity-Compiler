@@ -164,12 +164,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34ac096ce696dc2fcabef30516bb13c0a68a11d30131d3df6f04711467681b04"
 
 [[package]]
+<<<<<<< HEAD
 name = "arbitrary"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dde20b3d026af13f561bdd0f15edf01fc734f0dafcedbaf42bba506a9517f223"
 
 [[package]]
+=======
+>>>>>>> master
 name = "arc-swap"
 version = "1.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1478,6 +1481,7 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "embedded-io"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1499,12 +1503,15 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "equivalent"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
+<<<<<<< HEAD
 name = "errno"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1515,6 +1522,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "eyre"
 version = "0.6.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1865,10 +1874,13 @@ name = "hashbrown"
 version = "0.15.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "84b26c544d002229e640969970a2e74021aadf6e2f96372b9c58eff97de08eb3"
+<<<<<<< HEAD
 dependencies = [
  "foldhash",
  "serde",
 ]
+=======
+>>>>>>> master
 
 [[package]]
 name = "heck"
@@ -2097,6 +2109,7 @@ checksum = "cea70ddb795996207ad57735b50c5982d8844f38ba9ee5f1aedcfb708a2aa11e"
 dependencies = [
  "equivalent",
  "hashbrown 0.15.3",
+<<<<<<< HEAD
  "serde",
 ]
 
@@ -2123,6 +2136,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "469fb0b9cefa57e3ef31275ee7cacb78f2fdca44e4765491884a2b119d4eb130"
 
 [[package]]
+=======
+]
+
+[[package]]
+>>>>>>> master
 name = "is_terminal_polyfill"
 version = "1.70.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2162,6 +2180,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d75a2a4b1b190afb6f5425f10f6a8f959d2ea0b9c2b1d79553551850539e4674"
 
 [[package]]
+<<<<<<< HEAD
 name = "ittapi"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2182,6 +2201,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "jobserver"
 version = "0.1.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2243,6 +2264,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8355be11b20d696c8f18f6cc018c4e372165b1fa8126cef092399c9951984ffa"
 
 [[package]]
+<<<<<<< HEAD
 name = "libredox"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2271,6 +2293,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "241eaef5fd12c88705a01fc1066c48c4b36e0dd4377dcdc7ec3942cea7a69956"
 
 [[package]]
+=======
+>>>>>>> master
 name = "lock_api"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2325,11 +2349,16 @@ dependencies = [
  "serde-value",
  "serde_json",
  "serde_yaml",
+<<<<<<< HEAD
  "thiserror 1.0.69",
+=======
+ "thiserror",
+>>>>>>> master
  "thread-id",
  "typemap-ors",
  "winapi",
 ]
+<<<<<<< HEAD
 
 [[package]]
 name = "mach2"
@@ -2345,6 +2374,8 @@ name = "maybe-owned"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4facc753ae494aeb6e3c22f839b158aebd4f9270f55cd3c79906c45476c47ab4"
+=======
+>>>>>>> master
 
 [[package]]
 name = "memchr"
@@ -2732,6 +2763,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
 
 [[package]]
+<<<<<<< HEAD
 name = "postcard"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2753,6 +2785,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "powerfmt"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2930,6 +2964,7 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "redox_users"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2955,6 +2990,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "regex"
 version = "1.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3215,6 +3252,7 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "serde_spanned"
 version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3224,6 +3262,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "serde_with"
 version = "2.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3353,7 +3393,7 @@ dependencies = [
 
 [[package]]
 name = "sold"
-version = "0.77.0"
+version = "0.77.2"
 dependencies = [
  "anyhow",
  "assert_cmd",
@@ -3562,6 +3602,7 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "thiserror-impl"
 version = "2.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3573,6 +3614,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "thread-id"
 version = "4.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3765,7 +3808,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_abi"
+<<<<<<< HEAD
 version = "2.10.0"
+=======
+version = "2.16.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.16.1.an#1773fc7f77626a3bc2d893c13f2e13b1b75e98a4"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "chrono",
@@ -3782,7 +3830,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_assembler"
+<<<<<<< HEAD
 version = "2.10.0"
+=======
+version = "2.16.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.16.1.an#1773fc7f77626a3bc2d893c13f2e13b1b75e98a4"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "ark-ff",
@@ -3810,7 +3863,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_block"
+<<<<<<< HEAD
 version = "2.10.0"
+=======
+version = "2.16.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.16.1.an#1773fc7f77626a3bc2d893c13f2e13b1b75e98a4"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3829,7 +3887,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_types"
+<<<<<<< HEAD
 version = "2.10.0"
+=======
+version = "2.16.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.16.1.an#1773fc7f77626a3bc2d893c13f2e13b1b75e98a4"
+>>>>>>> master
 dependencies = [
  "aes-ctr",
  "base64 0.22.1",
@@ -3856,7 +3919,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_vm"
+<<<<<<< HEAD
 version = "2.10.0"
+=======
+version = "2.16.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.16.1.an#1773fc7f77626a3bc2d893c13f2e13b1b75e98a4"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "ark-bls12-381",
@@ -3896,12 +3964,19 @@ dependencies = [
  "serde",
  "serde_json",
  "similar",
+<<<<<<< HEAD
  "thiserror 1.0.69",
  "tvm_block",
  "tvm_types",
  "typenum",
  "wasmtime",
  "wasmtime-wasi",
+=======
+ "thiserror",
+ "tvm_block",
+ "tvm_types",
+ "typenum",
+>>>>>>> master
  "zstd",
 ]
 
@@ -3960,6 +4035,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "673aac59facbab8a9007c7f6108d11f63b603f7cabff99fabf650fea5c32b861"
 
 [[package]]
+<<<<<<< HEAD
 name = "url"
 version = "2.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3977,6 +4053,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
+=======
+>>>>>>> master
 name = "utf8parse"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4818,6 +4896,7 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "zerotrie"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4851,6 +4930,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> master
 name = "zstd"
 version = "0.13.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"

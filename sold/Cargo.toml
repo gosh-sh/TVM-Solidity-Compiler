@@ -1,7 +1,7 @@
 [package]
 edition = '2021'
 name = 'sold'
-version = '0.77.0'
+version = '0.77.2'
 
 [[bin]]
 name = 'sold'
@@ -18,7 +18,6 @@ strip-ansi-escapes = '0.2'
 
 clap = { features = ['derive'], version = '4.5' }
 serde = { features = ['derive'], version = '1.0' }
-
 
 tvm_abi = { path = '../../tvm-sdk/tvm_abi' }
 tvm_assembler = { path = '../../tvm-sdk/tvm_assembler', features = [
