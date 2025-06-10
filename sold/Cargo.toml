@@ -19,12 +19,12 @@ strip-ansi-escapes = '0.2'
 clap = { features = ['derive'], version = '4.5' }
 serde = { features = ['derive'], version = '1.0' }
 
-tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "feature/node-1512-instruction-that-executes-a-rust-program-from-an-game-in" }
-tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "feature/node-1512-instruction-that-executes-a-rust-program-from-an-game-in", features = [
+tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.17.0-rc.an" }
+tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.17.0-rc.an", features = [
   'gosh',
 ] }
-tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "feature/node-1512-instruction-that-executes-a-rust-program-from-an-game-in" }
-tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "feature/node-1512-instruction-that-executes-a-rust-program-from-an-game-in" }
+tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.17.0-rc.an" }
+tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.17.0-rc.an" }
 
 [build-dependencies]
 cmake = '0.1'
