@@ -2590,6 +2590,8 @@ void FunctionCallCompiler::goshFunction() {
          		return "POSEIDON";
       		case FunctionType::Kind::GoshMINTECC:
          		return "MINTECC";
+			case FunctionType::Kind::GoshRUNWASM:
+         		return "RUNWASM";
 			case FunctionType::Kind::GoshBURNECC:
 				return "BURNECC";
       		case FunctionType::Kind::GoshCNVRTSHELLQ:

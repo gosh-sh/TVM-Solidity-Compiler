@@ -3473,6 +3473,7 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCALCBKREWARDADJ: id += "goshcalcbkrewardadj"; break;
   case Kind::GoshCALCBMREWARDADJ: id += "goshcalcbmrewardadj"; break;
   case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
+  case Kind::GoshRUNWASM: id += "goshrunwasm"; break;
 	}
 	id += "_" + stateMutabilityToString(m_stateMutability);
 	id += identifierList(m_parameterTypes) + "returns" + identifierList(m_returnParameterTypes);
@@ -5804,6 +5805,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				  FunctionType::Kind::GoshUnzip,
 				  StateMutability::Pure,
 					nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"runwasm",
+			TypeProvider::function(
+				{TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
+				{TypeProvider::tvmcell()},
+				{{}, {}, {}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshRUNWASM,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
 		return members;
 	}

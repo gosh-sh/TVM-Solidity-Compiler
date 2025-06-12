@@ -629,6 +629,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
 		{"VERGRTH16", {3, 1, true}},
 		{"POSEIDON", {7, 1, true}},
     	{"MINTECC", {2, 0}},
+		{"RUNWASM", {4, 1}},
     	{"BURNECC", {2, 0}},
     	{"CNVRTSHELLQ", {1, 0}},
     	{"MINTSHELL", {1, 0}},

@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.13.0)
-cmake_policy(SET CMP0167 OLD)
 
 
 set(ETH_CMAKE_DIR   "${CMAKE_CURRENT_LIST_DIR}/cmake"   CACHE PATH "The path to the cmake directory")
@@ -23,7 +22,7 @@ include(EthPolicy)
 eth_policy()
 
 # project name and version should be set after cmake_policy CMP0048
-set(PROJECT_VERSION "0.77.2")
+set(PROJECT_VERSION "0.78.0")
 # OSX target needed in order to support std::visit
 set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
 project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)

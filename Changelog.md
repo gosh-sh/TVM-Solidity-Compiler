@@ -1,3 +1,8 @@
+### 0.78.0 (2025-06-12)
+
+Compiler features:
+ * Supported `RUNWASM` instruction.
+
 ### 0.77.2 (2025-05-27)
 
 Compiler features:
