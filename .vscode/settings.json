@@ -10,5 +10,5 @@
         "limits": "cpp",
         "functional": "cpp"
     },
-    "cmake.sourceDirectory": "/Users/elar/Code/Havok/AckiNacki/TON-Solidity-Compiler/compiler"
+    "cmake.sourceDirectory": "/mnt/data/ignaty-r/TVM-Solidity-Compiler/compiler"
 }
