@@ -3466,6 +3466,9 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshBURNECC: id += "goshburnecc"; break;
   case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
   case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
+  case Kind::GoshMINTSHELLQ: id += "goshmintshellq"; break;
+  case Kind::GoshSENDTODAPPCONFIG: id += "sendtodappconfig"; break;
+  case Kind::GoshGETAVAILABLEBALANCE: id += "getavailablebalance"; break;
   case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
   case Kind::GoshCALCBMREWARD: id += "goshcalcbmreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
@@ -5700,6 +5703,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		members.push_back({
+			"mintshellq",
+			TypeProvider::function(
+				{TypeProvider::uint64()}, 
+				{},
+				{{}}, 
+				{},
+				FunctionType::Kind::GoshMINTSHELLQ,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
 			"mintshell",
 			TypeProvider::function(
 				{TypeProvider::uint64()}, 
@@ -5707,6 +5722,30 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}}, 
 				{},
 				FunctionType::Kind::GoshMINTSHELL,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"getavailablebalance",
+			TypeProvider::function(
+				{}, 
+				{TypeProvider::int128()},
+				{}, 
+				{{}},
+				FunctionType::Kind::GoshGETAVAILABLEBALANCE,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"sendtodappconfig",
+			TypeProvider::function(
+				{TypeProvider::uint64()}, 
+				{},
+				{{}}, 
+				{},
+				FunctionType::Kind::GoshSENDTODAPPCONFIG,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

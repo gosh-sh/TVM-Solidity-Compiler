@@ -2596,8 +2596,8 @@ void FunctionCallCompiler::goshFunction() {
 				return "BURNECC";
       		case FunctionType::Kind::GoshCNVRTSHELLQ:
          		return "CNVRTSHELLQ";
-      		case FunctionType::Kind::GoshMINTSHELL:
-         		return "MINTSHELL";
+      		case FunctionType::Kind::GoshMINTSHELLQ:
+         		return "MINTSHELLQ";
       		case FunctionType::Kind::GoshCALCBKREWARD:
          		return "CALCBKREWARD";
 			case FunctionType::Kind::GoshCALCBMREWARD:
@@ -2612,6 +2612,12 @@ void FunctionCallCompiler::goshFunction() {
          		return "CALCMINSTAKE";
 			case FunctionType::Kind::GoshCALCMINSTAKEBM:
 				return "CALCMINSTAKEBM";
+			case FunctionType::Kind::GoshMINTSHELL:
+			    return "MINTSHELL";
+			case FunctionType::Kind::GoshSENDTODAPPCONFIG:
+		    	return "SENDTODAPPCONFIG";
+			case FunctionType::Kind::GoshGETAVAILABLEBALANCE:
+				return "GETAVAILABLEBALANCE";
 			default:
 				solUnimplemented("Unsupported function call");
 		}
