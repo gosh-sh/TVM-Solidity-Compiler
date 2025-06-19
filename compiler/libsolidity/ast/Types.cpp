@@ -3467,8 +3467,8 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
   case Kind::GoshMINTSHELL: id += "goshmintshell"; break;
   case Kind::GoshMINTSHELLQ: id += "goshmintshellq"; break;
-  case Kind::GoshSENDTODAPPCONFIG: id += "sendtodappconfig"; break;
-  case Kind::GoshGETAVAILABLEBALANCE: id += "getavailablebalance"; break;
+  case Kind::GoshSENDTODAPPCONFIG: id += "goshsendtodappconfig"; break;
+  case Kind::GoshGETAVAILABLEBALANCE: id += "goshgetavailablebalance"; break;
   case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
   case Kind::GoshCALCBMREWARD: id += "goshcalcbmreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
@@ -5730,7 +5730,7 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 			"getavailablebalance",
 			TypeProvider::function(
 				{}, 
-				{TypeProvider::int128()},
+				{TypeProvider::uint128()},
 				{}, 
 				{{}},
 				FunctionType::Kind::GoshGETAVAILABLEBALANCE,
