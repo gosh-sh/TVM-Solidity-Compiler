@@ -1,3 +1,8 @@
+### 0.78.1 (2025-06-23)
+
+Compiler features:
+* Change `runwasm` instruction to allow loading local wasm files by hash.
+
 ### 0.78.0 (2025-06-12)
 
 Compiler features:
