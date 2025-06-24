@@ -5849,9 +5849,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"runwasm",
 			TypeProvider::function(
-				{TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
+				{TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
 				{TypeProvider::tvmcell()},
-				{{}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshRUNWASM,
 				StateMutability::Pure,
