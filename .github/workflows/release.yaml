@@ -84,7 +84,7 @@ jobs:
           sudo mkdir -p /opt/homebrew/include
           sudo mkdir -p /opt/homebrew/lib
           ./bootstrap.sh --prefix=/opt/homebrew
-          sudo ./b2 install link=static
+          sudo ./b2 --prefix=/opt/homebrew install
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
