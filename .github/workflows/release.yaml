@@ -45,7 +45,7 @@ jobs:
           cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
-          tar czvf sold-${{ matrix.target }}.tar.gz sold
+          tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
       - name: Publish
         uses: softprops/action-gh-release@v1
@@ -97,7 +97,7 @@ jobs:
           cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
-          tar czvf sold-${{ matrix.target }}.tar.gz sold
+          tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
       - name: Publish
         uses: softprops/action-gh-release@v1
