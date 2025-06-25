@@ -1658,6 +1658,7 @@ public:
 
 		GoshMINTECC,
 		GoshRUNWASM,
+		GoshTLSWASM,
 		GoshBURNECC,
 		GoshCNVRTSHELLQ,
 		GoshMINTSHELL,

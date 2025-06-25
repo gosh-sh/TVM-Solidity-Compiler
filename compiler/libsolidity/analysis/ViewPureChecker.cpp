@@ -406,6 +406,7 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "keccak256"},
             {MagicType::Kind::Gosh, "mintecc"},
             {MagicType::Kind::Gosh, "runwasm"},
+            {MagicType::Kind::Gosh, "tlswasm"},
             {MagicType::Kind::Gosh, "burnecc"},
             {MagicType::Kind::Gosh, "cnvrtshellq"},
             {MagicType::Kind::Gosh, "mintshell"},
