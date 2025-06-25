@@ -83,8 +83,8 @@ jobs:
           cd boost-1.83.0
           sudo mkdir -p /opt/homebrew/include
           sudo mkdir -p /opt/homebrew/lib
-          ./bootstrap.sh --prefix=/opt/homebrew
-          sudo ./b2 --prefix=/opt/homebrew install
+          ./bootstrap.sh --prefix=/opt/homebrew --with-libraries=filesystem,process,program_options,system,test
+          sudo ./b2 --prefix=/opt/homebrew --with-filesystem --with-process --with-program_options --with-system --with-test install
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
