@@ -55,6 +55,7 @@ jobs:
     name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.image }}
     strategy:
+      fail-fast: false
       matrix:
         target:
           - x86_64-apple-darwin
@@ -73,8 +74,15 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
-      - run: |
-          brew install boost
+      - name: Install Boost 1.83
+        run: |
+          curl -L https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.tar.gz -o boost_1_83_0.tar.gz
+          tar -xzf boost_1_83_0.tar.gz
+          cd boost_1_83_0
+          ./bootstrap.sh --prefix=/usr/local/boost_1_83_0
+          ./b2 install link=static --with-process --with-filesystem --with-system
+          echo "BOOST_ROOT=/usr/local/boost_1_83_0" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=/usr/local/boost_1_83_0/lib:$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
