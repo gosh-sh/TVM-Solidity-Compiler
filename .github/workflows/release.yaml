@@ -74,15 +74,7 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
-      # - name: Cache Boost
-      #   id: cache-boost
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/boost_1_83_0
-      #     key: boost-1.83.0-${{ matrix.target }}-${{ runner.os }}-all-libs
-
       - name: Install Boost 1.83
-        # if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
           curl -L --retry 3 --retry-delay 5 \
             https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.gz \
@@ -92,16 +84,7 @@ jobs:
           sudo mkdir -p /opt/homebrew/include
           sudo mkdir -p /opt/homebrew/lib
           ./bootstrap.sh --prefix=/opt/homebrew
-          sudo ./b2 install link=static --with-filesystem --with-system --with-thread --with-chrono --with-date_time
-
-      - name: Set Boost Environment
-        run: |
-          echo "BOOST_ROOT=/opt/homebrew" >> $GITHUB_ENV
-          echo "DYLD_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
-          echo "RUSTFLAGS=-L /opt/homebrew/lib" >> $GITHUB_ENV
-          echo "DEP_BOOST_ROOT=/opt/homebrew" >> $GITHUB_ENV
-          echo "BOOST_LIBRARYDIR=/opt/homebrew/lib" >> $GITHUB_ENV
-          echo "BOOST_INCLUDEDIR=/opt/homebrew/include" >> $GITHUB_ENV
+          sudo ./b2 install link=static
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
