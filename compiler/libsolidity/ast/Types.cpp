@@ -5823,9 +5823,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"tlswasm",
 			TypeProvider::function(
-				{TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
+				{TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
 				{TypeProvider::tvmcell()},
-				{{}, {}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshTLSWASM,
 				StateMutability::Pure,
