@@ -11,5 +11,4 @@
         "functional": "cpp",
         "thread": "cpp"
     },
-    "cmake.sourceDirectory": "/mnt/data/ignaty-r/TVM-Solidity-Compiler/compiler",
 }
