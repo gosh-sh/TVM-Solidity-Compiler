@@ -8,6 +8,10 @@ on:
       - "gosh_[0-9]+.[0-9]+.[0-9]+"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -20,6 +24,10 @@ jobs:
       matrix:
         target:
           - x86_64-unknown-linux-gnu
+        include:
+          - target: x86_64-unknown-linux-gnu
+            name: linux_x86_64
+            image: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -37,29 +45,32 @@ jobs:
           cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
-          tar czvf sold-${{ matrix.target }}.tar.gz sold
+          tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           files: |
-            target/${{ matrix.target }}/release/sold-${{ matrix.target }}.tar.gz
+            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
           tag_name: ${{ github.ref_name }}-${{ github.run_number }}
 
   build_mac:
     name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.image }}
     strategy:
+      fail-fast: false
       matrix:
+        # TODO: fix x86_64-apple-darwin build
         target:
-          - x86_64-apple-darwin
+          # - x86_64-apple-darwin
           - aarch64-apple-darwin
         include:
-          - target: x86_64-apple-darwin
-            image: macos-13
+          # - target: x86_64-apple-darwin
+          #   image: macos-13
           - target: aarch64-apple-darwin
-            image: macos-14
+            name: aarch64_apple_darwin
+            image: macos-15
 
     steps:
       - uses: actions/checkout@v3
@@ -69,19 +80,29 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
-      - run: |
-          brew install boost
+      - name: Install Boost 1.83
+        run: |
+          curl -L --retry 3 --retry-delay 5 \
+            https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.gz \
+            -o boost_1_83_0.tar.gz
+          tar -xzf boost_1_83_0.tar.gz
+          cd boost-1.83.0
+          sudo mkdir -p /opt/homebrew/include
+          sudo mkdir -p /opt/homebrew/lib
+          ./bootstrap.sh --prefix=/opt/homebrew --with-libraries=filesystem,program_options,system,test
+          sudo ./b2 headers
+          sudo ./b2 --with-filesystem --with-program_options --with-system --with-test install
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
-          tar czvf sold-${{ matrix.target }}.tar.gz sold
+          tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           files: |
-            target/${{ matrix.target }}/release/sold-${{ matrix.target }}.tar.gz
+            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
           tag_name: ${{ github.ref_name }}-${{ github.run_number }}
