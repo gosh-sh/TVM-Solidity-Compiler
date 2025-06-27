@@ -8,6 +8,8 @@
         "unordered_set": "cpp",
         "variant": "cpp",
         "limits": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "thread": "cpp"
     },
+    "cmake.sourceDirectory": "/mnt/data/ignaty-r/TVM-Solidity-Compiler/compiler",
 }
