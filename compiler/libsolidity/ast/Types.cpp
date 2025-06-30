@@ -3474,7 +3474,9 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
   case Kind::GoshCALCMINSTAKEBM: id += "goshcalcminstakebm"; break;
   case Kind::GoshCALCBKREWARDADJ: id += "goshcalcbkrewardadj"; break;
-  case Kind::GoshCALCBMREWARDADJ: id += "goshcalcbmrewardadj"; break;
+  case Kind::GoshCALCBMMVREWARDADJ: id += "goshcalcbmmvrewardadj"; break;
+  case Kind::GoshCALCBOOSTCOEF: id += "goshcalcboostcoef"; break;
+  case Kind::GoshCALCMVREWARD: id += "goshcalcmvreward"; break;
   case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
   case Kind::GoshRUNWASM: id += "goshrunwasm"; break;
 	}
@@ -5787,13 +5789,37 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		members.push_back({
-			"calcbmrewardadj",
+			"calcbmmvrewardadj",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::boolean()}, 
 				{TypeProvider::uint128()},
-				{{}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}}, 
 				{{}},
-				FunctionType::Kind::GoshCALCBMREWARDADJ,
+				FunctionType::Kind::GoshCALCBMMVREWARDADJ,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcboostcoef",
+			TypeProvider::function(
+				{TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
+				{TypeProvider::tvmcell(), TypeProvider::uint128()},
+				{{}, {}}, 
+				{{}, {}},
+				FunctionType::Kind::GoshCALCBOOSTCOEF,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcmvreward",
+			TypeProvider::function(
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::boolean()}, 
+				{TypeProvider::uint128()},
+				{{}, {}, {}, {}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCMVREWARD,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
