@@ -5804,7 +5804,7 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 			"calcboostcoef",
 			TypeProvider::function(
 				{TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
-				{TypeProvider::tvmcell(), TypeProvider::uint128()},
+				{TypeProvider::uint128(), TypeProvider::tvmcell()},
 				{{}, {}}, 
 				{{}, {}},
 				FunctionType::Kind::GoshCALCBOOSTCOEF,
@@ -5815,7 +5815,7 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"calcmvreward",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::boolean()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
 				{{}, {}, {}, {}, {}}, 
 				{{}},
