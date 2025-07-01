@@ -3721,8 +3721,13 @@ dependencies = [
 
 [[package]]
 name = "tvm_abi"
+<<<<<<< HEAD
 version = "2.19.0"
 source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=b719918#b719918ebafe1c4ce8cfb2e85895bda32ffeb135"
+=======
+version = "2.18.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.18.1-rc.an#4c6568319b7c0e630a2bd4d095aac8cca6687d64"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "chrono",
@@ -3739,8 +3744,13 @@ dependencies = [
 
 [[package]]
 name = "tvm_assembler"
+<<<<<<< HEAD
 version = "2.19.0"
 source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=b719918#b719918ebafe1c4ce8cfb2e85895bda32ffeb135"
+=======
+version = "2.18.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.18.1-rc.an#4c6568319b7c0e630a2bd4d095aac8cca6687d64"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "ark-ff",
@@ -3768,8 +3778,13 @@ dependencies = [
 
 [[package]]
 name = "tvm_block"
+<<<<<<< HEAD
 version = "2.19.0"
 source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=b719918#b719918ebafe1c4ce8cfb2e85895bda32ffeb135"
+=======
+version = "2.18.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.18.1-rc.an#4c6568319b7c0e630a2bd4d095aac8cca6687d64"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3788,8 +3803,13 @@ dependencies = [
 
 [[package]]
 name = "tvm_types"
+<<<<<<< HEAD
 version = "2.19.0"
 source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=b719918#b719918ebafe1c4ce8cfb2e85895bda32ffeb135"
+=======
+version = "2.18.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.18.1-rc.an#4c6568319b7c0e630a2bd4d095aac8cca6687d64"
+>>>>>>> master
 dependencies = [
  "aes-ctr",
  "base64 0.22.1",
@@ -3816,8 +3836,13 @@ dependencies = [
 
 [[package]]
 name = "tvm_vm"
+<<<<<<< HEAD
 version = "2.19.0"
 source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=b719918#b719918ebafe1c4ce8cfb2e85895bda32ffeb135"
+=======
+version = "2.18.1"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v2.18.1-rc.an#4c6568319b7c0e630a2bd4d095aac8cca6687d64"
+>>>>>>> master
 dependencies = [
  "anyhow",
  "ark-bls12-381",

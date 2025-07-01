@@ -2592,6 +2592,8 @@ void FunctionCallCompiler::goshFunction() {
          		return "MINTECC";
 			case FunctionType::Kind::GoshRUNWASM:
          		return "RUNWASM";
+			case FunctionType::Kind::GoshRUNWASMCONCATMULTIARG:
+         		return "RUNWASMCONCATMULTIARG";
 			case FunctionType::Kind::GoshBURNECC:
 				return "BURNECC";
       		case FunctionType::Kind::GoshCNVRTSHELLQ:
