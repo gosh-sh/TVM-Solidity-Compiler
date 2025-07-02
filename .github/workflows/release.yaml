@@ -90,7 +90,7 @@ jobs:
           BREW_COMMIT=cd73798517f87ff21e85ee641e46ae21a2426359
           git fetch --depth 1 origin $BREW_COMMIT
           git checkout $BREW_COMMIT
-          brew install ./Formula/b/boost.rb
+          brew install --formula ./Formula/b/boost.rb
           brew list --version boost
 
       - run: |
