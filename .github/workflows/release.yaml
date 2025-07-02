@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}-${{ github.run_number}}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
           name: ${{ steps.prerelease.outputs.NAME }}
@@ -126,7 +126,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}-${{ github.run_number}}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
           name: ${{ steps.prerelease.outputs.NAME }}
