@@ -115,5 +115,3 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          name: "Version: ${{ github.ref_name }}"
-          body: ""
