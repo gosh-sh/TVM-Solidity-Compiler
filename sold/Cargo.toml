@@ -19,12 +19,12 @@ strip-ansi-escapes = '0.2'
 clap = { features = ['derive'], version = '4.5' }
 serde = { features = ['derive'], version = '1.0' }
 
-tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = '3c90d9f' }
-tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = '3c90d9f', features = [
+tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = 'e0527cb' }
+tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = 'e0527cb', features = [
   'gosh',
 ] }
-tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = '3c90d9f' }
-tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = '3c90d9f' }
+tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = 'e0527cb' }
+tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = 'e0527cb' }
 
 [build-dependencies]
 cmake = '0.1'
