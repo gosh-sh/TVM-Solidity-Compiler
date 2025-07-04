@@ -82,16 +82,16 @@ jobs:
 
       - name: Install Boost 1.83
         run: |
-          curl -L --retry 3 --retry-delay 5 \
-            https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.gz \
-            -o boost_1_83_0.tar.gz
-          tar -xzf boost_1_83_0.tar.gz
-          cd boost-1.83.0
-          sudo mkdir -p /opt/homebrew/include
-          sudo mkdir -p /opt/homebrew/lib
-          ./bootstrap.sh --prefix=/opt/homebrew --with-libraries=filesystem,program_options,system,test
-          sudo ./b2 headers
-          sudo ./b2 --with-filesystem --with-program_options --with-system --with-test install
+          mkdir brew-boost
+          cd brew-boost
+          git init
+          git remote add origin https://github.com/Homebrew/homebrew-core.git
+          # commit when Boost was 1.83 as default
+          BREW_COMMIT=cd73798517f87ff21e85ee641e46ae21a2426359
+          git fetch --depth 1 origin $BREW_COMMIT
+          git checkout $BREW_COMMIT
+          brew install --formula ./Formula/b/boost.rb
+          brew list --version boost
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
@@ -99,10 +99,21 @@ jobs:
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
-      - name: Publish
-        uses: softprops/action-gh-release@v1
+      - name: Set prerelease flag
+        id: prerelease
+        run: |
+          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "PRERELEASE=false" >> $GITHUB_OUTPUT
+          else
+            echo "PRERELEASE=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          prerelease: true
+          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
+          tag_name: ${{ github.ref_name }}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+          name: "Version: ${{ github.ref_name }}"
+          body: ""
