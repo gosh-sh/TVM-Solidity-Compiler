@@ -42,7 +42,7 @@ jobs:
           sudo apt install -y build-essential libboost-all-dev
 
       - run: |
-          cargo build -r --target ${{ matrix.target }}
+          RUSTFLAGS='-C target-feature=+crt-static -C opt-level=s' cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
@@ -85,7 +85,7 @@ jobs:
           brew link --force --overwrite awnion/tap/boost@1.83
 
       - run: |
-          cargo build -r --target ${{ matrix.target }}
+          RUSTFLAGS='-C opt-level=s' cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
@@ -99,42 +99,18 @@ jobs:
   test_compatibility:
     name: Test compatibility
     needs: [ build_linux ]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-20.04, ubuntu-22.04, ubuntu-24.04 ]
-        include:
-          - os: ubuntu-20.04
-            container: ubuntu:20.04
-          - os: ubuntu-22.04
-            container: ubuntu:22.04
-          - os: ubuntu-24.04
-            container: ubuntu:24.04
-
-    steps:
-      - name: Download Linux artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: sold_${{ github.ref_name }}_linux_x86_64
-          path: ./artifacts
-
-      - name: Test Linux artifact
-        run: |
-          cd ./artifacts
-          tar xzvf sold_${{ github.ref_name }}_linux_x86_64.tar.gz
-          ./sold --version
-
-  test_compatibility_debian:
-    name: Test compatibility on Debian
-    needs: [ build_linux ]
     runs-on: ubuntu-latest
     container:
       image: ${{ matrix.container }}
     strategy:
       fail-fast: false
       matrix:
-        container: [ debian:11, debian:12 ]
+        container:
+          - debian:11
+          - debian:12
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:24.04
 
     steps:
       - name: Install dependencies
@@ -156,7 +132,7 @@ jobs:
 
   release:
     name: Create Release
-    needs: [ test_compatibility, test_compatibility_debian, build_linux, build_mac ]
+    needs: [ test_compatibility, build_linux, build_mac ]
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
