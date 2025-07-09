@@ -59,14 +59,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # TODO: fix x86_64-apple-darwin build
         target:
-          - x86_64-apple-darwin
+          #          - x86_64-apple-darwin
           - aarch64-apple-darwin
         include:
-          - target: x86_64-apple-darwin
-            name: x86_64_apple_darwin
-            image: macos-13
+          #          - target: x86_64-apple-darwin
+          #            name: x86_64_apple_darwin
+          #            image: macos-13
           - target: aarch64-apple-darwin
             name: aarch64_apple_darwin
             image: macos-15
@@ -142,21 +141,50 @@ jobs:
 
       - name: Set prerelease flag
         id: prerelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ "${{ github.ref_name }}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "PRERELEASE=false" >> $GITHUB_OUTPUT
-            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
+            echo "TITLE=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
+            echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           else
             echo "PRERELEASE=true" >> $GITHUB_OUTPUT
-            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+            echo "TITLE=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+            echo "TAG_NAME=${GITHUB_REF_NAME}-${{ github.run_number }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          files: |
-            ./artifacts/sold_${{ github.ref_name }}_linux_x86_64/sold_${{ github.ref_name }}_linux_x86_64.tar.gz
-            ./artifacts/sold_${{ github.ref_name }}_aarch64_apple_darwin/sold_${{ github.ref_name }}_aarch64_apple_darwin.tar.gz
-          name: ${{ steps.prerelease.outputs.NAME }}
-          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+      - name: Set tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ steps.prerelease.outputs.TAG_NAME }}
+        run: |
+          if [[ "$TAG_NAME" != "${{ github.ref_name }}" ]]; then
+            git tag -f -m "$TAG_NAME" "$TAG_NAME"
+            git push -f origin "$TAG_NAME"
+          fi
+
+      - name: "Create release/pre-release if doesn't exist"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: ${{ steps.prerelease.outputs.TITLE }}
+          TAG_NAME: ${{ steps.prerelease.outputs.TAG_NAME }}
+          PRERELEASE: ${{ steps.prerelease.outputs.PRERELEASE }}
+        run: |
+          EXISTS=$(gh api repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} --silent && echo "true" || echo "false")
+          if [[ "$EXISTS" = "false" ]]; then
+            if [[ "$PRERELEASE" = "true" ]]; then
+              gh release create "$TAG_NAME" --title "$TITLE"
+            else
+              gh release create "$TAG_NAME" --title "$TITLE" --prerelease
+            fi
+          fi
+
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.prerelease.outputs.TAG_NAME }}" \
+            ./artifacts/sold_${{ github.ref_name }}_linux_x86_64/sold_${{ github.ref_name }}_linux_x86_64.tar.gz \
+            ./artifacts/sold_${{ github.ref_name }}_aarch64_apple_darwin/sold_${{ github.ref_name }}_aarch64_apple_darwin.tar.gz \
+            --clobber
