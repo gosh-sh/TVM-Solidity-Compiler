@@ -162,6 +162,8 @@ jobs:
           TAG_NAME: ${{ steps.prerelease.outputs.TAG_NAME }}
         run: |
           if [[ "$TAG_NAME" != "${{ github.ref_name }}" ]]; then
+            git config --global user.email "github-actions@github.com"
+            git config --global user.name "GitHub Actions"
             git tag -f -m "$TAG_NAME" "$TAG_NAME"
             git push -f origin "$TAG_NAME"
           fi
