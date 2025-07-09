@@ -135,6 +135,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -157,18 +159,14 @@ jobs:
           fi
 
       - name: Set tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ steps.prerelease.outputs.TAG_NAME }}
-        run: |
-          if [[ "$TAG_NAME" != "${{ github.ref_name }}" ]]; then
-            git config --global user.email "github-actions@github.com"
-            git config --global user.name "GitHub Actions"
-            git tag -f -m "$TAG_NAME" "$TAG_NAME"
-            git push -f origin "$TAG_NAME"
-          fi
+        uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: ${{ steps.prerelease.outputs.TAG_NAME }}
+          tag_exists_error: false
+          force_push_tag: true
 
-      - name: "Create release/pre-release if doesn't exist"
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TITLE: ${{ steps.prerelease.outputs.TITLE }}
