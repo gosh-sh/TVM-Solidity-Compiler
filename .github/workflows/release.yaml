@@ -177,7 +177,7 @@ jobs:
         run: |
           EXISTS=$(gh api repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} --silent && echo "true" || echo "false")
           if [[ "$EXISTS" = "false" ]]; then
-            if [[ "$PRERELEASE" = "true" ]]; then
+            if [[ "$PRERELEASE" = "false" ]]; then
               gh release create "$TAG_NAME" --title "$TITLE"
             else
               gh release create "$TAG_NAME" --title "$TITLE" --prerelease
