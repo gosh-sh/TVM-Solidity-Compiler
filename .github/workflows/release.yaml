@@ -156,7 +156,7 @@ jobs:
 
   release:
     name: Create Release
-    needs: [ test_compatibility, test_compatibility_debian ]
+    needs: [ test_compatibility, test_compatibility_debian, build_linux, build_mac ]
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
