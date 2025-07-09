@@ -47,25 +47,11 @@ jobs:
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
-      - name: Set prerelease flag
-        id: prerelease
-        run: |
-          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "PRERELEASE=false" >> $GITHUB_OUTPUT
-            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
-          else
-            echo "PRERELEASE=true" >> $GITHUB_OUTPUT
-            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
-          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          files: |
-            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          name: ${{ steps.prerelease.outputs.NAME }}
-          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+          name: sold_${{ github.ref_name }}_${{ matrix.name }}
+          path: target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
 
   build_mac:
     name: Build ${{ matrix.target }}
@@ -75,11 +61,12 @@ jobs:
       matrix:
         # TODO: fix x86_64-apple-darwin build
         target:
-          # - x86_64-apple-darwin
+          - x86_64-apple-darwin
           - aarch64-apple-darwin
         include:
-          # - target: x86_64-apple-darwin
-          #   image: macos-13
+          - target: x86_64-apple-darwin
+            name: x86_64_apple_darwin
+            image: macos-13
           - target: aarch64-apple-darwin
             name: aarch64_apple_darwin
             image: macos-15
@@ -103,6 +90,80 @@ jobs:
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sold_${{ github.ref_name }}_${{ matrix.name }}
+          path: target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
+
+  test_compatibility:
+    name: Test compatibility
+    needs: [ build_linux, build_mac ]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-20.04, ubuntu-22.04, ubuntu-24.04 ]
+        include:
+          - os: ubuntu-20.04
+            container: ubuntu:20.04
+          - os: ubuntu-22.04
+            container: ubuntu:22.04
+          - os: ubuntu-24.04
+            container: ubuntu:24.04
+
+    steps:
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: sold_${{ github.ref_name }}_linux_x86_64
+          path: ./artifacts
+
+      - name: Test Linux artifact
+        run: |
+          cd ./artifacts
+          tar xzvf sold_${{ github.ref_name }}_linux_x86_64.tar.gz
+          ./sold --version
+
+  test_compatibility_debian:
+    name: Test compatibility on Debian
+    needs: [ build_linux, build_mac ]
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        container: [ debian:11, debian:12 ]
+
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y tar gzip
+
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: sold_${{ github.ref_name }}_linux_x86_64
+          path: ./artifacts
+
+      - name: Test Linux artifact
+        run: |
+          cd ./artifacts
+          tar xzvf sold_${{ github.ref_name }}_linux_x86_64.tar.gz
+          ./sold --version
+
+  release:
+    name: Create Release
+    needs: [ test_compatibility, test_compatibility_debian ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: ./artifacts
+
       - name: Set prerelease flag
         id: prerelease
         run: |
@@ -119,6 +180,7 @@ jobs:
         with:
           prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
           files: |
-            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
+            ./artifacts/sold_${{ github.ref_name }}_linux_x86_64/sold_${{ github.ref_name }}_linux_x86_64.tar.gz
+            ./artifacts/sold_${{ github.ref_name }}_aarch64_apple_darwin/sold_${{ github.ref_name }}_aarch64_apple_darwin.tar.gz
           name: ${{ steps.prerelease.outputs.NAME }}
           tag_name: ${{ github.ref_name }}-${{ github.run_number }}
