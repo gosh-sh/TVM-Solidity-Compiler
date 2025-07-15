@@ -47,12 +47,24 @@ jobs:
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
-      - name: Publish
+      - name: Set prerelease flag
+        id: prerelease
+        run: |
+          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "PRERELEASE=false" >> $GITHUB_OUTPUT
+            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
+          else
+            echo "PRERELEASE=true" >> $GITHUB_OUTPUT
+            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: true
+          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
+          name: ${{ steps.prerelease.outputs.NAME }}
           tag_name: ${{ github.ref_name }}-${{ github.run_number }}
 
   build_mac:
@@ -82,16 +94,8 @@ jobs:
 
       - name: Install Boost 1.83
         run: |
-          mkdir brew-boost
-          cd brew-boost
-          git init
-          git remote add origin https://github.com/Homebrew/homebrew-core.git
-          # commit when Boost was 1.83 as default
-          BREW_COMMIT=cd73798517f87ff21e85ee641e46ae21a2426359
-          git fetch --depth 1 origin $BREW_COMMIT
-          git checkout $BREW_COMMIT
-          brew install --formula ./Formula/b/boost.rb
-          brew list --version boost
+          brew install awnion/tap/boost@1.83
+          brew link --force --overwrite awnion/tap/boost@1.83
 
       - run: |
           cargo build -r --target ${{ matrix.target }}
@@ -104,16 +108,17 @@ jobs:
         run: |
           if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "PRERELEASE=false" >> $GITHUB_OUTPUT
+            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
           else
             echo "PRERELEASE=true" >> $GITHUB_OUTPUT
+            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           fi
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          tag_name: ${{ github.ref_name }}
           files: |
             target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          name: "Version: ${{ github.ref_name }}"
-          body: ""
+          name: ${{ steps.prerelease.outputs.NAME }}
+          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
