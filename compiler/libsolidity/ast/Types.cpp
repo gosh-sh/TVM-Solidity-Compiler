@@ -5770,7 +5770,7 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 			TypeProvider::function(
 				{TypeProvider::tvmcell(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
-				{{}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCBMREWARD,
 				StateMutability::Pure,
