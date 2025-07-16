@@ -638,7 +638,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
     	{"GETAVAILABLEBALANCE", {0, 1}},
     	{"SENDTODAPPCONFIG", {1, 0}},
     	{"CALCBKREWARD", {7, 1, true}},
-    	{"CALCBMREWARD", {4, 1, true}},
+    	{"CALCBMREWARD", {5, 1, true}},
     	{"CALCBKREWARDADJ", {5, 1, true}},
     	{"CALCBMMVREWARDADJ", {5, 1, true}},
     	{"CALCBOOSTCOEF", {2, 2, true}},
