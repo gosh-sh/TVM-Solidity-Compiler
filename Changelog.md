@@ -1,4 +1,6 @@
-### 0.78.2 (2025-06-23)
+
+
+### 0.79.0 (2025-08-05)
 
 Compiler features:
 * Add `mintshellq`, `sendtodappconfig`, `getavailablebalance` instructions
