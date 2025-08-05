@@ -1,3 +1,4 @@
+#file: noinspection SpellCheckingInspection
 name: Release
 
 on:
@@ -18,7 +19,7 @@ permissions:
 jobs:
   build_linux:
     name: Build ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -27,10 +28,9 @@ jobs:
         include:
           - target: x86_64-unknown-linux-gnu
             name: linux_x86_64
-            image: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -42,30 +42,16 @@ jobs:
           sudo apt install -y build-essential libboost-all-dev
 
       - run: |
-          cargo build -r --target ${{ matrix.target }}
+          RUSTFLAGS='-C target-feature=+crt-static -C opt-level=s' cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
-      - name: Set prerelease flag
-        id: prerelease
-        run: |
-          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "PRERELEASE=false" >> $GITHUB_OUTPUT
-            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
-          else
-            echo "PRERELEASE=true" >> $GITHUB_OUTPUT
-            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          files: |
-            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          name: ${{ steps.prerelease.outputs.NAME }}
-          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+          name: sold_${{ github.ref_name }}_${{ matrix.name }}
+          path: target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
 
   build_mac:
     name: Build ${{ matrix.target }}
@@ -73,19 +59,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # TODO: fix x86_64-apple-darwin build
         target:
-          # - x86_64-apple-darwin
+          #          - x86_64-apple-darwin
           - aarch64-apple-darwin
         include:
-          # - target: x86_64-apple-darwin
-          #   image: macos-13
+          #          - target: x86_64-apple-darwin
+          #            name: x86_64_apple_darwin
+          #            image: macos-13
           - target: aarch64-apple-darwin
             name: aarch64_apple_darwin
             image: macos-15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -98,27 +84,109 @@ jobs:
           brew link --force --overwrite awnion/tap/boost@1.83
 
       - run: |
-          cargo build -r --target ${{ matrix.target }}
+          RUSTFLAGS='-C opt-level=s' cargo build -r --target ${{ matrix.target }}
           ./target/${{ matrix.target }}/release/sold --version
           cd target/${{ matrix.target }}/release
           tar czvf sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz sold
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sold_${{ github.ref_name }}_${{ matrix.name }}
+          path: target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
+
+  test_compatibility:
+    name: Test compatibility
+    needs: [ build_linux ]
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        container:
+          - debian:11
+          - debian:12
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:24.04
+
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y tar gzip
+
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sold_${{ github.ref_name }}_linux_x86_64
+          path: ./artifacts
+
+      - name: Test Linux artifact
+        run: |
+          cd ./artifacts
+          tar xzvf sold_${{ github.ref_name }}_linux_x86_64.tar.gz
+          ./sold --version
+
+  release:
+    name: Create Release
+    needs: [ test_compatibility, build_linux, build_mac ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
       - name: Set prerelease flag
         id: prerelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [[ "${GITHUB_REF_NAME}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ "${{ github.ref_name }}" =~ ^gosh_[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "PRERELEASE=false" >> $GITHUB_OUTPUT
-            echo "NAME=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
+            echo "TITLE=Release ${GITHUB_REF_NAME#gosh_}" >> $GITHUB_OUTPUT
+            echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           else
             echo "PRERELEASE=true" >> $GITHUB_OUTPUT
-            echo "NAME=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+            echo "TITLE=Pre-release ${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+            echo "TAG_NAME=${GITHUB_REF_NAME}-${{ github.run_number }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Set tag
+        uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
         with:
-          prerelease: ${{ steps.prerelease.outputs.PRERELEASE }}
-          files: |
-            target/${{ matrix.target }}/release/sold_${{ github.ref_name }}_${{ matrix.name }}.tar.gz
-          name: ${{ steps.prerelease.outputs.NAME }}
-          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+          tag: ${{ steps.prerelease.outputs.TAG_NAME }}
+          tag_exists_error: false
+          force_push_tag: true
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: ${{ steps.prerelease.outputs.TITLE }}
+          TAG_NAME: ${{ steps.prerelease.outputs.TAG_NAME }}
+          PRERELEASE: ${{ steps.prerelease.outputs.PRERELEASE }}
+        run: |
+          EXISTS=$(gh api repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} --silent && echo "true" || echo "false")
+          if [[ "$EXISTS" = "false" ]]; then
+            if [[ "$PRERELEASE" = "false" ]]; then
+              gh release create "$TAG_NAME" --title "$TITLE"
+            else
+              gh release create "$TAG_NAME" --title "$TITLE" --prerelease
+            fi
+          fi
+
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.prerelease.outputs.TAG_NAME }}" \
+            ./artifacts/sold_${{ github.ref_name }}_linux_x86_64/sold_${{ github.ref_name }}_linux_x86_64.tar.gz \
+            ./artifacts/sold_${{ github.ref_name }}_aarch64_apple_darwin/sold_${{ github.ref_name }}_aarch64_apple_darwin.tar.gz \
+            --clobber
