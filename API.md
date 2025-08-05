@@ -323,6 +323,12 @@ When deploying contracts, you should use the latest released version of Solidity
     * [gosh.diff and gosh.zipDiff](#goshdiff-and-goshzipdiff)
     * [gosh.applyPatch, gosh.applyPatchQ, gosh.applyZipPatch, gosh.applyZipPatchQ, gosh.applyZipBinPatch and gosh.applyZipBinPatchQ](#goshapplypatch-goshapplypatchq-goshapplyzippatch-goshapplyzippatchq-goshapplyzipbinpatch-and-goshapplyzipbinpatchq)
     * [gosh.zip and gosh.unzip](#goshzip-and-goshunzip)
+    * [gosh.mintshell and gosh.mintshellq](#goshmintshell-and-goshmintshellq)
+    * [gosh.sendtodappconfig](#goshsendtodappconfig)
+    * [gosh.getavailablebalance](#goshgetavailablebalance)
+    * [gosh.burnecc](#goshburnecc)
+    * [gosh.cnvrtshellq](#goshcnvrtshellq)
+    * [gosh.mintecc](#goshmintecc)
   * [Exponentiation](#exponentiation)
   * [selfdestruct](#selfdestruct)
   * [sha256](#sha256)
@@ -5473,6 +5479,75 @@ gosh.unzip(bytes zip) returns (optional(string) text)
 ```
 
 `gosh.zip` converts the `text` to compressed `bytes`. `gosh.unzip` reverts such compression.
+
+#### gosh.mintshell and gosh.mintshellq
+
+```TVMSolidity
+gosh.mintshell(uint64)
+gosh.mintshellq(uint64)
+```
+
+`gosh.mintshell` ints vmshell tokens from the dApp configuration.
+Succeeds if dApp config balance ≥ amount and mint rest of config balance in quiet version
+
+```TVMSolidity
+gosh.mintshell(1_000_000);  // Mint 1M nanovmshell
+```
+
+#### gosh.sendtodappconfig
+```TVMSolidity
+gosh.sendtodappconfig(uint64)
+```
+
+`gosh.sendtodappconfig` deposits vmshell to dApp configuration.
+
+```TVMSolidity
+gosh.sendtodappconfig(1_000_000);  // Deposit 1M nanovmshell
+```
+
+#### gosh.getavailablebalance
+```TVMSolidity
+gosh.getavailablebalance() returns (uint128)
+```
+
+`gosh.getavailablebalance` gets available vmshell balance in dApp config.
+
+```TVMSolidity
+gosh.getavailablebalance(); 
+```
+
+#### gosh.burnecc
+```TVMSolidity
+gosh.burnecc(uint64 amount, uint32 currency_id)
+```
+
+`gosh.burnecc` burns ECC tokens. If amount == 0, burn all ecc balance with this currency_id.
+
+```TVMSolidity
+gosh.burnecc(100, 2);  // Burn 100 ecc-shell tokens
+```
+
+#### gosh.cnvrtshellq
+```TVMSolidity
+gosh.cnvrtshellq(uint64 amount) 
+```
+
+`gosh.cnvrtshellq` converts ECC (currency_id=2) to vmshell. If balance of ECC <= amount, instruction convert all balance.
+
+```TVMSolidity
+gosh.cnvrtshellq(300); // Convert 300 ecc-shell tokens
+```
+
+#### gosh.mintecc
+```TVMSolidity
+gosh.mintecc(uint64 amount, uint32 currency_id) 
+```
+
+`gosh.mintecc` mints ECC tokens (special contracts only).
+
+```TVMSolidity
+gosh.mintecc(300, 2); // Mint 300 ecc-shell tokens
+```
 
 #### Exponentiation
 

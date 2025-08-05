@@ -1,3 +1,11 @@
+
+
+### 0.79.0 (2025-08-05)
+
+Compiler features:
+* Add `mintshellq`, `sendtodappconfig`, `getavailablebalance` instructions
+* Change Message structure
+
 ### 0.78.1 (2025-06-23)
 
 Compiler features:
