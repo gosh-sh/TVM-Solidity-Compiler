@@ -818,19 +818,31 @@ void ChainDataEncoder::createDefaultConstructorMessage2()
 
 uint32_t ChainDataEncoder::calculateConstructorFunctionID() {
 	std::vector<VariableDeclaration const*> vect;
-	return calculateFunctionID("constructor", {}, &vect) & 0x7FFFFFFFu;
+	return 0;
 }
 
 std::pair<uint32_t, bool> ChainDataEncoder::calculateFunctionID(const CallableDeclaration *declaration) {
 	auto functionDefinition = to<FunctionDefinition>(declaration);
 	if (functionDefinition != nullptr && functionDefinition->functionID().has_value()) {
-		return {functionDefinition->functionID().value(), true};
-	}
+        if (functionDefinition->isConstructor()) {
+            solAssert(
+                functionDefinition->functionID().value() == 0,
+                "Explicit functionID for constructor must be 0"
+            );
+        } else {
+            solAssert(
+                functionDefinition->functionID().value() != 0,
+                "Explicit functionID for non-constructor function must not be 0"
+            );
+        }
+        return {functionDefinition->functionID().value(), true};
+    }
 
 	std::string name;
-	if (functionDefinition != nullptr && functionDefinition->isConstructor())
+	if (functionDefinition != nullptr && functionDefinition->isConstructor()) {
 		name = "constructor";
-	else
+		return {0, false};
+	} else
 		name = declaration->name();
 
 	std::vector<VariableDeclaration const*> tmpRet;
