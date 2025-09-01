@@ -3469,7 +3469,6 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshMINTSHELLQ: id += "goshmintshellq"; break;
   case Kind::GoshSENDTODAPPCONFIG: id += "goshsendtodappconfig"; break;
   case Kind::GoshGETAVAILABLEBALANCE: id += "goshgetavailablebalance"; break;
-  case Kind::GoshCALCBKREWARD: id += "goshcalcbkreward"; break;
   case Kind::GoshCALCBMREWARD: id += "goshcalcbmreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
   case Kind::GoshCALCMINSTAKEBM: id += "goshcalcminstakebm"; break;
@@ -5754,18 +5753,6 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		members.push_back({
-			"calcbkreward",
-			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
-				{TypeProvider::uint128()},
-				{{}, {}, {}, {}, {}, {}, {}}, 
-				{{}},
-				FunctionType::Kind::GoshCALCBKREWARD,
-				StateMutability::Pure,
-				nullptr, FunctionType::Options::withArbitraryParameters()
-		)});
-
-		members.push_back({
 			"calcbmreward",
 			TypeProvider::function(
 				{TypeProvider::tvmcell(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
@@ -5780,9 +5767,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"calcbkrewardadj",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
-				{{}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCBKREWARDADJ,
 				StateMutability::Pure,

@@ -413,7 +413,6 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "mintshellq"},
             {MagicType::Kind::Gosh, "sendtodappconfig"},
             {MagicType::Kind::Gosh, "getavailablebalance"},
-            {MagicType::Kind::Gosh, "calcbkreward"},
             {MagicType::Kind::Gosh, "calcbmreward"},
             {MagicType::Kind::Gosh, "calcminstake"},
             {MagicType::Kind::Gosh, "calcminstakebm"},

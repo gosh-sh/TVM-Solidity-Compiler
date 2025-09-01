@@ -2600,8 +2600,6 @@ void FunctionCallCompiler::goshFunction() {
          		return "CNVRTSHELLQ";
       		case FunctionType::Kind::GoshMINTSHELLQ:
          		return "MINTSHELLQ";
-      		case FunctionType::Kind::GoshCALCBKREWARD:
-         		return "CALCBKREWARD";
 			case FunctionType::Kind::GoshCALCBMREWARD:
 				return "CALCBMREWARD";
       		case FunctionType::Kind::GoshCALCBKREWARDADJ:
