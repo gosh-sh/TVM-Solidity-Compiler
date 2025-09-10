@@ -867,6 +867,9 @@ uint32_t ChainDataEncoder::calculateFunctionID(
 		const std::vector<Type const*>& inputs,
 		const std::vector<VariableDeclaration const*> * outputs
 ) {
+	if (name == "constructor") {
+        return 0;
+    }
 	std::stringstream ss;
 	ss << name << "(";
 	bool comma = false;
