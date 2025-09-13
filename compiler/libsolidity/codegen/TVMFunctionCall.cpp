@@ -2602,8 +2602,6 @@ void FunctionCallCompiler::goshFunction() {
          		return "MINTSHELLQ";
 			case FunctionType::Kind::GoshCALCBMREWARD:
 				return "CALCBMREWARD";
-      		case FunctionType::Kind::GoshCALCBKREWARDADJ:
-         		return "CALCBKREWARDADJ";
 			case FunctionType::Kind::GoshCALCBMMVREWARDADJ:
 				return "CALCBMMVREWARDADJ";
 			case FunctionType::Kind::GoshCALCBOOSTCOEF:

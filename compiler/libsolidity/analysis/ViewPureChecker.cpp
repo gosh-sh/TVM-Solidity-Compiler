@@ -416,7 +416,6 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "calcbmreward"},
             {MagicType::Kind::Gosh, "calcminstake"},
             {MagicType::Kind::Gosh, "calcminstakebm"},
-            {MagicType::Kind::Gosh, "calcbkrewardadj"},
             {MagicType::Kind::Gosh, "calcbmmvrewardadj"},
             {MagicType::Kind::Gosh, "calcmvreward"},
             {MagicType::Kind::Gosh, "calcboostcoef"},
