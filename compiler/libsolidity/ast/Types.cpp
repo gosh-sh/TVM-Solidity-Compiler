@@ -7521,7 +7521,7 @@ int VarIntegerType::maxBitSizeInCell() const {
 	if (m_n == 32) {
 		return 5 + (31 * 8);
 	}
-	solUnimplemented("");
+	solUnimplemented("18");
 }
 
 BoolResult QIntegerType::isImplicitlyConvertibleTo(Type const& _other) const {
