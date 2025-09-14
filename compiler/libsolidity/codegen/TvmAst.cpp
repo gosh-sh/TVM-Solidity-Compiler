@@ -590,6 +590,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
 		{"LESSINT", {1, 1, true}},
 		{"MODPOW2", {1, 1}},
 		{"MULCONST", {1, 1}},
+		{"MYDAPPID", {0, 1}},
 		{"NEGATE", {1, 1}},
 		{"NEQINT", {1, 1, true}},
 		{"NOT", {1, 1, true}}, // logical not

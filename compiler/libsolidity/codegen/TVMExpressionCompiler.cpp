@@ -1057,6 +1057,13 @@ bool TVMExpressionCompiler::checkForAddressMemberAccess(MemberAccess const &_nod
 		m_pusher << "PLDU 256";
 		return true;
 	}
+	if (_node.memberName() == "dapp_id") {
+		if (!isAddressThis(to<FunctionCall>(&_node.expression()))) {
+			cast_error(_node.expression(), "Only 'address(this).dapp_id' is supported for member dapp_id");
+		}
+		m_pusher << "MYDAPPID";
+		return true;
+	}
 	return false;
 }
 

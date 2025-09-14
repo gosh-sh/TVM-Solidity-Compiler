@@ -571,6 +571,7 @@ MemberList::MemberMap AddressType::nativeMembers(ASTNode const*) const
 		{"balance", TypeProvider::coins()},
 		{"currencies", TypeProvider::extraCurrencyCollection()},
 		{"wid", TypeProvider::integer(8, IntegerType::Modifier::Signed)},
+		{"dapp_id", TypeProvider::uint256()},
 		{"value", TypeProvider::uint256()},
 		{"isStdZero", TypeProvider::function(strings(), strings{"bool"}, FunctionType::Kind::AddressIsZero, StateMutability::Pure)},
 		{"isNone", TypeProvider::function(strings(), strings{"bool"}, FunctionType::Kind::AddressIsZero, StateMutability::Pure)},
