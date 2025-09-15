@@ -3472,8 +3472,8 @@ std::string FunctionType::richIdentifier() const
   case Kind::GoshCALCBMREWARD: id += "goshcalcbmreward"; break;
   case Kind::GoshCALCMINSTAKE: id += "goshcalcminstake"; break;
   case Kind::GoshCALCMINSTAKEBM: id += "goshcalcminstakebm"; break;
+  case Kind::GoshCALCMBK: id += "goshcalcmbk"; break;
   case Kind::GoshCALCBMMVREWARDADJ: id += "goshcalcbmmvrewardadj"; break;
-  case Kind::GoshCALCBOOSTCOEF: id += "goshcalcboostcoef"; break;
   case Kind::GoshCALCMVREWARD: id += "goshcalcmvreward"; break;
   case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
   case Kind::GoshRUNWASM: id += "goshrunwasm"; break;
@@ -5776,21 +5776,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		members.push_back({
-			"calcboostcoef",
-			TypeProvider::function(
-				{TypeProvider::tvmcell(), TypeProvider::tvmcell()}, 
-				{TypeProvider::uint128(), TypeProvider::tvmcell()},
-				{{}, {}}, 
-				{{}, {}},
-				FunctionType::Kind::GoshCALCBOOSTCOEF,
-				StateMutability::Pure,
-				nullptr, FunctionType::Options::withArbitraryParameters()
-		)});
-
-		members.push_back({
 			"calcmvreward",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::tvmcell(), TypeProvider::tvmcell(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128()},
 				{{}, {}, {}, {}, {}}, 
 				{{}},
@@ -5831,6 +5819,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}, {}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCMINSTAKEBM,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcmbk",
+			TypeProvider::function(
+				{TypeProvider::uint128()}, 
+				{TypeProvider::uint128()},
+				{{}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCMBK,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

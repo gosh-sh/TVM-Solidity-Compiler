@@ -2604,8 +2604,6 @@ void FunctionCallCompiler::goshFunction() {
 				return "CALCBMREWARD";
 			case FunctionType::Kind::GoshCALCBMMVREWARDADJ:
 				return "CALCBMMVREWARDADJ";
-			case FunctionType::Kind::GoshCALCBOOSTCOEF:
-				return "CALCBOOSTCOEF";
 			case FunctionType::Kind::GoshCALCMVREWARD:
 				return "CALCMVREWARD";
       		case FunctionType::Kind::GoshCALCREPCOEF:
@@ -2614,6 +2612,8 @@ void FunctionCallCompiler::goshFunction() {
          		return "CALCMINSTAKE";
 			case FunctionType::Kind::GoshCALCMINSTAKEBM:
 				return "CALCMINSTAKEBM";
+			case FunctionType::Kind::GoshCALCMBK:
+				return "CALCMBK";
 			case FunctionType::Kind::GoshMINTSHELL:
 			    return "MINTSHELL";
 			case FunctionType::Kind::GoshSENDTODAPPCONFIG:
