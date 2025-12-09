@@ -1672,6 +1672,8 @@ public:
 		GoshCALCMINSTAKE,
 		GoshCALCMINSTAKEBM,
 		GoshCALCMBK,
+		GoshCALCMINERTAPCOEF,
+		GoshCALCMINERREWARD
 	};
 	struct Options
 	{

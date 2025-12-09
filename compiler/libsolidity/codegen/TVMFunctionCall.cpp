@@ -2622,6 +2622,10 @@ void FunctionCallCompiler::goshFunction() {
 				return "CALCMINSTAKEBM";
 			case FunctionType::Kind::GoshCALCMBK:
 				return "CALCMBK";
+			case FunctionType::Kind::GoshCALCMINERTAPCOEF:
+				return "CALCMINERTAPCOEF";
+			case FunctionType::Kind::GoshCALCMINERREWARD:
+				return "CALCMINERREWARD";
 			case FunctionType::Kind::GoshMINTSHELL:
 			    return "MINTSHELL";
 			case FunctionType::Kind::GoshSENDTODAPPCONFIG:
