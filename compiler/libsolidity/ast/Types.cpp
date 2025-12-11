@@ -5843,8 +5843,8 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 			TypeProvider::function(
 				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
 				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()},
-				{{}, {}, {}, {}, {}, {}}, 
-				{{}, {}, {}},
+				{{}, {}, {}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}, {}},
 				FunctionType::Kind::GoshCALCMINERTAPCOEF,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
