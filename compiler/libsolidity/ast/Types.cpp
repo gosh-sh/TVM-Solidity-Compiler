@@ -5841,8 +5841,8 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"calcminertapcoef",
 			TypeProvider::function(
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
-				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()},
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()},
 				{{}, {}, {}, {}, {}, {}, {}}, 
 				{{}, {}, {}, {}, {}, {}},
 				FunctionType::Kind::GoshCALCMINERTAPCOEF,
