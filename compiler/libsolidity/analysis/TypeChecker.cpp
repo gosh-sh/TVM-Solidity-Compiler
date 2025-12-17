@@ -746,15 +746,15 @@ bool TypeChecker::visit(FunctionDefinition const& _function)
 	if (!_function.modifiers().empty() && _function.isFree())
 		m_errorReporter.syntaxError(5811_error, _function.location(), "Free functions cannot have modifiers.");
 
-	if (_function.isExternalMsg() || _function.isInternalMsg()) {
-		if (_function.isExternalMsg() && _function.isInternalMsg()) {
-			m_errorReporter.typeError(6672_error, _function.location(), R"("internalMsg" and "externalMsg" cannot be used together.)");
+	if (_function.isExternalMsg() || _function.isInternalMsg() || _function.isCrossDappMsg()) {
+		if (_function.isExternalMsg() && _function.isInternalMsg() && _function.isCrossDappMsg()) {
+			m_errorReporter.typeError(6672_error, _function.location(), R"("internalMsg", "crossDappMsg" and "externalMsg" cannot be used together.)");
 		}
 		if (!_function.functionIsExternallyVisible()) {
-			m_errorReporter.typeError(7446_error, _function.location(), R"(Private/internal function can't be marked as internalMsg/externalMsg.)");
+			m_errorReporter.typeError(7446_error, _function.location(), R"(Private/internal function can't be marked as internalMsg/externalMsg/crossDappMsg.)");
 		}
 		if (_function.isReceive() || _function.isFallback() || _function.isOnBounce() || _function.isOnTickTock()) {
-			m_errorReporter.typeError(1399_error, _function.location(), R"(receiver, fallback, onBounce and onTickTock functions can't be marked as internalMsg/externalMsg.)");
+			m_errorReporter.typeError(1399_error, _function.location(), R"(receiver, fallback, onBounce and onTickTock functions can't be marked as internalMsg/externalMsg/crossDappMsg.)");
 		}
 	}
 

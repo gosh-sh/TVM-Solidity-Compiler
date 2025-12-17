@@ -699,9 +699,9 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 		}
 
 		// TODO move to function
-		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg(), "");
+		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg() || !m_function->isCrossDappMsg(), "");
 
-		if (m_function->isExternalMsg() || m_function->isInternalMsg())
+		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg()))
 			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
 				"DEPTH",
 				"ADDCONST -5",
@@ -713,7 +713,10 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 			m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByExtMsgOnly));
 		} else if (m_function->isInternalMsg()) {
 			m_pusher._throw("THROWIF " + toString(TvmConst::RuntimeException::ByIntMsgOnly));
-		}
+		} else if (m_function->isCrossDappMsg()) {
+            m_pusher << "EQINT -3";
+            m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByCrossDappMsgOnly));
+        }
 	}
 
 
@@ -1777,6 +1780,75 @@ TVMFunctionCompiler::generateMainInternal(TVMCompilerContext& ctx, ContractDefin
 		pusher << "MODPOW2 1";
 	} else {
 		pusher << "PLDU 4";
+		pusher << "MODPOW2 1";
+	}
+	// stack: isBounced
+
+	// set default params for responsible func
+	if (sc.hasResponsibleFunction()) {
+		pusher.getGlob(TvmConst::C7::ReturnParams);
+		pusher << "TRUE"; // bounce
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Bounce);
+		pusher.pushInt(TvmConst::Message::DefaultMsgValue); // tons
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Value);
+		pusher.pushNull(); // currency
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Currencies);
+		pusher.pushInt(TvmConst::SENDRAWMSG::DefaultFlag); // flag
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Flag);
+		pusher.setGlob(TvmConst::C7::ReturnParams);
+	}
+
+	// bounced
+	if (!isEmptyFunction(contract->onBounceFunction())) {
+		pusher.startContinuation();
+		pusher.pushS(1);
+		pusher << "LDSLICE 32";
+		pusher.dropUnder(1, 1);
+		pusher.pushFragment(0, 0, "on_bounce");
+		pusher.endContinuationFromRef();
+		pusher.ifJmp();
+	} else {
+		pusher.ifret();
+	}
+
+	funCompiler.pushReceiveOrFallback();
+
+	pusher.exchange(1);
+	funCompiler.callPublicFunctionOrFallback();
+	ctx.resetCurrentFunction();
+	return createNode<Function>(0, 0, name, nullopt, Function::FunctionType::MainInternal, pusher.getBlock());
+}
+
+Pointer<Function>
+TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefinition const *contract) {
+	// cross_dapp_msg_info$1101  ihr_disabled:Bool  bounce:Bool(#1)  bounced:Bool
+	//                 src:MsgAddress  dest:MsgAddressInt(#4)
+	//                 value:CurrencyCollection(#5,#6)  ihr_fee:Grams  fwd_fee:Grams
+	//                 created_lt:uint64  created_at:uint32
+	//                 = CommonMsgInfoRelaxed;
+
+	std::string name = "main_cross_dapp";
+	ctx.setCurrentFunction(nullptr, name);
+	StackPusher pusher{&ctx};
+	TVMFunctionCompiler funCompiler{pusher, contract};
+
+	funCompiler.setCopyleft();
+	if (ctx.hasConstructor())
+		funCompiler.setCtorFlag();
+
+	pusher.pushS(2);
+	pusher << "CTOS";
+	// stack: cross_dapp_msg_info
+
+	ContactsUsageScanner const &sc = pusher.ctx().usage();
+	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
+		pusher << "LDU 7       ; bounced tail";
+		pusher << "LDMSGADDR   ; bounced src tail";
+		pusher.drop();
+		pusher.setGlob(TvmConst::C7::SenderAddress);
+		pusher << "MODPOW2 1";
+	} else {
+		pusher << "PLDU 7";
 		pusher << "MODPOW2 1";
 	}
 	// stack: isBounced
