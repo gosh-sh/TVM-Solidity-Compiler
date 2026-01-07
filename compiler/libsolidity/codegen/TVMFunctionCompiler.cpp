@@ -368,6 +368,7 @@ TVMFunctionCompiler::generatePublicFunction(TVMCompilerContext& ctx, FunctionDef
 		pusher.checkCtorCalled();
 	funCompiler.pushC4ToC7IfNeed();
 
+//
 	funCompiler.pushLocation(*function);
 	const bool isResponsible = function->isResponsible();
 	if (isResponsible) {
@@ -1842,13 +1843,13 @@ TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefi
 
 	ContactsUsageScanner const &sc = pusher.ctx().usage();
 	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
-		pusher << "LDU 4       ; bounced tail";
+		pusher << "LDU 7       ; bounced tail";
 		pusher << "LDMSGADDR   ; bounced src tail";
 		pusher.drop();
 		pusher.setGlob(TvmConst::C7::SenderAddress);
 		pusher << "MODPOW2 1";
 	} else {
-		pusher << "PLDU 4";
+		pusher << "PLDU 7";
 		pusher << "MODPOW2 1";
 	}
 	// stack: isBounced

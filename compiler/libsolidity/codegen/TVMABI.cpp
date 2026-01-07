@@ -640,12 +640,25 @@ void ChainDataDecoder::decodeFunctionParameters(const std::vector<Type const*>& 
 	pusher->pushS(1);
 	pusher->fixStack(-1); // fix stack
 
-	pusher->startContinuation();
-	decodePublicFunctionParameters(types, isResponsible, false);
-	pusher->endContinuation();
+    // function selector
+    //  0  - int
+    //  -1 - ext
+    //  -3 - cross dapp
+
+    pusher->pushS(0);
+    pusher->pushInt(-3);
+    *pusher << "EQUAL";
+    pusher->exchange(1);
+    pusher->pushInt(0);
+    *pusher << "EQUAL";
+    *pusher << "OR";
 
 	pusher->startContinuation();
 	decodePublicFunctionParameters(types, isResponsible, true);
+	pusher->endContinuation();
+
+	pusher->startContinuation();
+	decodePublicFunctionParameters(types, isResponsible, false);
 	pusher->endContinuation();
 
 	pusher->ifElse();
