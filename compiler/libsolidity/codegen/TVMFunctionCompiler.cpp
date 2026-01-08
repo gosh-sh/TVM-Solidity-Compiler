@@ -700,7 +700,7 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 		}
 
 		// TODO move to function
-		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg() || !m_function->isCrossDappMsg(), "");
+//		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg() || !m_function->isCrossDappMsg(), "");
 
 		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg()))
 			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
@@ -708,16 +708,55 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 				"ADDCONST -5",
 				"PICK",
 			}, 0, 1, true));
-
+		int cnt = 0;
+		int shift = 0;
 		if (m_function->isExternalMsg()) {
-			m_pusher << "EQINT -1";
-			m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByExtMsgOnly));
-		} else if (m_function->isInternalMsg()) {
-			m_pusher._throw("THROWIF " + toString(TvmConst::RuntimeException::ByIntMsgOnly));
-		} else if (m_function->isCrossDappMsg()) {
-            m_pusher << "EQINT -3";
-            m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByCrossDappMsgOnly));
+            cnt += 1;
         }
+        if (m_function->isInternalMsg()) {
+            cnt += 1;
+        }
+        if (m_function->isCrossDappMsg()) {
+            cnt += 1;
+        }
+		if (m_function->isExternalMsg()) {
+		    if (cnt > 1) {
+		        m_pusher.pushS(shift);
+		    }
+		    m_pusher << "EQINT -1";
+		    cnt -= 1;
+		    if (cnt > 0) {
+		        shift += 1;
+		    }
+		}
+		if (m_function->isInternalMsg()) {
+		    if (cnt > 1) {
+		        m_pusher.pushS(shift);
+		    } else {
+		        if (shift != 0) {
+		            m_pusher.exchange(shift);
+		        }
+            }
+		    m_pusher << "EQINT 0";
+		    cnt -= 1;
+		    if (cnt > 0) {
+                shift += 1;
+            }
+		}
+		if (m_function->isCrossDappMsg()) {
+            if (shift != 0) {
+                m_pusher.exchange(shift);
+            }
+        	m_pusher << "EQINT -3";
+		}
+
+        for (int i = 0; i < shift; i++) {
+            m_pusher << "OR";
+        }
+
+		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg())) {
+		    m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByCrossDappMsgOnly));
+		}
 	}
 
 
@@ -750,7 +789,7 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 		}
 		TVMFunctionCompiler funCompiler{m_pusher, m_currentModifier, m_function, m_isLibraryWithObj, m_pushArgs, ss};
 		funCompiler.visitModifierOrFunctionBlock(modifierDefinition->body(), modParamQty, 0, 0);
-		solAssert(ss == m_pusher.stackSize(), "");
+		solAssert(ss == m_pusher.stackSize(), "blabla");
 	}
 }
 
