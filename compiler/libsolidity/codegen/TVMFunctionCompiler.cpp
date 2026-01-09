@@ -755,7 +755,7 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
         }
 
 		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg())) {
-		    m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByCrossDappMsgOnly));
+		    m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::WrongMsgType));
 		}
 	}
 

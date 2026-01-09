@@ -3537,13 +3537,12 @@ function f() public pure functionID(123) {
 }
  ```
 
-#### externalMsg and internalMsg
+#### externalMsg, internalMsg and crossDappMsg
 
-Keywords `externalMsg` and `internalMsg` specify which messages the function can handle.
-If the function marked by keyword `externalMsg` is called by internal message, the function throws an
-exception with code 71.
-If the function marked by keyword `internalMsg` is called by external message, the function throws
-an exception with code 72.
+Keywords `externalMsg`, `crossDappMsg` and `internalMsg` specify which messages the function can handle.
+Function must have at least one of this modifiers.
+If the function marked by keyword `externalMsg crossDappMsg` is called by internal message, the function throws an
+exception with code 81.
 
 Example:
 
@@ -3562,7 +3561,10 @@ function g() public internalMsg { // this function receives only internal messag
 }
 
 // These function receives both internal and external messages.
-function fun() public { /*...*/ }
+function fun() public internalMsg externalMsg { /*...*/ }
+
+// These function receives all messages.
+function fun1() public internalMsg externalMsg { /*...*/ }
 ```
 
 ### Events and return
@@ -5684,6 +5686,7 @@ Solidity runtime error codes:
   * **78** - There's no private function with the function id.
   * **79** - You are deploying contract that uses [pragma upgrade func/oldsol](#pragma-upgrade-funcoldsol). Use the 
   * **80** - See [\<T\>.get()](#tget).
+  * **81** - Wrong msg type (E.g. Function marked by `externalMsg internalMsg` was called by cross dapp message.)
 
 ### Division and rounding
 
