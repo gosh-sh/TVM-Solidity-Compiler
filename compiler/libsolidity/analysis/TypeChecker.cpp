@@ -753,8 +753,10 @@ bool TypeChecker::visit(FunctionDefinition const& _function)
 		if (_function.isReceive() || _function.isFallback() || _function.isOnBounce() || _function.isOnTickTock()) {
 			m_errorReporter.typeError(1399_error, _function.location(), R"(receiver, fallback, onBounce and onTickTock functions can't be marked as internalMsg/externalMsg/crossDappMsg.)");
 		}
-	} else {
-        m_errorReporter.typeError(6672_error, _function.location(), R"(At least one modifier "internalMsg", "crossDappMsg" or "externalMsg" must be used.)");
+	} else if (!_function.isReceive() && !_function.isFallback()) {
+        if (_function.isPublic()) {
+            m_errorReporter.typeError(6672_error, _function.location(), R"(At least one modifier "internalMsg", "crossDappMsg" or "externalMsg" must be used.)");
+        }
     }
 
 	std::vector<VariableDeclaration const*> internalParametersInConstructor;
