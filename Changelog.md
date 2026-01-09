@@ -3,6 +3,7 @@ Compiler features:
 * Add cross dapp message support + changed ext outbound msg type
 * Add `crossDappMsg` function modifier
 * Make `*Msg` modifier usage obligatory + allow multiple usage
+* Set default tvm-version to `gosh`
 
 ### 0.79.3 (2025-10-06)
 Compiler features:
