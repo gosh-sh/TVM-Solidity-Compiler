@@ -8,10 +8,17 @@ contract Tester {
     uint public counter = 0;
 
     bool public res = false;
+
+    bytes public tt;
   
-    constructor(uint arg1, uint arg2, uint arg3, bytes arg4) {
+    constructor() {
         gosh.cnvrtshellq(1000000 vmshell);
         tvm.accept();
-        res = gosh.zkhalo2verify(arg1, arg2, arg3, arg4);
+    }
+
+    function test_halo2(bytes pub_inputs, bytes proof) public {
+        tvm.accept();
+        res = gosh.zkhalo2verify(pub_inputs, proof);
+        tt = pub_inputs;
     }
 }

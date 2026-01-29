@@ -5624,9 +5624,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"zkhalo2verify",
 			TypeProvider::function(
-				{TypeProvider::uint256(),  TypeProvider::uint256(), TypeProvider::uint256(), TypeProvider::bytesMemory()},
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
 				{TypeProvider::boolean()},
-				{{}, {}, {}, {}},
+				{{}, {}},
 				{{}},
 				FunctionType::Kind::GoshZKHALO2VERIFY,
 				StateMutability::Pure,
