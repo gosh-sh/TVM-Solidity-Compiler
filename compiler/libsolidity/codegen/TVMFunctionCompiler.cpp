@@ -1833,7 +1833,7 @@ TVMFunctionCompiler::generateMainInternal(TVMCompilerContext& ctx, ContractDefin
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Value);
 		pusher.pushNull(); // currency
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Currencies);
-		pusher.pushInt(TvmConst::SENDRAWMSG::DefaultFlag); // flag
+		pusher.pushInt(TvmConst::SENDRAWMSGNEW::DefaultFlag); // flag
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Flag);
 		pusher.setGlob(TvmConst::C7::ReturnParams);
 	}
@@ -1902,7 +1902,7 @@ TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefi
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Value);
 		pusher.pushNull(); // currency
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Currencies);
-		pusher.pushInt(TvmConst::SENDRAWMSG::DefaultFlag); // flag
+		pusher.pushInt(TvmConst::SENDRAWMSGNEW::DefaultFlag); // flag
 		pusher.setIndexQ(TvmConst::C7::ReturnParam::Flag);
 		pusher.setGlob(TvmConst::C7::ReturnParams);
 	}
