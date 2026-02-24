@@ -1810,8 +1810,8 @@ int StackPusher::int_msg_info(const std::set<int> &isParamOnStack, const std::ma
 									2, 2,
 									4, 1, 4, 4,
 									64, 32, 1, 1, 1, 1};
-	std::string bitString = isCrossDapp ? "1101" : "0";
-	int maxBitStringSize = isCrossDapp ? 3 : 0;
+	std::string bitString = isCrossDapp ? "110101" : "0";
+	int maxBitStringSize = isCrossDapp ? 5 : 0;
 	*this << "NEWC";
 	for (int param = 0; param < static_cast<int>(zeroes.size()); ++param) {
 		solAssert(constParams.count(param) == 0 || isParamOnStack.count(param) == 0, "");
@@ -1871,7 +1871,7 @@ int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true)
 	// ext_in_msg_info$10 src:MsgAddressExt dest:MsgAddressInt
 	// import_fee:Grams = CommonMsgInfo;
 	//
-	// ext_out_msg_info$1100 src:MsgAddressInt dest:MsgAddressExt
+	// ext_out_msg_info$11 src:MsgAddressInt dest:MsgAddressExt
 	// created_lt:uint64 created_at:uint32 = CommonMsgInfo;
 
 	std::vector<int> zeroes {2, 2};
@@ -1881,8 +1881,8 @@ int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true)
 	} else {
 		zeroes.push_back(4);
 	}
-	std::string bitString = isOut ? "1100" : "10";
-	int maxBitStringSize = isOut ? 2 : 0;
+	std::string bitString = isOut ? "11" : "10";
+	int maxBitStringSize = isOut ? 0 : 0;
 	*this << "NEWC";
 	for (int param = 0; param < static_cast<int>(zeroes.size()); ++param) {
 		if (isParamOnStack.count(param) == 0) {

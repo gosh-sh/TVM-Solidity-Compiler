@@ -1861,7 +1861,7 @@ TVMFunctionCompiler::generateMainInternal(TVMCompilerContext& ctx, ContractDefin
 
 Pointer<Function>
 TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefinition const *contract) {
-	// cross_dapp_msg_info$1101  ihr_disabled:Bool  bounce:Bool(#1)  bounced:Bool
+	// cross_dapp_msg_info$110101  ihr_disabled:Bool  bounce:Bool(#1)  bounced:Bool
 	//                 src:MsgAddress  dest:MsgAddressInt(#4)
 	//                 value:CurrencyCollection(#5,#6)  ihr_fee:Grams  fwd_fee:Grams
 	//                 created_lt:uint64  created_at:uint32
@@ -1882,13 +1882,13 @@ TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefi
 
 	ContactsUsageScanner const &sc = pusher.ctx().usage();
 	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
-		pusher << "LDU 7       ; bounced tail";
+		pusher << "LDU 9       ; bounced tail";
 		pusher << "LDMSGADDR   ; bounced src tail";
 		pusher.drop();
 		pusher.setGlob(TvmConst::C7::SenderAddress);
 		pusher << "MODPOW2 1";
 	} else {
-		pusher << "PLDU 7";
+		pusher << "PLDU 9";
 		pusher << "MODPOW2 1";
 	}
 	// stack: isBounced
