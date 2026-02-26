@@ -1959,7 +1959,7 @@ void StackPusher::stones(int qty) {
 }
 
 void StackPusher::sendrawmsg() {
-	*this << "SENDRAWMSGNEW";
+	*this << "SENDRAWMSG";
 }
 
 void StackPusher::sendIntMsg(
@@ -2053,7 +2053,7 @@ void StackPusher::sendMsg(const std::set<int>& isParamOnStack,
 	if (pushSendrawmsgFlag) {
 		pushSendrawmsgFlag();
 	} else {
-		pushInt(TvmConst::SENDRAWMSGNEW::DefaultFlag);
+		pushInt(TvmConst::SENDRAWMSG::DefaultFlag);
 	}
 	sendrawmsg();
 }

@@ -2306,7 +2306,7 @@ bool FunctionCallCompiler::checkForTvmConfigParamFunction(MemberAccess const &_n
 bool FunctionCallCompiler::checkForTvmSendFunction(MemberAccess const &_node) {
 	if (_node.memberName() == "sendrawmsg") { // tvm.sendrawmsg
 		pushArgs();
-		m_pusher << "SENDRAWMSGNEW";
+		m_pusher << "SENDRAWMSG";
 	}  else {
 		return false;
 	}
@@ -3314,7 +3314,7 @@ bool FunctionCallCompiler::checkSolidityUnits() {
 					{{TvmConst::int_msg_info::dest, m_arguments[0].get()}},
 					constParams,
 					nullptr,
-					[&]() { m_pusher << "PUSHINT " + toString(TvmConst::SENDRAWMSGNEW::SelfDestruct); },
+					[&]() { m_pusher << "PUSHINT " + toString(TvmConst::SENDRAWMSG::SelfDestruct); },
 					nullptr);
 			return true;
 		}
