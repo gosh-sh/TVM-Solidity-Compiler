@@ -39,7 +39,7 @@ namespace TvmConst {
 		constexpr int SenderAddress = 9;
 		constexpr int FirstIndexForVariables = 10;
 	}
-	namespace SENDRAWMSGNEW {
+	namespace SENDRAWMSG {
 		const int DefaultFlag = 0;
 		const int DestroyAccount = 32;
 		const int CarryAllMoney = 128;

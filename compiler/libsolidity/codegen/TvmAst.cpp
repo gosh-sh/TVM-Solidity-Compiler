@@ -692,7 +692,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
 
 		{"COPYLEFT", {2, 0}},
 		{"RAWRESERVE", {2, 0}},
-		{"SENDRAWMSGNEW", {2, 0}},
+		{"SENDRAWMSG", {2, 0}},
 
 		{"ADD", {2, 1}},
 		{"AND", {2, 1, true}},
