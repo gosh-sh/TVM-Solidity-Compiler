@@ -421,6 +421,8 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
             {MagicType::Kind::Gosh, "calcbmmvrewardadj"},
             {MagicType::Kind::Gosh, "calcmvreward"},
             {MagicType::Kind::Gosh, "calcrepcoef"},
+            {MagicType::Kind::Gosh, "calcminertapcoef"},
+            {MagicType::Kind::Gosh, "calcminerreward"},
 			{MagicType::Kind::Math, "abs"},
 			{MagicType::Kind::Math, "divc"},
 			{MagicType::Kind::Math, "divmod"},

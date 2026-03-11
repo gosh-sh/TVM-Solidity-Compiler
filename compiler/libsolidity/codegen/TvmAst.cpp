@@ -646,6 +646,8 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
     	{"CALCMINSTAKE", {4, 1, true}},
     	{"CALCMINSTAKEBM", {2, 1, true}},
     	{"CALCMBK", {1, 1, false}},
+    	{"CALCMINERTAPCOEF", {7, 6, false}},
+    	{"CALCMINERREWARD", {4, 1, true}},
 		{"SREFS", {1, 1, true}},
 		{"SREMPTY", {1, 1, true}},
 		{"STRDUMP", {1, 1}},
