@@ -1656,6 +1656,7 @@ public:
 		GoshVergrth16,
 		GoshPoseidon,
 		GoshZKHALO2VERIFY,
+		GoshCheckLayerHash,
 
 		GoshMINTECC,
 		GoshRUNWASM,

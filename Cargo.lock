@@ -66,7 +66,7 @@ version = "0.8.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "once_cell",
  "version_check",
  "zerocopy",
@@ -164,7 +164,7 @@ dependencies = [
  "ark-ec",
  "ark-ff",
  "ark-serialize",
- "ark-std 0.4.0",
+ "ark-std",
 ]
 
 [[package]]
@@ -175,7 +175,7 @@ checksum = "a22f4561524cd949590d78d7d4c5df8f592430d221f7f3c9497bbafd8972120f"
 dependencies = [
  "ark-ec",
  "ark-ff",
- "ark-std 0.4.0",
+ "ark-std",
 ]
 
 [[package]]
@@ -190,7 +190,7 @@ dependencies = [
  "ark-relations",
  "ark-serialize",
  "ark-snark",
- "ark-std 0.4.0",
+ "ark-std",
  "blake2",
  "derivative",
  "digest 0.10.7",
@@ -207,7 +207,7 @@ dependencies = [
  "ark-ff",
  "ark-poly",
  "ark-serialize",
- "ark-std 0.4.0",
+ "ark-std",
  "derivative",
  "hashbrown 0.13.2",
  "itertools 0.10.5",
@@ -224,7 +224,7 @@ dependencies = [
  "ark-ff-asm",
  "ark-ff-macros",
  "ark-serialize",
- "ark-std 0.4.0",
+ "ark-std",
  "derivative",
  "digest 0.10.7",
  "itertools 0.10.5",
@@ -270,7 +270,7 @@ dependencies = [
  "ark-poly",
  "ark-relations",
  "ark-serialize",
- "ark-std 0.4.0",
+ "ark-std",
 ]
 
 [[package]]
@@ -281,7 +281,7 @@ checksum = "d320bfc44ee185d899ccbadfa8bc31aab923ce1558716e1997a1e74057fe86bf"
 dependencies = [
  "ark-ff",
  "ark-serialize",
- "ark-std 0.4.0",
+ "ark-std",
  "derivative",
  "hashbrown 0.13.2",
 ]
@@ -295,7 +295,7 @@ dependencies = [
  "ark-ec",
  "ark-ff",
  "ark-relations",
- "ark-std 0.4.0",
+ "ark-std",
  "derivative",
  "num-bigint 0.4.6",
  "num-integer",
@@ -310,7 +310,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "00796b6efc05a3f48225e59cb6a2cda78881e7c390872d5786aaf112f31fb4f0"
 dependencies = [
  "ark-ff",
- "ark-std 0.4.0",
+ "ark-std",
  "tracing",
  "tracing-subscriber",
 ]
@@ -323,7 +323,7 @@ checksum = "3975a01b0a6e3eae0f72ec7ca8598a6620fc72fa5981f6f5cca33b7cd788f633"
 dependencies = [
  "ark-ec",
  "ark-ff",
- "ark-std 0.4.0",
+ "ark-std",
 ]
 
 [[package]]
@@ -333,7 +333,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "adb7b85a02b83d2f22f89bd5cac66c9c89474240cb6207cb1efc16d098e822a5"
 dependencies = [
  "ark-serialize-derive",
- "ark-std 0.4.0",
+ "ark-std",
  "digest 0.10.7",
  "num-bigint 0.4.6",
 ]
@@ -358,17 +358,7 @@ dependencies = [
  "ark-ff",
  "ark-relations",
  "ark-serialize",
- "ark-std 0.4.0",
-]
-
-[[package]]
-name = "ark-std"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1df2c09229cbc5a028b1d70e00fdb2acee28b1055dfb5ca73eea49c5a25c4e7c"
-dependencies = [
- "num-traits",
- "rand 0.8.5",
+ "ark-std",
 ]
 
 [[package]]
@@ -444,7 +434,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bb531853791a215d7c62a30daf0dde835f381ab5de4589cfe7c649d2cbe92bd6"
 dependencies = [
  "addr2line",
- "cfg-if 1.0.4",
+ "cfg-if",
  "libc",
  "miniz_oxide",
  "object",
@@ -585,7 +575,6 @@ version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
 dependencies = [
- "block-padding",
  "generic-array",
 ]
 
@@ -599,12 +588,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "block-padding"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d696c370c750c948ada61c69a0ee2cbbb9c50b1019ddb86d9317157a99c2cae"
-
-[[package]]
 name = "bls12_381"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -613,19 +596,6 @@ dependencies = [
  "ff",
  "group",
  "pairing",
- "rand_core 0.6.4",
- "subtle",
-]
-
-[[package]]
-name = "bls12_381"
-version = "0.8.0"
-source = "git+https://github.com/scroll-tech/bls12_381?branch=feat%2Fimpl_scalar_field#2c515f73a2462fef8681c8e884edf1710f52b22a"
-dependencies = [
- "ff",
- "group",
- "pairing",
- "pasta_curves",
  "rand_core 0.6.4",
  "subtle",
 ]
@@ -708,12 +678,6 @@ dependencies = [
  "find-msvc-tools",
  "shlex",
 ]
-
-[[package]]
-name = "cfg-if"
-version = "0.1.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 
 [[package]]
 name = "cfg-if"
@@ -919,12 +883,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
 
 [[package]]
-name = "crunchy"
-version = "0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "460fbee9c2c2f33933d720630a6a0bac33ba7053db5344fac858d4b8952d77d5"
-
-[[package]]
 name = "crypto-bigint"
 version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -961,7 +919,7 @@ version = "4.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fb8b7c4503de7d6ae7b42ab72a5a59857b4c937ec27a3d4539dba95b5ab2be"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "cpufeatures",
  "curve25519-dalek-derive",
  "digest 0.10.7",
@@ -1325,7 +1283,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "sha2 0.10.9",
- "sha3 0.10.8",
+ "sha3",
  "signature",
  "static_assertions",
  "thiserror 1.0.69",
@@ -1484,7 +1442,7 @@ version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff2abc00be7fca6ebc474524697ae276ad847ad0a6b3faa4bcb027e9a4614ad0"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "js-sys",
  "libc",
  "wasi",
@@ -1497,12 +1455,24 @@ version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "899def5c37c4fd7b2664648c28120ecec138e4d395b459e5ca34f9cce2dd77fd"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "js-sys",
  "libc",
  "r-efi",
  "wasip2",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "getset"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9cf0fc11e47561d47397154977bc219f4cf809b2974facc3ccb3b89e2436f912"
+dependencies = [
+ "proc-macro-error2",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.114",
 ]
 
 [[package]]
@@ -1518,20 +1488,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
-name = "gosh_dark_dex_halo2_circuit"
+name = "gosh-zk-snark-halo2-utils"
 version = "0.1.0"
-source = "git+https://github.com/gosh-sh/gosh_dark_dex_halo2_circuit.git?branch=poseidon_instead_of_ecc#6e3c18120d7de3aa5ee965fc3b1c09b05ddb698b"
+source = "git+https://github.com/gosh-sh/gosh-zk-snark-halo2-utils?branch=main#9db7cb3fbc285f25d79995a0665587c1b0dd905e"
 dependencies = [
  "halo2-base",
- "halo2-ecc",
- "halo2_gadgets",
- "halo2_proofs",
- "hex",
- "itertools 0.11.0",
- "poseidon-base",
- "poseidon-circuit",
  "rand 0.8.5",
- "rand_chacha 0.3.1",
  "serde",
  "serde_json",
 ]
@@ -1550,92 +1512,58 @@ dependencies = [
 ]
 
 [[package]]
-name = "halo2-base"
-version = "0.2.2"
-source = "git+https://github.com/gosh-sh/halo2-lib?branch=develop#c49e23af407c22fda99071bf7bcd950e17073243"
+name = "halo2-axiom"
+version = "0.4.5"
+source = "git+https://github.com/gosh-sh/halo2-axiom?branch=main#1f28ded628dbf5be7d0478d46cbda0cb0b158a29"
 dependencies = [
+ "blake2b_simd",
+ "crossbeam",
  "ff",
- "halo2_proofs",
- "itertools 0.10.5",
- "num-bigint 0.4.6",
- "num-integer",
- "num-traits",
- "rand_chacha 0.3.1",
+ "group",
+ "halo2curves-axiom",
+ "itertools 0.11.0",
+ "maybe-rayon",
+ "pairing",
+ "rand 0.8.5",
+ "rand_core 0.6.4",
+ "rayon",
  "rustc-hash 1.1.0",
+ "sha3",
+ "tracing",
 ]
 
 [[package]]
-name = "halo2-ecc"
-version = "0.2.2"
-source = "git+https://github.com/gosh-sh/halo2-lib?branch=develop#c49e23af407c22fda99071bf7bcd950e17073243"
+name = "halo2-base"
+version = "0.4.0"
+source = "git+https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381?branch=main#2b6576dea20639706b0c11464a565d36bcde367c"
 dependencies = [
- "ff",
- "group",
- "halo2-base",
- "itertools 0.10.5",
+ "getset",
+ "halo2-axiom",
+ "itertools 0.11.0",
+ "log",
  "num-bigint 0.4.6",
  "num-integer",
  "num-traits",
- "rand 0.8.5",
+ "poseidon-primitives",
  "rand_chacha 0.3.1",
- "rand_core 0.6.4",
+ "rayon",
+ "rustc-hash 1.1.0",
  "serde",
  "serde_json",
 ]
 
 [[package]]
-name = "halo2_gadgets"
-version = "1.1.0"
-source = "git+https://github.com/gosh-sh/halo2.git?branch=v1.1#ed84d2d19772ad3c389e77d24ab10fc209f55c40"
-dependencies = [
- "arrayvec",
- "bitvec",
- "ff",
- "group",
- "halo2_proofs",
- "halo2curves",
- "lazy_static",
- "rand 0.8.5",
- "subtle",
- "uint",
-]
-
-[[package]]
-name = "halo2_proofs"
-version = "1.1.0"
-source = "git+https://github.com/gosh-sh/halo2.git?branch=v1.1#ed84d2d19772ad3c389e77d24ab10fc209f55c40"
-dependencies = [
- "ark-std 0.3.0",
- "blake2b_simd",
- "cfg-if 0.1.10",
- "crossbeam",
- "ff",
- "group",
- "halo2curves",
- "log",
- "maybe-rayon",
- "num-bigint 0.4.6",
- "num-integer",
- "poseidon",
- "rand_chacha 0.3.1",
- "rand_core 0.6.4",
- "rayon",
- "sha3 0.9.1",
- "subtle",
- "tracing",
-]
-
-[[package]]
-name = "halo2curves"
-version = "0.1.0"
-source = "git+https://github.com/scroll-tech/halo2curves?branch=v0.1.0#a495a7b11ad13e5cd0cca7ca5d737b398cfaf1b7"
+name = "halo2curves-axiom"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b0cd39c0df23c8b72cb7158ccb106341b078d5019b5478b3bfdaf14e898177d3"
 dependencies = [
  "blake2b_simd",
- "bls12_381 0.8.0 (git+https://github.com/scroll-tech/bls12_381?branch=feat%2Fimpl_scalar_field)",
+ "digest 0.10.7",
  "ff",
  "group",
+ "hex",
  "lazy_static",
- "maybe-rayon",
  "num-bigint 0.4.6",
  "num-traits",
  "pairing",
@@ -1643,10 +1571,13 @@ dependencies = [
  "paste",
  "rand 0.8.5",
  "rand_core 0.6.4",
+ "rayon",
  "serde",
  "serde_arrays",
+ "sha2 0.10.9",
  "static_assertions",
  "subtle",
+ "unroll",
 ]
 
 [[package]]
@@ -2141,7 +2072,7 @@ version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ea1f30cedd69f0a2954655f7188c6a834246d2bcf1e315e2ac40c4b24dc9519"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "rayon",
 ]
 
@@ -2410,7 +2341,7 @@ version = "0.9.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2621685985a2ebf1c516881c026032ac7deafcda1a2c9b7850dc81e3dfcb64c1"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "libc",
  "redox_syscall",
  "smallvec",
@@ -2509,34 +2440,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "poseidon"
-version = "0.2.0"
-source = "git+https://github.com/scroll-tech/poseidon.git?branch=main#5787dd3d2ce7a9e9601a035c396ac0c03449b54d"
-dependencies = [
- "halo2curves",
- "subtle",
-]
-
-[[package]]
-name = "poseidon-base"
-version = "0.1.0"
-source = "git+https://github.com/scroll-tech/poseidon-circuit?branch=main#b978cee00aae1e0a1e79e0d74c4683b137f5ea2d"
+name = "poseidon-primitives"
+version = "0.1.1"
+source = "git+https://github.com/gosh-sh/poseidon-primitives?branch=main#fb1450059deb4ae52b0dfdddcb9fdd6767ae1293"
 dependencies = [
  "bitvec",
- "halo2curves",
- "lazy_static",
- "once_cell",
-]
-
-[[package]]
-name = "poseidon-circuit"
-version = "0.1.0"
-source = "git+https://github.com/scroll-tech/poseidon-circuit?branch=main#b978cee00aae1e0a1e79e0d74c4683b137f5ea2d"
-dependencies = [
  "ff",
- "halo2_proofs",
+ "lazy_static",
  "log",
- "poseidon-base",
  "rand 0.8.5",
  "rand_xorshift",
  "thiserror 1.0.69",
@@ -2606,12 +2517,43 @@ dependencies = [
 ]
 
 [[package]]
+name = "proc-macro-error-attr2"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "96de42df36bb9bba5542fe9f1a054b8cc87e172759a1868aa05c1f3acc89dfc5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+]
+
+[[package]]
+name = "proc-macro-error2"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "11ec05c52be0a07b08061f7dd003e7d7092e0472bc731b4af7bb1ef876109802"
+dependencies = [
+ "proc-macro-error-attr2",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.114",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.106"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8fd00f0bb2e90d81d1044c2b32617f68fcb9fa3bb7640c23e9c748e53fb30934"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "pse-poseidon"
+version = "0.2.0"
+source = "git+https://github.com/axiom-crypto/pse-poseidon.git#19d3b09481bda0e95e7c005906365d070fceb752"
+dependencies = [
+ "halo2curves-axiom",
+ "subtle",
 ]
 
 [[package]]
@@ -2900,7 +2842,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a4689e6c2294d81e88dc6261c768b63bc4fcdb852be6d1352498b114f61383b7"
 dependencies = [
  "cc",
- "cfg-if 1.0.4",
+ "cfg-if",
  "getrandom 0.2.17",
  "libc",
  "untrusted",
@@ -3215,7 +3157,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d58a1e1bf39749807d89cf2d98ac2dfa0ff1cb3faa38fbb64dd88ac8013d800"
 dependencies = [
  "block-buffer 0.9.0",
- "cfg-if 1.0.4",
+ "cfg-if",
  "cpufeatures",
  "digest 0.9.0",
  "opaque-debug",
@@ -3227,21 +3169,9 @@ version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "cpufeatures",
  "digest 0.10.7",
-]
-
-[[package]]
-name = "sha3"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f81199417d4e5de3f04b1e871023acea7389672c4135918f05aa9cbf2f2fa809"
-dependencies = [
- "block-buffer 0.9.0",
- "digest 0.9.0",
- "keccak",
- "opaque-debug",
 ]
 
 [[package]]
@@ -3695,8 +3625,8 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 
 [[package]]
 name = "tvm_abi"
-version = "2.24.9"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=halo2_verify_fresh#b8d3a22503e72f216ea283bc669aa0092ae89464"
+version = "2.24.16"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#3ed890690ac80436fca6d1aeac40486bd53cdede"
 dependencies = [
  "anyhow",
  "chrono",
@@ -3713,12 +3643,12 @@ dependencies = [
 
 [[package]]
 name = "tvm_assembler"
-version = "2.24.9"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=halo2_verify_fresh#b8d3a22503e72f216ea283bc669aa0092ae89464"
+version = "2.24.16"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#3ed890690ac80436fca6d1aeac40486bd53cdede"
 dependencies = [
  "anyhow",
  "ark-ff",
- "ark-std 0.4.0",
+ "ark-std",
  "base64 0.13.1",
  "base64ct",
  "clap",
@@ -3742,8 +3672,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_block"
-version = "2.24.9"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=halo2_verify_fresh#b8d3a22503e72f216ea283bc669aa0092ae89464"
+version = "2.24.16"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#3ed890690ac80436fca6d1aeac40486bd53cdede"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3762,8 +3692,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_types"
-version = "2.24.9"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=halo2_verify_fresh#b8d3a22503e72f216ea283bc669aa0092ae89464"
+version = "2.24.16"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#3ed890690ac80436fca6d1aeac40486bd53cdede"
 dependencies = [
  "aes-ctr",
  "base64 0.22.1",
@@ -3793,8 +3723,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_vm"
-version = "2.24.9"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=halo2_verify_fresh#b8d3a22503e72f216ea283bc669aa0092ae89464"
+version = "2.24.16"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#3ed890690ac80436fca6d1aeac40486bd53cdede"
 dependencies = [
  "anyhow",
  "ark-bls12-381",
@@ -3807,10 +3737,10 @@ dependencies = [
  "ark-relations",
  "ark-serialize",
  "ark-snark",
- "ark-std 0.4.0",
+ "ark-std",
  "base64 0.13.1",
  "base64ct",
- "bls12_381 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "bls12_381",
  "blst",
  "byte-slice-cast",
  "chrono",
@@ -3820,10 +3750,8 @@ dependencies = [
  "failure",
  "fastcrypto",
  "ff",
- "gosh_dark_dex_halo2_circuit",
+ "gosh-zk-snark-halo2-utils",
  "halo2-base",
- "halo2-ecc",
- "halo2_proofs",
  "hex",
  "itertools 0.12.1",
  "lazy_static",
@@ -3833,6 +3761,7 @@ dependencies = [
  "num-bigint 0.4.6",
  "num-traits",
  "once_cell",
+ "pse-poseidon",
  "rand 0.8.5",
  "rand_chacha 0.2.2",
  "regex",
@@ -3867,18 +3796,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
 
 [[package]]
-name = "uint"
-version = "0.9.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76f64bba2c53b04fcab63c01a7d7427eadc821e3bc48c34dc9ba29c501164b52"
-dependencies = [
- "byteorder",
- "crunchy",
- "hex",
- "static_assertions",
-]
-
-[[package]]
 name = "unicode-ident"
 version = "1.0.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3895,6 +3812,16 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
+
+[[package]]
+name = "unroll"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5ad948c1cb799b1a70f836077721a92a35ac177d4daddf4c20a633786d4cf618"
+dependencies = [
+ "quote",
+ "syn 1.0.109",
+]
 
 [[package]]
 name = "unsafe-any-ors"
@@ -4001,7 +3928,7 @@ version = "0.2.108"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "64024a30ec1e37399cf85a7ffefebdb72205ca1c972291c51512360d90bd8566"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "once_cell",
  "rustversion",
  "wasm-bindgen-macro",
@@ -4014,7 +3941,7 @@ version = "0.4.58"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "70a6e77fd0ae8029c9ea0063f87c46fde723e7d887703d74ad2616d792e51e6f"
 dependencies = [
- "cfg-if 1.0.4",
+ "cfg-if",
  "futures-util",
  "js-sys",
  "once_cell",
@@ -4475,3 +4402,18 @@ name = "zmij"
 version = "1.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "02aae0f83f69aafc94776e879363e9771d7ecbffe2c7fbb6c14c5e00dfe88439"
+
+[[patch.unused]]
+name = "halo2_proofs"
+version = "1.1.0"
+source = "git+https://github.com/gosh-sh/halo2.git?branch=v1.1#ed84d2d19772ad3c389e77d24ab10fc209f55c40"
+
+[[patch.unused]]
+name = "halo2curves"
+version = "0.1.0"
+source = "git+https://github.com/scroll-tech/halo2curves?branch=v0.1.0#a495a7b11ad13e5cd0cca7ca5d737b398cfaf1b7"
+
+[[patch.unused]]
+name = "bls12_381"
+version = "0.8.0"
+source = "git+https://github.com/scroll-tech/bls12_381?branch=feat%2Fimpl_scalar_field#2c515f73a2462fef8681c8e884edf1710f52b22a"

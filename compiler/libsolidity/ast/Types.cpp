@@ -3465,6 +3465,7 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshVergrth16: id += "goshvergrth16"; break;
 	case Kind::GoshPoseidon: id += "goshposeidon"; break;
 	case Kind::GoshZKHALO2VERIFY: id += "goshzkhalo2verify"; break;
+	case Kind::GoshCheckLayerHash: id += "goshchecklayerhash"; break;
 	case Kind::GoshMINTECC: id += "goshmintecc"; break;
 	case Kind::GoshBURNECC: id += "goshburnecc"; break;
 	case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
@@ -5635,7 +5636,18 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
-		
+
+		members.push_back({
+			"check_layer_hash",
+			TypeProvider::function(
+				{TypeProvider::uint256(), TypeProvider::uint(64), TypeProvider::uint(8)},
+				{TypeProvider::boolean()},
+				{{}, {}, {}},
+				{{}},
+				FunctionType::Kind::GoshCheckLayerHash,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
 
 		members.push_back({
 			"vergrth16",

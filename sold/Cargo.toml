@@ -26,12 +26,12 @@ serde = { features = ['derive'], version = '1.0' }
 #tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.22.2.an" }
 #tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = "v2.22.2.an" }
 
-tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "halo2_verify_fresh" }
-tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "halo2_verify_fresh", features = [
+tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "full_dex_test_with_final_halo2_circuit" }
+tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "full_dex_test_with_final_halo2_circuit", features = [
   'gosh',
 ] }
-tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "halo2_verify_fresh" }
-tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "halo2_verify_fresh" }
+tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "full_dex_test_with_final_halo2_circuit" }
+tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = "full_dex_test_with_final_halo2_circuit" }
 
 
 [build-dependencies]
