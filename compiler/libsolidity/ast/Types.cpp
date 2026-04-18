@@ -5640,9 +5640,9 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		members.push_back({
 			"check_layer_hash",
 			TypeProvider::function(
-				{TypeProvider::uint256(), TypeProvider::uint(64), TypeProvider::uint(8)},
+				{TypeProvider::uint256(), TypeProvider::uint(8)},
 				{TypeProvider::boolean()},
-				{{}, {}, {}},
+				{{}, {}},
 				{{}},
 				FunctionType::Kind::GoshCheckLayerHash,
 				StateMutability::Pure,
