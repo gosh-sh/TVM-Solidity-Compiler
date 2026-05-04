@@ -975,6 +975,7 @@ public:
 		bool _responsible,
 		bool _externalMsg,
 		bool _internalMsg,
+		bool _crossDappMsg,
 		bool _freeInlineAssembly,
 		ASTPointer<Expression> const& _experimentalReturnExpression = {}
 	):
@@ -991,6 +992,7 @@ public:
 		m_responsible{_responsible},
 		m_externalMsg{_externalMsg},
 		m_internalMsg{_internalMsg},
+		m_crossDappMsg{_crossDappMsg},
 		m_inlineAssembly{_freeInlineAssembly},
 		m_experimentalReturnExpression(_experimentalReturnExpression)
 	{
@@ -1064,6 +1066,7 @@ public:
 	bool isResponsible() const { return m_responsible; }
 	bool isExternalMsg() const { return m_externalMsg; }
 	bool isInternalMsg() const { return m_internalMsg; }
+	bool isCrossDappMsg() const { return m_crossDappMsg; }
 	bool isInlineAssembly() const { return m_inlineAssembly; }
 	FunctionDefinition const& resolveVirtual(
 		ContractDefinition const& _mostDerivedContract,
@@ -1083,6 +1086,7 @@ private:
 	bool m_responsible{};
 	bool m_externalMsg{};
 	bool m_internalMsg{};
+	bool m_crossDappMsg{};
 	bool m_inlineAssembly{};
 	ASTPointer<Expression> m_experimentalReturnExpression;
 };

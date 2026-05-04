@@ -167,6 +167,7 @@ TVMContractCompiler::generateContractCode(
 		functions.emplace_back(TVMFunctionCompiler::updateOnlyTime(ctx));
 		functions.emplace_back(TVMFunctionCompiler::generateMainInternal(ctx, contract));
 		functions.emplace_back(TVMFunctionCompiler::generateMainExternal(ctx, contract));
+		functions.emplace_back(TVMFunctionCompiler::generateMainCrossDapp(ctx, contract));
 	}
 
 	for (VariableDeclaration const* vd : ctx.c4StateVariables()) {

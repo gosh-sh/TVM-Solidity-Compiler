@@ -80,6 +80,7 @@ private:
 		bool responsible = false;
 		bool externalMsg = false;
 		bool internalMsg = false;
+		bool crossDappMsg = false;
 		bool assembly = false;
 		ASTPointer<Expression> experimentalReturnExpression;
 	};
