@@ -400,6 +400,7 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
 			{MagicType::Kind::Gosh, "zip"},
 			{MagicType::Kind::Gosh, "zipDiff"},
 			{MagicType::Kind::Gosh, "vergrth16"},
+			{MagicType::Kind::Gosh, "vergrth16WithVK"},
 			{MagicType::Kind::Gosh, "poseidon"},
 			{MagicType::Kind::Gosh, "zkhalo2verify"},
 			{MagicType::Kind::Gosh, "check_layer_hash"},

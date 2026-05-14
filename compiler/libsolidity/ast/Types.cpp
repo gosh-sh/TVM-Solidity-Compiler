@@ -3463,6 +3463,7 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshSHA256: id += "goshsha256"; break;
 	case Kind::GoshKECCAK256: id += "goshkeccak256"; break;
 	case Kind::GoshVergrth16: id += "goshvergrth16"; break;
+	case Kind::GoshVergrth16WithVK: id += "goshvergrth16withvk"; break;
 	case Kind::GoshPoseidon: id += "goshposeidon"; break;
 	case Kind::GoshZKHALO2VERIFY: id += "goshzkhalo2verify"; break;
 	case Kind::GoshCheckLayerHash: id += "goshchecklayerhash"; break;
@@ -5657,6 +5658,24 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}, {}},
 				{{}},
 				FunctionType::Kind::GoshVergrth16,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		// Generic Groth16-on-BN254 verifier: takes (proof, public_inputs, vk)
+		// and returns whether the pairing check holds. Mirrors `vergrth16`
+		// but with the verifying key as an explicit third argument instead
+		// of being hard-coded to the zkLogin VK. Wired to the new TVM
+		// opcode VERGRTH16WITHVK (0xC7 0x49) added in tvm-sdk for the
+		// Ethereum-side Halo2 deposit-event verifier on the AN bridge.
+		members.push_back({
+			"vergrth16WithVK",
+			TypeProvider::function(
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
+				{TypeProvider::boolean()},
+				{{}, {}, {}},
+				{{}},
+				FunctionType::Kind::GoshVergrth16WithVK,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

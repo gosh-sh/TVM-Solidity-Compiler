@@ -1654,6 +1654,7 @@ public:
 		GoshSHA256,
 		GoshKECCAK256,
 		GoshVergrth16,
+		GoshVergrth16WithVK,
 		GoshPoseidon,
 		GoshZKHALO2VERIFY,
 		GoshCheckLayerHash,
