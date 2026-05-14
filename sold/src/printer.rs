@@ -13,7 +13,7 @@
 use std::fs::File;
 use std::io::Write;
 
-use failure::format_err;
+use anyhow::format_err;
 use serde::Serialize;
 
 use tvm_types::{Result, Status};
