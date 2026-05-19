@@ -307,7 +307,7 @@ public:
 	void rotRev();
 	void prepareKeyForDictOperations(Type const* key, bool doIgnoreBytes);
 	[[nodiscard]]
-	int int_msg_info(const std::set<int> &isParamOnStack, const std::map<int, std::string> &constParams, bool isDestBuilder);
+	int int_msg_info(const std::set<int> &isParamOnStack, const std::map<int, std::string> &constParams, bool isDestBuilder, bool isCrossDapp);
 	[[nodiscard]]
 	int ext_msg_info(const std::set<int> &isParamOnStack, bool isOut);
 	void appendToBuilder(const std::string& bitString);
@@ -368,11 +368,17 @@ public:
 					const std::function<void(int)> &appendBody,
 					const std::function<void()> &pushSendrawmsgFlag,
 					const std::function<void()> &appendStateInit);
+	void sendCrossDappMsg(const std::map<int, const Expression *> &exprs,
+    					const std::map<int, std::string> &constParams,
+    					const std::function<void(int)> &appendBody,
+    					const std::function<void()> &pushSendrawmsgFlag,
+    					const std::function<void()> &appendStateInit);
 
 	enum class MsgType{
 		Internal,
 		ExternalOut,
-		ExternalIn
+		ExternalIn,
+		CrossDapp
 	};
 
 	void sendMsg(const std::set<int>& isParamOnStack,

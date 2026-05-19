@@ -612,7 +612,7 @@ bool FunctionCallCompiler::checkRemoteMethodCall(FunctionCall const &_functionCa
 	FunctionDefinition const* functionDefinition{};
 	std::optional<uint32_t> callbackFunctionId;
 	std::function<void()> appendStateInit;
-
+    bool isCrossDapp = false;
 	if (auto functionOptions = to<FunctionCallOptions>(&_functionCall.expression())) {
 		auto memberAccess = to<MemberAccess>(&functionOptions->expression());
 		if (!memberAccess)
@@ -656,10 +656,12 @@ bool FunctionCallCompiler::checkRemoteMethodCall(FunctionCall const &_functionCa
 		} else
 			constParams[TvmConst::int_msg_info::tons] = getDefaultMsgValue();
 
-        if (Expression const* dest_dapp_id = findOption("dest_dapp_id"))
+        if (Expression const* dest_dapp_id = findOption("dest_dapp_id")) {
             exprs[TvmConst::int_msg_info::dest_dapp_id] = dest_dapp_id;
-        else
+            isCrossDapp = true;
+        } else {
             constParams[TvmConst::int_msg_info::dest_dapp_id] = "0";
+        }
 
 		// remote_addr
 		exprs[TvmConst::int_msg_info::dest] = &memberAccess->expression();
@@ -722,7 +724,11 @@ bool FunctionCallCompiler::checkRemoteMethodCall(FunctionCall const &_functionCa
 		);
 	};
 
-	m_pusher.sendIntMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+    if (isCrossDapp) {
+        m_pusher.sendCrossDappMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+    } else {
+	    m_pusher.sendIntMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+	}
 	return true;
 }
 
@@ -1987,6 +1993,7 @@ void FunctionCallCompiler::addressMethod() {
 		std::function<void(int)> appendBody;
 		std::function<void()> pushSendrawmsgFlag;
 		std::function<void()> appendStateInit;
+		bool isCrossDapp = false;
 
 		auto setValue = [&](Expression const* expr) {
 			const auto& value = ExprUtils::constValue(*expr);
@@ -2050,6 +2057,7 @@ void FunctionCallCompiler::addressMethod() {
 					case str2int("dest_dapp_id"):
 						exprs[TvmConst::int_msg_info::dest_dapp_id] = m_arguments[arg].get();
 						constParams.erase(TvmConst::int_msg_info::dest_dapp_id);
+						isCrossDapp = true;
 						break;
 					case str2int("stateInit"):
 						setAppendStateInit(m_arguments[arg].get());
@@ -2084,7 +2092,11 @@ void FunctionCallCompiler::addressMethod() {
 				setAppendStateInit(m_arguments.at(5).get());
 			}
 		}
-		m_pusher.sendIntMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+		if (isCrossDapp) {
+		    m_pusher.sendCrossDappMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+		} else {
+		    m_pusher.sendIntMsg(exprs, constParams, appendBody, pushSendrawmsgFlag, appendStateInit);
+		}
 	} else if (m_memberAccess->memberName() == "isStdZero") {
 		acceptExpr(&m_memberAccess->expression());
 		m_pusher.pushZeroAddress();
