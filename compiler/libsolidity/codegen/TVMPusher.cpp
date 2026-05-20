@@ -1882,7 +1882,7 @@ int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true)
 		zeroes.push_back(4);
 	}
 	std::string bitString = isOut ? "11" : "10";
-	int maxBitStringSize = isOut ? 0 : 0;
+	int maxBitStringSize = 0;
 	*this << "NEWC";
 	for (int param = 0; param < static_cast<int>(zeroes.size()); ++param) {
 		if (isParamOnStack.count(param) == 0) {

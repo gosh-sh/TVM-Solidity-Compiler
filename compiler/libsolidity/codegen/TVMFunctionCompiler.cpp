@@ -789,7 +789,7 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 		}
 		TVMFunctionCompiler funCompiler{m_pusher, m_currentModifier, m_function, m_isLibraryWithObj, m_pushArgs, ss};
 		funCompiler.visitModifierOrFunctionBlock(modifierDefinition->body(), modParamQty, 0, 0);
-		solAssert(ss == m_pusher.stackSize(), "blabla");
+		solAssert(ss == m_pusher.stackSize(), "");
 	}
 }
 
