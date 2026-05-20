@@ -1989,7 +1989,7 @@ void FunctionCallCompiler::variantMethods(MemberAccess const& _node) {
 void FunctionCallCompiler::addressMethod() {
 	if (m_memberAccess->memberName() == "transfer") { // addr.transfer(...)
 		std::map<int, Expression const *> exprs;
-		std::map<int, std::string> constParams{{TvmConst::int_msg_info::ihr_disabled, "1"}, {TvmConst::int_msg_info::bounce, "1"}, {TvmConst::int_msg_info::dest_dapp_id, "0"}};
+		std::map<int, std::string> constParams{{TvmConst::int_msg_info::ihr_disabled, "1"}, {TvmConst::int_msg_info::bounce, "1"}};
 		std::function<void(int)> appendBody;
 		std::function<void()> pushSendrawmsgFlag;
 		std::function<void()> appendStateInit;
@@ -2056,7 +2056,6 @@ void FunctionCallCompiler::addressMethod() {
 						break;
 					case str2int("dest_dapp_id"):
 						exprs[TvmConst::int_msg_info::dest_dapp_id] = m_arguments[arg].get();
-						constParams.erase(TvmConst::int_msg_info::dest_dapp_id);
 						isCrossDapp = true;
 						break;
 					case str2int("stateInit"):
