@@ -1957,13 +1957,19 @@ void TVMFunctionCompiler::updC4IfItNeeds() {
 			m_pusher.ctx().pragmaHelper().hasTime() &&
 			m_pusher.ctx().c4StateVariables().size() >= 2 // just optimization: if varQty == 1, then it's better to call c7_to_c4
 		) {
-			m_pusher.pushS(0);
+//			m_pusher.pushS(0);
+			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
+                "EQINT -1",
+            }, 0, 0, true));
 			m_pusher.startContinuation();
 			m_pusher.pushFragment(0, 0, "upd_only_time_in_c4");
 			m_pusher.endContinuationFromRef();
 			m_pusher._if();
 		} else {
-			m_pusher.pushS(0);
+//			m_pusher.pushS(0);
+			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
+                "EQINT -1",
+            }, 0, 0, true));
 			m_pusher.startContinuation();
 			m_pusher.pushFragment(0, 0, "c7_to_c4");
 			m_pusher.endContinuationFromRef();
