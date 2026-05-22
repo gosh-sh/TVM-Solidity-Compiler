@@ -325,12 +325,12 @@ void TVMExpressionCompiler::compileUnaryDelete(UnaryOperation const &node) {
 			collectLValue(lValueInfo, true);
 		} else if (baseExprType->category() == Type::Category::Mapping) { // mapping
 			// ... index dict
-			m_pusher.pushS(1);                            // ... index dict index
+			m_pusher.pushS(1);									 // ... index dict index
 			Type const* dictKey = StackPusher::parseIndexType(indexAccess->baseExpression().annotation().type);
-			m_pusher.exchange(1);                                // ... index index' dict
+			m_pusher.exchange(1);										  // ... index index' dict
 			m_pusher.pushInt(dictKeyLength(dictKey)); // ..index index dict nbits
 			m_pusher << "DICT" + typeToDictChar(dictKey) + "DEL";  // ... index dict' {-1,0}
-			m_pusher.drop();                               // ... index dict'
+			m_pusher.drop();										 // ... index dict'
 			collectLValue(lValueInfo, false);
 		} else {
 			solUnimplemented("32");
@@ -761,10 +761,10 @@ void TVMExpressionCompiler::visitMathBinaryOperation(
 
 void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 	// int_msg_info$0  ihr_disabled:Bool  bounce:Bool  bounced:Bool
-	//                 src:MsgAddress  dest:MsgAddressInt
-	//                 value:CurrencyCollection  ihr_fee:Grams  fwd_fee:Grams
-	//                 created_lt:uint64  created_at:uint32
-	//                 = CommonMsgInfoRelaxed;
+	//					  src:MsgAddress  dest:MsgAddressInt
+	//					  value:CurrencyCollection  ihr_fee:Grams  fwd_fee:Grams
+	//					  created_lt:uint64  created_at:uint32
+	//					  = CommonMsgInfoRelaxed;
 
 	// (DEPTH - 3) - message cell
 	// (DEPTH - 4) - slice with payload (message body)
@@ -879,15 +879,33 @@ void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 			"DEPTH",
 			"ADDCONST -5",
 			"PICK",
+			"PUSH S0",
+			"PUSH S0",
+			"PUSH S0",
+			"EQINT -3",
+			"SWAP",
+			"EQINT 0",
+			"OR",
+			"NOT",
 			"PUSHCONT {",
+			"	DROP",
 			"	NULL",
 			"}",
 			"PUSHCONT {",
+			"	EQINT -3",
 			"	DEPTH",
 			"	ADDCONST -3",
 			"	PICK",
 			"	CTOS",
-			"	LDU 4",
+			"	SWAP",
+			"	PUSHCONT {",
+			"		PUSHINT 9",
+			"	}",
+			"	PUSHCONT {",
+			"		PUSHINT 4",
+			"	}",
+			"	IFELSE",
+			"	LDUX",
 			"	LDMSGADDR",
 			"	LDMSGADDR",
 			"	LDGRAMS",
