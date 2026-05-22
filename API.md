@@ -228,7 +228,7 @@ When deploying contracts, you should use the latest released version of Solidity
     * [msg.value](#msgvalue)
     * [msg.currencies](#msgcurrencies)
     * [msg.pubkey()](#msgpubkey)
-    * [msg.isInternal, msg.isExternal and msg.isTickTock](#msgisinternal-msgisexternal-and-msgisticktock)
+    * [msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp](#msgisinternal-msgisexternal-msgisticktock-and-msgiscrossdapp)
     * [msg.createdAt](#msgcreatedat)
     * [msg.data](#msgdata)
     * [msg.forwardFee](#msgforwardfee)
@@ -3829,9 +3829,9 @@ msg.pubkey() returns (uint256);
 Returns public key that is used to check the message signature. If the message isn't signed, then it's equal to `0`.
 See also: [Contract execution](#contract-execution), [pragma AbiHeader](#pragma-abiheader).
 
-##### msg.isInternal, msg.isExternal and msg.isTickTock
+##### msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp
 
-Returns flag whether the contract is called by internal message, external message or by tick/tock transactions.
+Returns flag whether the contract is called by internal message, external message, tick/tock transactions or cross-dapp message.
 
 ##### msg.createdAt
 
