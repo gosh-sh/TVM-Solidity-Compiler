@@ -789,7 +789,7 @@ void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 		m_pusher.pushFragment(0, 1, "__forwardFee");
 	} else if (_node.memberName() == "importFee") { // msg.importFee
 		m_pusher.pushFragment(0, 1, "__importFee");
-	} else  if (isIn(_node.memberName(), "isInternal", "isExternal", "isTickTock")) {
+	} else  if (isIn(_node.memberName(), "isInternal", "isExternal", "isTickTock", "isCrossDapp")) {
 		m_pusher.push(createNode<HardCode>(std::vector<std::string>{
 			"DEPTH",
 			"ADDCONST -5",
@@ -801,6 +801,8 @@ void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 			m_pusher << "EQINT -1";
 		} else if (_node.memberName() == "isTickTock") {
 			m_pusher << "EQINT -2";
+		} else if (_node.memberName() == "isCrossDapp") {
+			m_pusher << "EQINT -3";
 		} else {
 			solUnimplemented("35");
 		}
