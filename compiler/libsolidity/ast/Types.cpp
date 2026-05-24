@@ -3463,7 +3463,7 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshSHA256: id += "goshsha256"; break;
 	case Kind::GoshKECCAK256: id += "goshkeccak256"; break;
 	case Kind::GoshVergrth16: id += "goshvergrth16"; break;
-	case Kind::GoshVergrth16WithVK: id += "goshvergrth16withvk"; break;
+	case Kind::GoshZKHALO2VERIFYWithVK: id += "goshzkhalo2verifywithvk"; break;
 	case Kind::GoshPoseidon: id += "goshposeidon"; break;
 	case Kind::GoshZKHALO2VERIFY: id += "goshzkhalo2verify"; break;
 	case Kind::GoshCheckLayerHash: id += "goshchecklayerhash"; break;
@@ -5662,20 +5662,22 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
 
-		// Generic Groth16-on-BN254 verifier: takes (proof, public_inputs, vk)
-		// and returns whether the pairing check holds. Mirrors `vergrth16`
-		// but with the verifying key as an explicit third argument instead
-		// of being hard-coded to the zkLogin VK. Wired to the new TVM
-		// opcode VERGRTH16WITHVK (0xC7 0x49) added in tvm-sdk for the
-		// Ethereum-side Halo2 deposit-event verifier on the AN bridge.
+		// Halo2-SHPLONK verifier with caller-supplied verifying key.
+		// Takes (proof, public_inputs, vk) (each bytes) and returns
+		// whether the verification holds. Wired to the new TVM opcode
+		// ZKHALO2VERIFYWITHVK (0xC7 0x4A) added in tvm-sdk for the
+		// AN-side native Halo2 deposit-event verifier on the bridge
+		// (Phase 4.3 pivot — replaces the retired VERGRTH16WITHVK
+		// Groth16 wrapper). See docs/zkhalo2verifywithvk_design.md
+		// for wire-format details.
 		members.push_back({
-			"vergrth16WithVK",
+			"zkhalo2VerifyWithVK",
 			TypeProvider::function(
 				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
 				{TypeProvider::boolean()},
 				{{}, {}, {}},
 				{{}},
-				FunctionType::Kind::GoshVergrth16WithVK,
+				FunctionType::Kind::GoshZKHALO2VERIFYWithVK,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

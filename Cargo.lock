@@ -1152,7 +1152,7 @@ dependencies = [
 [[package]]
 name = "tvm_abi"
 version = "2.24.20"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#6276f0e7ac862a5f503d6db3ee2a1448244430d4"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit_with_vk#5c75b0ff7f8f67daaa80a73f00b9800c226cec57"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1169,7 +1169,7 @@ dependencies = [
 [[package]]
 name = "tvm_assembler"
 version = "2.24.20"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#6276f0e7ac862a5f503d6db3ee2a1448244430d4"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit_with_vk#5c75b0ff7f8f67daaa80a73f00b9800c226cec57"
 dependencies = [
  "anyhow",
  "clap",
@@ -1191,7 +1191,7 @@ dependencies = [
 [[package]]
 name = "tvm_block"
 version = "2.24.20"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#6276f0e7ac862a5f503d6db3ee2a1448244430d4"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit_with_vk#5c75b0ff7f8f67daaa80a73f00b9800c226cec57"
 dependencies = [
  "anyhow",
  "base64",
@@ -1210,7 +1210,7 @@ dependencies = [
 [[package]]
 name = "tvm_types"
 version = "2.24.20"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#6276f0e7ac862a5f503d6db3ee2a1448244430d4"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit_with_vk#5c75b0ff7f8f67daaa80a73f00b9800c226cec57"
 dependencies = [
  "aes",
  "anyhow",
@@ -1241,7 +1241,7 @@ dependencies = [
 [[package]]
 name = "tvm_vm"
 version = "2.24.20"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit#6276f0e7ac862a5f503d6db3ee2a1448244430d4"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?branch=full_dex_test_with_final_halo2_circuit_with_vk#5c75b0ff7f8f67daaa80a73f00b9800c226cec57"
 dependencies = [
  "anyhow",
  "chrono",
