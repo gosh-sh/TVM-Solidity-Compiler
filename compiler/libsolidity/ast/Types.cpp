@@ -5663,23 +5663,19 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		// Halo2-SHPLONK verifier with caller-supplied verifying key.
-		// Takes a single self-describing `Halo2TvmBundle` byte payload
-		// — magic `b"HALO2TVM"` + version + transcript_kind + reserved
-		// + four length-prefixed chunks: config_json, vk_bytes,
-		// instances_bytes (N×32-byte LE `Fr::to_repr()`), proof_bytes.
-		// Wire format frozen 2026-05-22; see
-		// docs/zkhalo2verifywithvk_design.md and
-		// tvm_vm/src/executor/zk_halo2_with_vk_bundle.rs for the layout.
+		// Three-operand ABI (rev'd 2026-05-25): the caller pushes the
+		// VK blob, the public-inputs payload (N×32-byte LE Fr) and the
+		// SHPLONK proof as separate `bytes` cells, top-of-stack last.
+		// See docs/zkhalo2verifywithvk_design.md and
+		// tvm_vm/src/executor/zk_halo2_with_vk.rs for the layout.
 		// Wired to TVM opcode ZKHALO2VERIFYWITHVK (0xC7 0x4A) — the
-		// caller-supplied-VK sibling of ZKHALO2VERIFY, added for the
-		// AN bridge (Phase 4.3 pivot, replaces retired VERGRTH16WITHVK
-		// Groth16 wrapper).
+		// caller-supplied-VK sibling of ZKHALO2VERIFY.
 		members.push_back({
 			"zkhalo2VerifyWithVK",
 			TypeProvider::function(
-				{TypeProvider::bytesMemory()},
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
 				{TypeProvider::boolean()},
-				{{}},
+				{{}, {}, {}},
 				{{}},
 				FunctionType::Kind::GoshZKHALO2VERIFYWithVK,
 				StateMutability::Pure,
