@@ -2603,6 +2603,8 @@ void FunctionCallCompiler::goshFunction() {
          		return "ZKHALO2VERIFY";
 			case FunctionType::Kind::GoshCheckLayerHash:
          		return "CHKHISTPROOF";
+			case FunctionType::Kind::GoshGetAllLayerHashes:
+         		return "GETALLLAYERHASHES";
       		case FunctionType::Kind::GoshMINTECC:
          		return "MINTECC";
 			case FunctionType::Kind::GoshRUNWASM:

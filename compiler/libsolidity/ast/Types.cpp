@@ -5650,6 +5650,22 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
 
+		// Returns the full per-thread rolling-window snapshot of historical
+		// block hashes as (numLayers, blob). Wired to the GETALLLAYERHASHES
+		// TVM opcode (0xC7 0x52). Blob length is numLayers * 128 * 32 bytes;
+		// caller can derive the anonymity set used by layer-anonymized proofs.
+		members.push_back({
+			"getAllLayerHashes",
+			TypeProvider::function(
+				{},
+				{TypeProvider::uint(8), TypeProvider::bytesMemory()},
+				{},
+				{{}, {}},
+				FunctionType::Kind::GoshGetAllLayerHashes,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
 		members.push_back({
 			"vergrth16",
 			TypeProvider::function(

@@ -1658,6 +1658,7 @@ public:
 		GoshPoseidon,
 		GoshZKHALO2VERIFY,
 		GoshCheckLayerHash,
+		GoshGetAllLayerHashes,
 
 		GoshMINTECC,
 		GoshRUNWASM,

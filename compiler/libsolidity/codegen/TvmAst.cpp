@@ -632,6 +632,7 @@ Pointer<StackOpcode> gen(const std::string& cmd) {
 		{"POSEIDON", {7, 1, true}},
 		{"ZKHALO2VERIFY", {2, 1, true}},
 		{"CHKHISTPROOF", {2, 1, true}},
+		{"GETALLLAYERHASHES", {0, 2, true}},
     	{"MINTECC", {2, 0}},
 		{"RUNWASM", {5, 1}},
 		{"RUNWASMCONCATMULTIARG", {8, 1}},
