@@ -1,3 +1,14 @@
+### 0.80.0 (2026-07-15)
+Compiler features:
+* Supported `zkhalo2verify`, `zkhalo2VerifyWithVK`, `check_layer_hash` instructions for Halo2 proof verification.
+* Supported `calcminertapcoef`, `calcminerreward` instructions.
+* Added `dest_dapp_id` argument to `address.transfer`.
+
+Other changes:
+* Migrated `sold` from `failure` to `anyhow`.
+* Fixed AST printing to select the requested contract instead of asserting a single entry.
+* Pinned `tvm-sdk` dependencies to release tag `v3.0.4.an`.
+
 ### 0.79.3 (2025-10-06)
 Compiler features:
 * 2 args in vrgrth
