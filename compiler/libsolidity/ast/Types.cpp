@@ -609,9 +609,10 @@ MemberList::MemberMap AddressType::nativeMembers(ASTNode const*) const
 				TypeProvider::tvmcell(),
 				TypeProvider::extraCurrencyCollection(),
 				TypeProvider::tvmcell(),
+				TypeProvider::uint(256),
 			},
 			{},
-			{"value", "bounce", "flag", "body", "currencies", "stateInit"},
+			{"value", "bounce", "flag", "body", "currencies", "stateInit", "dest_dapp_id"},
 			{},
 			FunctionType::Kind::AddressTransfer,
 			StateMutability::Pure,
@@ -3462,7 +3463,10 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshSHA256: id += "goshsha256"; break;
 	case Kind::GoshKECCAK256: id += "goshkeccak256"; break;
 	case Kind::GoshVergrth16: id += "goshvergrth16"; break;
+	case Kind::GoshZKHALO2VERIFYWithVK: id += "goshzkhalo2verifywithvk"; break;
 	case Kind::GoshPoseidon: id += "goshposeidon"; break;
+	case Kind::GoshZKHALO2VERIFY: id += "goshzkhalo2verify"; break;
+	case Kind::GoshCheckLayerHash: id += "goshchecklayerhash"; break;
 	case Kind::GoshMINTECC: id += "goshmintecc"; break;
 	case Kind::GoshBURNECC: id += "goshburnecc"; break;
 	case Kind::GoshCNVRTSHELLQ: id += "goshcnvrtshellq"; break;
@@ -3477,6 +3481,8 @@ std::string FunctionType::richIdentifier() const
 	case Kind::GoshCALCBMMVREWARDADJ: id += "goshcalcbmmvrewardadj"; break;
 	case Kind::GoshCALCMVREWARD: id += "goshcalcmvreward"; break;
 	case Kind::GoshCALCREPCOEF: id += "goshcalcrepcoef"; break;
+	case Kind::GoshCALCMINERTAPCOEF: id += "goshcalcminertapcoef"; break;
+	case Kind::GoshCALCMINERREWARD: id += "goshcalcminerreward"; break;
 	case Kind::GoshRUNWASM: id += "goshrunwasm"; break;
 	case Kind::GoshRUNWASMCONCATMULTIARG: id += "goshrunwasmconcatmultiarg"; break;
 	}
@@ -5621,6 +5627,30 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 		)});
 
 		members.push_back({
+			"zkhalo2verify",
+			TypeProvider::function(
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
+				{TypeProvider::boolean()},
+				{{}, {}},
+				{{}},
+				FunctionType::Kind::GoshZKHALO2VERIFY,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"check_layer_hash",
+			TypeProvider::function(
+				{TypeProvider::uint256(), TypeProvider::uint(8)},
+				{TypeProvider::boolean()},
+				{{}, {}},
+				{{}},
+				FunctionType::Kind::GoshCheckLayerHash,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
 			"vergrth16",
 			TypeProvider::function(
 				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
@@ -5628,6 +5658,26 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}, {}},
 				{{}},
 				FunctionType::Kind::GoshVergrth16,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		// Halo2-SHPLONK verifier with caller-supplied verifying key.
+		// Three-operand ABI (rev'd 2026-05-25): the caller pushes the
+		// VK blob, the public-inputs payload (N×32-byte LE Fr) and the
+		// SHPLONK proof as separate `bytes` cells, top-of-stack last.
+		// See docs/zkhalo2verifywithvk_design.md and
+		// tvm_vm/src/executor/zk_halo2_with_vk.rs for the layout.
+		// Wired to TVM opcode ZKHALO2VERIFYWITHVK (0xC7 0x4A) — the
+		// caller-supplied-VK sibling of ZKHALO2VERIFY.
+		members.push_back({
+			"zkhalo2VerifyWithVK",
+			TypeProvider::function(
+				{TypeProvider::bytesMemory(), TypeProvider::bytesMemory(), TypeProvider::bytesMemory()},
+				{TypeProvider::boolean()},
+				{{}, {}, {}},
+				{{}},
+				FunctionType::Kind::GoshZKHALO2VERIFYWithVK,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});
@@ -5832,6 +5882,30 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 				{{}}, 
 				{{}},
 				FunctionType::Kind::GoshCALCMBK,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcminertapcoef",
+			TypeProvider::function(
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128(), TypeProvider::uint128()},
+				{{}, {}, {}, {}, {}, {}, {}}, 
+				{{}, {}, {}, {}, {}, {}},
+				FunctionType::Kind::GoshCALCMINERTAPCOEF,
+				StateMutability::Pure,
+				nullptr, FunctionType::Options::withArbitraryParameters()
+		)});
+
+		members.push_back({
+			"calcminerreward",
+			TypeProvider::function(
+				{TypeProvider::uint128(), TypeProvider::tvmcell(), TypeProvider::uint128(), TypeProvider::uint128()}, 
+				{TypeProvider::uint128()},
+				{{}, {}, {}, {}}, 
+				{{}},
+				FunctionType::Kind::GoshCALCMINERREWARD,
 				StateMutability::Pure,
 				nullptr, FunctionType::Options::withArbitraryParameters()
 		)});

@@ -5,7 +5,7 @@ use std::os::raw::{c_char, c_void};
 use std::path::Path;
 
 use clap::{Parser, ValueEnum};
-use failure::{bail, format_err};
+use anyhow::{bail, format_err};
 use serde::Deserialize;
 
 use tvm_assembler::{DbgInfo, Engine, Units};
@@ -365,17 +365,14 @@ pub fn build(args: Args) -> Status {
             .as_object()
             .ok_or_else(|| parse_error!())?;
 
-        let mut array = vec![];
-        for (_, val) in all {
-            let ast = val
-                .as_object()
-                .ok_or_else(|| parse_error!())?
-                .get("ast")
-                .ok_or_else(|| parse_error!())?;
-            array.push(ast.clone());
-        }
-        assert_eq!(array.len(), 1);
-        println!("{}", serde_json::to_string(&array[0])?);
+        let ast = all
+            .get(&res.0)
+            .ok_or_else(|| parse_error!())?
+            .as_object()
+            .ok_or_else(|| parse_error!())?
+            .get("ast")
+            .ok_or_else(|| parse_error!())?;
+        println!("{}", serde_json::to_string(ast)?);
         return Ok(());
     }
 

@@ -2596,6 +2596,12 @@ void FunctionCallCompiler::goshFunction() {
          		return "VERGRTH16";
 			case FunctionType::Kind::GoshPoseidon:
          		return "POSEIDON";
+			case FunctionType::Kind::GoshZKHALO2VERIFY:
+         		return "ZKHALO2VERIFY";
+			case FunctionType::Kind::GoshZKHALO2VERIFYWithVK:
+         		return "ZKHALO2VERIFYWITHVK";
+			case FunctionType::Kind::GoshCheckLayerHash:
+         		return "CHKHISTPROOF";
       		case FunctionType::Kind::GoshMINTECC:
          		return "MINTECC";
 			case FunctionType::Kind::GoshRUNWASM:
@@ -2622,6 +2628,10 @@ void FunctionCallCompiler::goshFunction() {
 				return "CALCMINSTAKEBM";
 			case FunctionType::Kind::GoshCALCMBK:
 				return "CALCMBK";
+			case FunctionType::Kind::GoshCALCMINERTAPCOEF:
+				return "CALCMINERTAPCOEF";
+			case FunctionType::Kind::GoshCALCMINERREWARD:
+				return "CALCMINERREWARD";
 			case FunctionType::Kind::GoshMINTSHELL:
 			    return "MINTSHELL";
 			case FunctionType::Kind::GoshSENDTODAPPCONFIG:

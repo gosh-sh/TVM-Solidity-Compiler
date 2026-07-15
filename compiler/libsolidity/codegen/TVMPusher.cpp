@@ -1875,13 +1875,16 @@ int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true)
 	// created_lt:uint64 created_at:uint32 = CommonMsgInfo;
 
 	std::vector<int> zeroes {2, 2};
+	std::string bitString;
 	if (isOut) {
 		zeroes.push_back(64);
 		zeroes.push_back(32);
+		zeroes.push_back(1);
+		bitString = "110110";
 	} else {
 		zeroes.push_back(4);
+		bitString = "10";
 	}
-	std::string bitString = isOut ? "11" : "10";
 	int maxBitStringSize = 0;
 	*this << "NEWC";
 	for (int param = 0; param < static_cast<int>(zeroes.size()); ++param) {
