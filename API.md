@@ -329,6 +329,11 @@ When deploying contracts, you should use the latest released version of Solidity
     * [gosh.burnecc](#goshburnecc)
     * [gosh.cnvrtshellq](#goshcnvrtshellq)
     * [gosh.mintecc](#goshmintecc)
+    * [gosh.vergrth16](#goshvergrth16)
+    * [gosh.poseidon](#goshposeidon)
+    * [gosh.zkhalo2verify](#goshzkhalo2verify)
+    * [gosh.zkhalo2VerifyWithVK](#goshzkhalo2verifywithvk)
+    * [gosh.check_layer_hash](#goshcheck_layer_hash)
   * [Exponentiation](#exponentiation)
   * [selfdestruct](#selfdestruct)
   * [sha256](#sha256)
@@ -5549,6 +5554,65 @@ gosh.mintecc(uint64 amount, uint32 currency_id)
 
 ```TVMSolidity
 gosh.mintecc(300, 2); // Mint 300 ecc-shell tokens
+```
+
+#### gosh.vergrth16
+```TVMSolidity
+gosh.vergrth16(bytes public_inputs, bytes proof) returns (bool)
+```
+
+Groth16 verifier over BN254 with a hard-coded zkLogin verifying key (TVM opcode `VERGRTH16`). `public_inputs` is a concatenation of 32-byte little-endian `Fr` scalars, typically produced by `gosh.poseidon`; `proof` is the 128-byte canonical Arkworks serialisation. Returns `true` iff the proof verifies.
+
+```TVMSolidity
+bool ok = gosh.vergrth16(public_inputs, proof);
+```
+
+#### gosh.poseidon
+```TVMSolidity
+gosh.poseidon(
+    uint256 index_mod_4, uint256 max_epoch, uint256 eph_pub_key,
+    bytes modulus, string iss_base64, string header_base64, string zkaddr
+) returns (bytes public_inputs)
+```
+
+Computes the zkLogin Poseidon hash of the JWT-derived public data (TVM opcode `POSEIDON`) and returns the packed `public_inputs` blob consumed by `gosh.vergrth16`.
+
+```TVMSolidity
+bytes pi = gosh.poseidon(idx, epoch, ephPk, modulus, iss, header, zkaddr);
+bool ok = gosh.vergrth16(pi, proof);
+```
+
+#### gosh.zkhalo2verify
+```TVMSolidity
+gosh.zkhalo2verify(bytes public_inputs, bytes proof) returns (bool)
+```
+
+Halo2 KZG-SHPLONK verifier with a hard-coded verifying key (Dark-DEX circuit; TVM opcode `ZKHALO2VERIFY`). `public_inputs` is `N × 32` bytes: each 32-byte chunk is either `24×0x00 || u64_be` (small integer shortcut) or a full little-endian `Fr::to_repr()`. `proof` is the raw Blake2b-transcripted SHPLONK stream. Returns `true` iff the proof verifies.
+
+```TVMSolidity
+bool ok = gosh.zkhalo2verify(public_inputs, proof);
+```
+
+#### gosh.zkhalo2VerifyWithVK
+```TVMSolidity
+gosh.zkhalo2VerifyWithVK(bytes vk, bytes public_inputs, bytes proof) returns (bool)
+```
+
+Same Halo2 KZG-SHPLONK verifier as `gosh.zkhalo2verify` but with a caller-supplied verifying key (TVM opcode `ZKHALO2VERIFYWITHVK`, `0xC7 0x4A`). `vk` is a `VkBlob` (magic + version + transcript tag + circuit-shape discriminator + `config_json` + serialised `VerifyingKey<G1Affine>`); `public_inputs` is `N × 32` bytes of strict little-endian `Fr::to_repr()` (no `u64` shortcut). Deserialised VKs are FIFO-cached per bridge/app. Returns `true` iff the proof verifies; throws `FatalError` on structural VK/inputs errors.
+
+```TVMSolidity
+bool ok = gosh.zkhalo2VerifyWithVK(vkBlob, public_inputs, proof);
+```
+
+#### gosh.check_layer_hash
+```TVMSolidity
+gosh.check_layer_hash(uint256 hash, uint8 layer) returns (bool)
+```
+
+Checks that the current key block's common section at `layer` (must be in `1..=10`) stores the given 256-bit `hash` (TVM opcode `CHKHISTPROOF`). Returns `false` when no history-proof callback is bound in the executor.
+
+```TVMSolidity
+bool ok = gosh.check_layer_hash(expectedHash, 3);
 ```
 
 #### Exponentiation

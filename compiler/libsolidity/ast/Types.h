@@ -1655,6 +1655,9 @@ public:
 		GoshKECCAK256,
 		GoshVergrth16,
 		GoshPoseidon,
+		GoshZKHALO2VERIFY,
+		GoshZKHALO2VERIFYWithVK,
+		GoshCheckLayerHash,
 
 		GoshMINTECC,
 		GoshRUNWASM,
@@ -1672,6 +1675,8 @@ public:
 		GoshCALCMINSTAKE,
 		GoshCALCMINSTAKEBM,
 		GoshCALCMBK,
+		GoshCALCMINERTAPCOEF,
+		GoshCALCMINERREWARD
 	};
 	struct Options
 	{

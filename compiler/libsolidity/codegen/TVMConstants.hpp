@@ -111,6 +111,7 @@ namespace TvmConst {
 	namespace ext_msg_info {
 		const int src = 0;
 		const int dest = 1;
+		const int maxEventDestBits = 256;
 	}
 
 	namespace Selector {

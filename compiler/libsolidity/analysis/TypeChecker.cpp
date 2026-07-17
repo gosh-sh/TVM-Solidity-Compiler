@@ -1394,6 +1394,19 @@ void TypeChecker::endVisit(EmitStatement const& _emit)
 		Expression const* opt = options.at(i).get();
 		if (name == "dest") {
 			expectType(*opt, *TypeProvider::address(), false);
+			if (auto const* call = dynamic_cast<FunctionCall const*>(opt)) {
+				auto const* ft = dynamic_cast<FunctionType const*>(type(call->expression()));
+				if (ft && ft->kind() == FunctionType::Kind::AddressMakeAddrExtern && call->arguments().size() == 2) {
+					std::optional<bigint> len = ExprUtils::constValue(*call->arguments().at(1));
+					if (len.has_value() && len.value() > TvmConst::ext_msg_info::maxEventDestBits)
+						m_errorReporter.typeError(
+							3771_error,
+							opt->location(),
+							"Event destination address is too long: " + len.value().str() +
+							" bits, but at most " + std::to_string(TvmConst::ext_msg_info::maxEventDestBits) + " bits are allowed."
+						);
+				}
+			}
 		} else {
 			m_errorReporter.typeError(2900_error, _emit.location(), "Unknown option " + name + ". Only option \"dest\" is supported.");
 		}
