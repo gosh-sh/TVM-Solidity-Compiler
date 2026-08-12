@@ -1797,7 +1797,7 @@ void StackPusher::prepareKeyForDictOperations(Type const *key, bool doIgnoreByte
 }
 
 int StackPusher::int_msg_info(const std::set<int> &isParamOnStack, const std::map<int, std::string> &constParams,
-									bool isDestBuilder) {
+									bool isDestBuilder, bool isCrossDapp = false) {
 	// int_msg_info$0  ihr_disabled:Bool  bounce:Bool(#1)  bounced:Bool
 	//				 src:MsgAddress  dest:MsgAddressInt(#4)
 	//				 value:CurrencyCollection(#5,#6)  ihr_fee:Grams  fwd_fee:Grams
@@ -1810,8 +1810,8 @@ int StackPusher::int_msg_info(const std::set<int> &isParamOnStack, const std::ma
 									2, 2,
 									4, 1, 4, 4,
 									64, 32, 1, 1, 1, 1};
-	std::string bitString = "0";
-	int maxBitStringSize = 0;
+	std::string bitString = isCrossDapp ? "110101" : "0";
+	int maxBitStringSize = isCrossDapp ? 5 : 0;
 	*this << "NEWC";
 	for (int param = 0; param < static_cast<int>(zeroes.size()); ++param) {
 		solAssert(constParams.count(param) == 0 || isParamOnStack.count(param) == 0, "");
@@ -1980,6 +1980,20 @@ void StackPusher::sendIntMsg(
 	sendMsg(isParamOnStack, constParams, appendBody, appendStateInit, pushSendrawmsgFlag);
 }
 
+void StackPusher::sendCrossDappMsg(
+	const std::map<int, Expression const *> &exprs,
+	const std::map<int, std::string> &constParams,
+	const std::function<void(int)> &appendBody,
+	const std::function<void()> &pushSendrawmsgFlag,
+	const std::function<void()> &appendStateInit
+) {
+	std::set<int> isParamOnStack;
+	for (auto &[param, expr] : exprs | boost::adaptors::reversed) {
+		isParamOnStack.insert(param);
+		TVMExpressionCompiler{*this}.compileNewExpr(expr);
+	}
+	sendMsg(isParamOnStack, constParams, appendBody, appendStateInit, pushSendrawmsgFlag, MsgType::CrossDapp);
+}
 
 
 void StackPusher::prepareMsg(
@@ -2001,6 +2015,9 @@ void StackPusher::prepareMsg(
 		case MsgType::ExternalIn:
 			msgInfoSize = ext_msg_info(isParamOnStack, false);
 			break;
+		case MsgType::CrossDapp:
+            msgInfoSize = int_msg_info(isParamOnStack, constParams, isDestBuilder, true);
+            break;
 	}
 	// stack: builder
 

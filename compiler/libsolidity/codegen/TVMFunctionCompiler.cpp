@@ -368,6 +368,7 @@ TVMFunctionCompiler::generatePublicFunction(TVMCompilerContext& ctx, FunctionDef
 		pusher.checkCtorCalled();
 	funCompiler.pushC4ToC7IfNeed();
 
+//
 	funCompiler.pushLocation(*function);
 	const bool isResponsible = function->isResponsible();
 	if (isResponsible) {
@@ -699,20 +700,62 @@ void TVMFunctionCompiler::visitFunctionWithModifiers() {
 		}
 
 		// TODO move to function
-		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg(), "");
+//		solAssert(!m_function->isExternalMsg() || !m_function->isInternalMsg() || !m_function->isCrossDappMsg(), "");
 
-		if (m_function->isExternalMsg() || m_function->isInternalMsg())
+		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg()))
 			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
 				"DEPTH",
 				"ADDCONST -5",
 				"PICK",
 			}, 0, 1, true));
-
+		int cnt = 0;
+		int shift = 0;
 		if (m_function->isExternalMsg()) {
-			m_pusher << "EQINT -1";
-			m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::ByExtMsgOnly));
-		} else if (m_function->isInternalMsg()) {
-			m_pusher._throw("THROWIF " + toString(TvmConst::RuntimeException::ByIntMsgOnly));
+            cnt += 1;
+        }
+        if (m_function->isInternalMsg()) {
+            cnt += 1;
+        }
+        if (m_function->isCrossDappMsg()) {
+            cnt += 1;
+        }
+		if (m_function->isExternalMsg()) {
+		    if (cnt > 1) {
+		        m_pusher.pushS(shift);
+		    }
+		    m_pusher << "EQINT -1";
+		    cnt -= 1;
+		    if (cnt > 0) {
+		        shift += 1;
+		    }
+		}
+		if (m_function->isInternalMsg()) {
+		    if (cnt > 1) {
+		        m_pusher.pushS(shift);
+		    } else {
+		        if (shift != 0) {
+		            m_pusher.exchange(shift);
+		        }
+            }
+		    m_pusher << "EQINT 0";
+		    cnt -= 1;
+		    if (cnt > 0) {
+                shift += 1;
+            }
+		}
+		if (m_function->isCrossDappMsg()) {
+            if (shift != 0) {
+                m_pusher.exchange(shift);
+            }
+        	m_pusher << "EQINT -3";
+		}
+
+        for (int i = 0; i < shift; i++) {
+            m_pusher << "OR";
+        }
+
+		if (m_function->isExternalMsg() || m_function->isInternalMsg() || (m_function->isCrossDappMsg())) {
+		    m_pusher._throw("THROWIFNOT " + toString(TvmConst::RuntimeException::WrongMsgType));
 		}
 	}
 
@@ -1816,6 +1859,75 @@ TVMFunctionCompiler::generateMainInternal(TVMCompilerContext& ctx, ContractDefin
 	return createNode<Function>(0, 0, name, nullopt, Function::FunctionType::MainInternal, pusher.getBlock());
 }
 
+Pointer<Function>
+TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefinition const *contract) {
+	// cross_dapp_msg_info$110101  ihr_disabled:Bool  bounce:Bool(#1)  bounced:Bool
+	//                 src:MsgAddress  dest:MsgAddressInt(#4)
+	//                 value:CurrencyCollection(#5,#6)  ihr_fee:Grams  fwd_fee:Grams
+	//                 created_lt:uint64  created_at:uint32
+	//                 = CommonMsgInfoRelaxed;
+
+	std::string name = "main_cross_dapp";
+	ctx.setCurrentFunction(nullptr, name);
+	StackPusher pusher{&ctx};
+	TVMFunctionCompiler funCompiler{pusher, contract};
+
+	funCompiler.setCopyleft();
+	if (ctx.hasConstructor())
+		funCompiler.setCtorFlag();
+
+	pusher.pushS(2);
+	pusher << "CTOS";
+	// stack: cross_dapp_msg_info
+
+	ContactsUsageScanner const &sc = pusher.ctx().usage();
+	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
+		pusher << "LDU 9       ; bounced tail";
+		pusher << "LDMSGADDR   ; bounced src tail";
+		pusher.drop();
+		pusher.setGlob(TvmConst::C7::SenderAddress);
+		pusher << "MODPOW2 1";
+	} else {
+		pusher << "PLDU 9";
+		pusher << "MODPOW2 1";
+	}
+	// stack: isBounced
+
+	// set default params for responsible func
+	if (sc.hasResponsibleFunction()) {
+		pusher.getGlob(TvmConst::C7::ReturnParams);
+		pusher << "TRUE"; // bounce
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Bounce);
+		pusher.pushInt(TvmConst::Message::DefaultMsgValue); // tons
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Value);
+		pusher.pushNull(); // currency
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Currencies);
+		pusher.pushInt(TvmConst::SENDRAWMSG::DefaultFlag); // flag
+		pusher.setIndexQ(TvmConst::C7::ReturnParam::Flag);
+		pusher.setGlob(TvmConst::C7::ReturnParams);
+	}
+
+	// bounced
+	if (!isEmptyFunction(contract->onBounceFunction())) {
+		pusher.startContinuation();
+		pusher.pushS(1);
+		pusher << "LDSLICE 32";
+		pusher.dropUnder(1, 1);
+		pusher.pushFragment(0, 0, "on_bounce");
+		pusher.endContinuationFromRef();
+		pusher.ifJmp();
+	} else {
+		pusher.ifret();
+	}
+
+	funCompiler.pushReceiveOrFallback();
+
+	pusher.exchange(1);
+	funCompiler.callPublicFunctionOrFallback();
+	ctx.resetCurrentFunction();
+	return createNode<Function>(0, 0, name, nullopt, Function::FunctionType::MainInternal, pusher.getBlock());
+}
+
 bool TVMFunctionCompiler::visit(PlaceholderStatement const &) {
 	TVMFunctionCompiler funCompiler{m_pusher, m_currentModifier + 1, m_function, m_isLibraryWithObj, m_pushArgs, m_pusher.stackSize()};
 	funCompiler.visitFunctionWithModifiers();
@@ -1845,13 +1957,19 @@ void TVMFunctionCompiler::updC4IfItNeeds() {
 			m_pusher.ctx().pragmaHelper().hasTime() &&
 			m_pusher.ctx().c4StateVariables().size() >= 2 // just optimization: if varQty == 1, then it's better to call c7_to_c4
 		) {
-			m_pusher.pushS(0);
+//			m_pusher.pushS(0);
+			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
+                "EQINT -1",
+            }, 0, 0, true));
 			m_pusher.startContinuation();
 			m_pusher.pushFragment(0, 0, "upd_only_time_in_c4");
 			m_pusher.endContinuationFromRef();
 			m_pusher._if();
 		} else {
-			m_pusher.pushS(0);
+//			m_pusher.pushS(0);
+			m_pusher.push(createNode<HardCode>(std::vector<std::string>{
+                "EQINT -1",
+            }, 0, 0, true));
 			m_pusher.startContinuation();
 			m_pusher.pushFragment(0, 0, "c7_to_c4");
 			m_pusher.endContinuationFromRef();

@@ -228,7 +228,7 @@ When deploying contracts, you should use the latest released version of Solidity
     * [msg.value](#msgvalue)
     * [msg.currencies](#msgcurrencies)
     * [msg.pubkey()](#msgpubkey)
-    * [msg.isInternal, msg.isExternal and msg.isTickTock](#msgisinternal-msgisexternal-and-msgisticktock)
+    * [msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp](#msgisinternal-msgisexternal-msgisticktock-and-msgiscrossdapp)
     * [msg.createdAt](#msgcreatedat)
     * [msg.data](#msgdata)
     * [msg.forwardFee](#msgforwardfee)
@@ -3542,13 +3542,12 @@ function f() public pure functionID(123) {
 }
  ```
 
-#### externalMsg and internalMsg
+#### externalMsg, internalMsg and crossDappMsg
 
-Keywords `externalMsg` and `internalMsg` specify which messages the function can handle.
-If the function marked by keyword `externalMsg` is called by internal message, the function throws an
-exception with code 71.
-If the function marked by keyword `internalMsg` is called by external message, the function throws
-an exception with code 72.
+Keywords `externalMsg`, `crossDappMsg` and `internalMsg` specify which messages the function can handle.
+Function must have at least one of this modifiers.
+If the function marked by keyword `externalMsg crossDappMsg` is called by internal message, the function throws an
+exception with code 81.
 
 Example:
 
@@ -3567,7 +3566,10 @@ function g() public internalMsg { // this function receives only internal messag
 }
 
 // These function receives both internal and external messages.
-function fun() public { /*...*/ }
+function fun() public internalMsg externalMsg { /*...*/ }
+
+// These function receives all messages.
+function fun1() public internalMsg externalMsg { /*...*/ }
 ```
 
 ### Events and return
@@ -3832,9 +3834,9 @@ msg.pubkey() returns (uint256);
 Returns public key that is used to check the message signature. If the message isn't signed, then it's equal to `0`.
 See also: [Contract execution](#contract-execution), [pragma AbiHeader](#pragma-abiheader).
 
-##### msg.isInternal, msg.isExternal and msg.isTickTock
+##### msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp
 
-Returns flag whether the contract is called by internal message, external message or by tick/tock transactions.
+Returns flag whether the contract is called by internal message, external message, tick/tock transactions or cross-dapp message.
 
 ##### msg.createdAt
 
@@ -5748,6 +5750,7 @@ Solidity runtime error codes:
   * **78** - There's no private function with the function id.
   * **79** - You are deploying contract that uses [pragma upgrade func/oldsol](#pragma-upgrade-funcoldsol). Use the 
   * **80** - See [\<T\>.get()](#tget).
+  * **81** - Wrong msg type (E.g. Function marked by `externalMsg internalMsg` was called by cross dapp message.)
 
 ### Division and rounding
 

@@ -92,6 +92,7 @@ namespace TvmConst {
 		const int CallThatWasBeforeCtorCall = 76;
 		const int BadVariant = 77;
 		const int IsNaN = 80;
+		const int WrongMsgType = 81;
 	}
 
 	namespace FunctionId {

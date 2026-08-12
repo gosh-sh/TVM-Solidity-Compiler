@@ -562,6 +562,7 @@ ASTPointer<FunctionDefinition> ASTJsonImporter::createFunctionDefinition(Json::V
 		false,
 		false,
 		false,
+		false,
 		false
 	);
 }
