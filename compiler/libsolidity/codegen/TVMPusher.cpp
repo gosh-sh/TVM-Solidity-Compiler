@@ -1867,7 +1867,7 @@ int StackPusher::int_msg_info(const std::set<int> &isParamOnStack, const std::ma
 	return maxBitStringSize;
 }
 
-int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true) {
+int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut, bool isV1) {
 	// ext_in_msg_info$10 src:MsgAddressExt dest:MsgAddressInt
 	// import_fee:Grams = CommonMsgInfo;
 	//
@@ -1879,8 +1879,9 @@ int StackPusher::ext_msg_info(const set<int> &isParamOnStack, bool isOut = true)
 	if (isOut) {
 		zeroes.push_back(64);
 		zeroes.push_back(32);
-		zeroes.push_back(1);
-		bitString = "110110";
+		if (!isV1)
+			zeroes.push_back(1);
+		bitString = isV1 ? "11" : "110110";
 	} else {
 		zeroes.push_back(4);
 		bitString = "10";
@@ -2011,6 +2012,9 @@ void StackPusher::prepareMsg(
 			break;
 		case MsgType::ExternalOut:
 			msgInfoSize = ext_msg_info(isParamOnStack);
+			break;
+		case MsgType::ExternalOutV1:
+			msgInfoSize = ext_msg_info(isParamOnStack, true, true);
 			break;
 		case MsgType::ExternalIn:
 			msgInfoSize = ext_msg_info(isParamOnStack, false);
