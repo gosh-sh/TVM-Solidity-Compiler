@@ -1407,8 +1407,12 @@ void TypeChecker::endVisit(EmitStatement const& _emit)
 						);
 				}
 			}
+		} else if (name == "version") {
+			std::optional<bigint> ver = ExprUtils::constValue(*opt);
+			if (!ver.has_value() || (ver.value() != 1 && ver.value() != 2))
+				m_errorReporter.typeError(2901_error, opt->location(), "Event \"version\" must be a constant equal to 1 or 2.");
 		} else {
-			m_errorReporter.typeError(2900_error, _emit.location(), "Unknown option " + name + ". Only option \"dest\" is supported.");
+			m_errorReporter.typeError(2900_error, _emit.location(), "Unknown option " + name + ". Only options \"dest\" and \"version\" are supported.");
 		}
 	}
 }

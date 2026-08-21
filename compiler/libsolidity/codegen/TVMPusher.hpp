@@ -309,7 +309,7 @@ public:
 	[[nodiscard]]
 	int int_msg_info(const std::set<int> &isParamOnStack, const std::map<int, std::string> &constParams, bool isDestBuilder, bool isCrossDapp);
 	[[nodiscard]]
-	int ext_msg_info(const std::set<int> &isParamOnStack, bool isOut);
+	int ext_msg_info(const std::set<int> &isParamOnStack, bool isOut = true, bool isV1 = false);
 	void appendToBuilder(const std::string& bitString);
 	void checkOptionalValue();
 	static bool doesFitInOneCellAndHaveNoStruct(Type const* key, Type const* value);
@@ -377,6 +377,7 @@ public:
 	enum class MsgType{
 		Internal,
 		ExternalOut,
+		ExternalOutV1,
 		ExternalIn,
 		CrossDapp
 	};

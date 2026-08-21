@@ -1591,14 +1591,21 @@ bool TVMFunctionCompiler::visit(EmitStatement const &_emit) {
 	};
 
 	std::set<int> isParamOnStack;
-	if (!_emit.names().empty()) {
-		solAssert(_emit.names().size() == 1 && *_emit.names().at(0) == "dest", "");
-		solAssert(_emit.options().size() == 1, "");
-		isParamOnStack.insert(TvmConst::ext_msg_info::dest);
-		acceptExpr(_emit.options().at(0).get(), true);
+	bool isV1 = false;
+	for (std::size_t i = 0; i < _emit.names().size(); ++i) {
+		std::string const& optName = *_emit.names().at(i);
+		if (optName == "version") {
+			std::optional<bigint> ver = ExprUtils::constValue(*_emit.options().at(i));
+			isV1 = ver.has_value() && ver.value() == 1;
+		} else {
+			solAssert(optName == "dest", "");
+			isParamOnStack.insert(TvmConst::ext_msg_info::dest);
+			acceptExpr(_emit.options().at(i).get(), true);
+		}
 	}
 
-	m_pusher.sendMsg(isParamOnStack, {}, appendBody, nullptr, nullptr, StackPusher::MsgType::ExternalOut);
+	m_pusher.sendMsg(isParamOnStack, {}, appendBody, nullptr, nullptr,
+		isV1 ? StackPusher::MsgType::ExternalOutV1 : StackPusher::MsgType::ExternalOut);
 	return false;
 }
 
