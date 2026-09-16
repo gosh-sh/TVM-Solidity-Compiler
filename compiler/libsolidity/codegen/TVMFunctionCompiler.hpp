@@ -46,6 +46,7 @@ public:
 	static Pointer<Function> generateFunction(TVMCompilerContext& ctx, FunctionDefinition const* function, std::string const& name, uint32_t id);
 	static Pointer<Function> generateMainExternal(TVMCompilerContext& ctx, ContractDefinition const *contract);
 	static Pointer<Function> generateMainInternal(TVMCompilerContext& ctx, ContractDefinition const *contract);
+	static Pointer<Function> generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefinition const *contract);
 	static Pointer<Function> generateOnCodeUpgrade(TVMCompilerContext& ctx, FunctionDefinition const* function);
 	static Pointer<Function> generateOnTickTock(TVMCompilerContext& ctx, FunctionDefinition const* function);
 	static Pointer<Function> generateLibFunctionWithObject(TVMCompilerContext& ctx, FunctionDefinition const* function,

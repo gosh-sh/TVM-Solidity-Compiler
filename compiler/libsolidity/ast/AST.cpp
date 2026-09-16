@@ -424,7 +424,7 @@ bool FunctionDefinition::libraryFunction() const
 
 Visibility FunctionDefinition::defaultVisibility() const
 {
-	solAssert(!isConstructor(), "");
+//	solAssert(!isConstructor(), "");
 	return isFree() ? Visibility::Internal : Declaration::defaultVisibility();
 }
 

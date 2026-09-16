@@ -5,20 +5,19 @@
 # The TVM Solidity compiler
 
 [![GitHub](https://img.shields.io/github/license/everx-labs/TVM-Solidity-Compiler?style=for-the-badge)](./LICENSE)
-[![Everscale](https://custom-icon-badges.demolab.com/badge/-everscale-13173e?style=for-the-badge&logoColor=yellow&logo=everscale)](https://everscale.network/)
 
 
 Port of the Solidity smart-contract [compiler](https://github.com/ethereum/solidity) generating TVM bytecode for TVM compatible blockchains (Everscale, Venom, Gosh, TON). Please refer to upstream README.md for information on the language itself.
 
 ## TVM Solidity API reference
 
-[API documentation is here](https://github.com/everx-labs/TVM-Solidity-Compiler/blob/master/API.md)
+[API documentation is here](https://github.com/gosh-sh/TVM-Solidity-Compiler/blob/master/API.md)
 
 ## Build and Install
 
 ### Sold driver
 
-We recommend using `sold` to compile smart-contracts. Documentation is available at [README.md](https://github.com/everx-labs/TVM-Solidity-Compiler/blob/master/sold/README.md).
+We recommend using `sold` to compile smart-contracts. Documentation is available at [README.md](https://github.com/gosh-sh/TVM-Solidity-Compiler/blob/master/sold/README.md).
 
 ### Building compiler
 
@@ -27,7 +26,7 @@ Original Instructions about how to build and install the Solidity compiler can b
 #### Ubuntu Linux
 
 ```shell
-git clone https://github.com/everx-labs/TVM-Solidity-Compiler
+git clone https://github.com/gosh-sh/TVM-Solidity-Compiler.git
 cd TVM-Solidity-Compiler
 sh ./compiler/scripts/install_deps.sh
 mkdir build
@@ -44,7 +43,7 @@ Prerequisites:
 
 Clone repo
 ```
-git clone https://github.com/everx-labs/TVM-Solidity-Compiler
+git clone https://github.com/gosh-sh/TVM-Solidity-Compiler.git
 cd TVM-Solidity-Compiler
 ```
 
@@ -69,7 +68,7 @@ Install Visual Studio Build Tools 2019, Git bash, cmake.
 Run Developer PowerShell for VS 2019
 
 ```shell
-git clone https://github.com/everx-labs/TVM-Solidity-Compiler
+git clone https://github.com/gosh-sh/TVM-Solidity-Compiler.git
 cd TVM-Solidity-Compiler
 compiler\scripts\install_deps.ps1
 mkdir build
@@ -80,11 +79,10 @@ cmake --build . --config Release -- /m
 
 ## Links
 
- * [Ever assembler and disassembler](https://github.com/everx-labs/ever-assembler)
- * [Code samples](https://github.com/everx-labs/samples/tree/master/solidity) in TVM Solidity
- * [ever-cli](https://github.com/everx-labs/ever-cli) command line interface for TVM compatible blockchains
- * Example of usage `ever-cli` for working (deploying, calling etc.) with TVM compatible blockchains can be found there: [Write smart contract in Solidity](https://docs.ton.dev/86757ecb2/p/950f8a-write-smart-contract-in-solidity)
- * [Changelog](https://github.com/everx-labs/TVM-Solidity-Compiler/blob/master/Changelog_TON.md)
+ * [TVM assembler and disassembler](https://github.com/tvmlabs/tvm-sdk/tree/main/tvm_assembler)
+ * [TVM-CLI](https://github.com/tvmlabs/tvm-sdk/tree/main/tvm_cli) command line interface for TVM compatible blockchains
+ * Example of usage `TVM-CLI` for working (deploying, calling etc.) with TVM compatible blockchains can be found there: [Write smart contract in Solidity](https://docs.ton.dev/86757ecb2/p/950f8a-write-smart-contract-in-solidity)
+ * [Changelog](https://github.com/gosh-sh/TVM-Solidity-Compiler/blob/master/Changelog.md)
 
 ## License
 [GNU GENERAL PUBLIC LICENSE Version 3](./LICENSE)

@@ -1,3 +1,10 @@
+### 0.82.0 (2026-XX-XX)
+Compiler features:
+* Add cross dapp message support
+* Add `crossDappMsg` function modifier
+* Make `*Msg` modifier usage obligatory + allow multiple usage
+* Set default tvm-version to `gosh`
+
 ### 0.81.0 (2026-07-15)
 Compiler features:
 * Changed external outbound (event) message `CommonMsgInfo` header encoding.
@@ -24,7 +31,7 @@ Compiler features:
 ### 0.79.2 (2025-09-10)
 Compiler features:
 * Update rewards instructions
-* Change Contructor FunctionId 
+* Change Constructor FunctionId 
 
 ### 0.79.1 (2025-09-10)
 Compiler features:

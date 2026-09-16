@@ -746,17 +746,18 @@ bool TypeChecker::visit(FunctionDefinition const& _function)
 	if (!_function.modifiers().empty() && _function.isFree())
 		m_errorReporter.syntaxError(5811_error, _function.location(), "Free functions cannot have modifiers.");
 
-	if (_function.isExternalMsg() || _function.isInternalMsg()) {
-		if (_function.isExternalMsg() && _function.isInternalMsg()) {
-			m_errorReporter.typeError(6672_error, _function.location(), R"("internalMsg" and "externalMsg" cannot be used together.)");
-		}
+	if (_function.isExternalMsg() || _function.isInternalMsg() || _function.isCrossDappMsg()) {
 		if (!_function.functionIsExternallyVisible()) {
-			m_errorReporter.typeError(7446_error, _function.location(), R"(Private/internal function can't be marked as internalMsg/externalMsg.)");
+			m_errorReporter.typeError(7446_error, _function.location(), R"(Private/internal function can't be marked as internalMsg/externalMsg/crossDappMsg.)");
 		}
 		if (_function.isReceive() || _function.isFallback() || _function.isOnBounce() || _function.isOnTickTock()) {
-			m_errorReporter.typeError(1399_error, _function.location(), R"(receiver, fallback, onBounce and onTickTock functions can't be marked as internalMsg/externalMsg.)");
+			m_errorReporter.typeError(1399_error, _function.location(), R"(receiver, fallback, onBounce and onTickTock functions can't be marked as internalMsg/externalMsg/crossDappMsg.)");
 		}
-	}
+	} else if (!_function.isReceive() && !_function.isFallback() && !_function.isOnBounce() && !_function.isOnTickTock()) {
+        if (_function.isPublic()) {
+            m_errorReporter.typeError(6672_error, _function.location(), R"(At least one modifier "internalMsg", "crossDappMsg" or "externalMsg" must be used.)");
+        }
+    }
 
 	std::vector<VariableDeclaration const*> internalParametersInConstructor;
 
@@ -1388,9 +1389,18 @@ void TypeChecker::endVisit(EmitStatement const& _emit)
 
 	const std::vector<ASTPointer<Expression>>& options = _emit.options();
 	const std::vector<ASTPointer<ASTString>>& names = _emit.names();
+	std::map<std::string, SourceLocation> setOptions;
 	for (std::size_t i = 0; i < options.size(); ++i) {
 		const std::string name = *names.at(i);
 		Expression const* opt = options.at(i).get();
+		auto const [it, isNew] = setOptions.emplace(name, opt->location());
+		if (!isNew)
+			m_errorReporter.typeError(
+				2902_error,
+				opt->location(),
+				SecondarySourceLocation().append("Option \"" + name + "\" is set here: ", it->second),
+				"Duplicate option \"" + name + "\"."
+			);
 		if (name == "dest") {
 			expectType(*opt, *TypeProvider::address(), false);
 			if (auto const* call = dynamic_cast<FunctionCall const*>(opt)) {
@@ -1406,8 +1416,12 @@ void TypeChecker::endVisit(EmitStatement const& _emit)
 						);
 				}
 			}
+		} else if (name == "version") {
+			std::optional<bigint> ver = ExprUtils::constValue(*opt);
+			if (!ver.has_value() || (ver.value() != 1 && ver.value() != 2))
+				m_errorReporter.typeError(2901_error, opt->location(), "Event \"version\" must be a constant equal to 1 or 2.");
 		} else {
-			m_errorReporter.typeError(2900_error, _emit.location(), "Unknown option " + name + ". Only option \"dest\" is supported.");
+			m_errorReporter.typeError(2900_error, _emit.location(), "Unknown option " + name + ". Only options \"dest\" and \"version\" are supported.");
 		}
 	}
 }

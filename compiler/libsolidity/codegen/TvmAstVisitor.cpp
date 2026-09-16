@@ -766,10 +766,15 @@ bool Printer::visit(Contract &_node) {
 			tabs(); m_out << "IFJMPREF {" << std::endl;
 			tabs(); m_out << "	.inline main_external" << std::endl;
 			tabs(); m_out << "}" << std::endl;
+//			tabs(); m_out << "DUP" << std::endl;
+//			tabs(); m_out << "EQINT -2" << std::endl;
+//			tabs(); m_out << "IFJMPREF {" << std::endl;
+//			tabs(); m_out << "	.inline onTickTock" << std::endl;
+//			tabs(); m_out << "}" << std::endl;
 			tabs(); m_out << "DUP" << std::endl;
-			tabs(); m_out << "EQINT -2" << std::endl;
+			tabs(); m_out << "EQINT -3" << std::endl;
 			tabs(); m_out << "IFJMPREF {" << std::endl;
-			tabs(); m_out << "	.inline onTickTock" << std::endl;
+			tabs(); m_out << "	.inline main_cross_dapp" << std::endl;
 			tabs(); m_out << "}" << std::endl;
 			tabs(); m_out << "THROW 11" << std::endl;
 			--m_tab;

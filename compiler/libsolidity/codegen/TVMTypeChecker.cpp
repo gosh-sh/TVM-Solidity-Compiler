@@ -110,7 +110,7 @@ void TVMTypeChecker::checkOverrideAndOverload() {
 							f->location(),
 							SecondarySourceLocation().append("Declaration of the base function: ",
 															 baseFunction->location()),
-							"Both override and base functions should be marked as internalMsg or externalMsg.");
+							"Both override and base functions should be marked as internalMsg, crossDappMsg or externalMsg.");
 					}
 				}
 			}

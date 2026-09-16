@@ -654,6 +654,14 @@ Parser::FunctionHeaderParserResult Parser::parseFunctionHeader(bool _isStateVari
 			result.externalMsg = true;
 			m_scanner->next();
 		}
+		else if (token == Token::CrossDappMsg)
+		{
+			if (result.crossDappMsg)
+				parserError(9986_error, "crossDappMsg already specified.");
+
+			result.crossDappMsg = true;
+			m_scanner->next();
+		}
 		else if (token == Token::InternalMsg)
 		{
 			if (result.internalMsg)
@@ -803,6 +811,7 @@ ASTPointer<ASTNode> Parser::parseFunctionDefinition(bool _freeFunction, bool _al
 		header.responsible,
 		header.externalMsg,
 		header.internalMsg,
+		header.crossDappMsg,
 		header.assembly,
 		header.experimentalReturnExpression
 	);
