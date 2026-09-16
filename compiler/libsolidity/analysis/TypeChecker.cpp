@@ -1389,9 +1389,18 @@ void TypeChecker::endVisit(EmitStatement const& _emit)
 
 	const std::vector<ASTPointer<Expression>>& options = _emit.options();
 	const std::vector<ASTPointer<ASTString>>& names = _emit.names();
+	std::map<std::string, SourceLocation> setOptions;
 	for (std::size_t i = 0; i < options.size(); ++i) {
 		const std::string name = *names.at(i);
 		Expression const* opt = options.at(i).get();
+		auto const [it, isNew] = setOptions.emplace(name, opt->location());
+		if (!isNew)
+			m_errorReporter.typeError(
+				2902_error,
+				opt->location(),
+				SecondarySourceLocation().append("Option \"" + name + "\" is set here: ", it->second),
+				"Duplicate option \"" + name + "\"."
+			);
 		if (name == "dest") {
 			expectType(*opt, *TypeProvider::address(), false);
 			if (auto const* call = dynamic_cast<FunctionCall const*>(opt)) {
