@@ -194,7 +194,7 @@ When deploying contracts, you should use the latest released version of Solidity
   * [pragma tvm-solidity](#pragma-tvm-solidity)
   * [pragma copyleft](#pragma-copyleft)
   * [pragma ignoreIntOverflow](#pragma-ignoreintoverflow)
-  * [pragma AbiHeader](#pragma-abiheader)
+  * [ABI headers](#abi-headers)
   * [pragma msgValue](#pragma-msgvalue)
   * [pragma upgrade func/oldsol](#pragma-upgrade-funcoldsol)
 * [State variables](#state-variables)
@@ -3085,23 +3085,18 @@ uint8 c = a - b; // c == -1, no exception thrown
 
 See also: [unchecked block](#unchecked-block).
 
-#### pragma AbiHeader
+#### ABI headers
 
-```TVMSolidity
-pragma AbiHeader notime;
-pragma AbiHeader pubkey;
-pragma AbiHeader expire;
-```
+Every contract carries the same three headers in its external messages, and they cannot be turned
+off or selected per contract:
 
-Defines headers that are used in external messages:
-
-* `notime` - disables `time` abi header, which is enabled by default. Abi header `time` – `uint64` local time when message was created, used for replay protection
-* `pubkey` (`uint256`) - optional public key that the message can be signed with.
-* `expire` (`uint32`)  - time when the message should be meant as expired.
+* `pubkey` (`uint256`) - public key that the message can be signed with.
+* `time` (`uint64`) - local time when the message was created, used for replay protection.
+* `expire` (`uint32`) - time when the message should be meant as expired.
 
 **Note:**
 
-Defined headers are listed in `*.abi.json` file in `header` section.
+The headers are listed in `*.abi.json` file in `header` section.
 
 See also: [Contract execution](#contract-execution), [afterSignatureCheck](#aftersignaturecheck),
 [msg.pubkey()](#msgpubkey) and [tvm.pubkey()](#tvmpubkey).
@@ -3832,7 +3827,7 @@ msg.pubkey() returns (uint256);
 ```
 
 Returns public key that is used to check the message signature. If the message isn't signed, then it's equal to `0`.
-See also: [Contract execution](#contract-execution), [pragma AbiHeader](#pragma-abiheader).
+See also: [Contract execution](#contract-execution), [ABI headers](#abi-headers).
 
 ##### msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp
 
@@ -5731,10 +5726,10 @@ Solidity runtime error codes:
   * **40** - External inbound message has an invalid signature. See [tvm.pubkey()](#tvmpubkey) and [msg.pubkey()](#msgpubkey).
   * **50** - Array index or index of [\<mapping\>.at()](#mappingat) is out of range.
   * **51** - Contract's constructor has already been called.
-  * **52** - Replay protection exception. See `timestamp` in [pragma AbiHeader](#pragma-abiheader).
+  * **52** - Replay protection exception. See `time` in [ABI headers](#abi-headers).
   * **54** - `<array>.pop` call for an empty array.
-  * **57** - External inbound message is expired. See `expire` in [pragma AbiHeader](#pragma-abiheader).
-  * **58** - External inbound message has no signature but has public key. See `pubkey` in [pragma AbiHeader](#pragma-abiheader).
+  * **57** - External inbound message is expired. See `expire` in [ABI headers](#abi-headers).
+  * **58** - External inbound message has no signature but has public key. See `pubkey` in [ABI headers](#abi-headers).
   * **60** - Inbound message has wrong function id. In the contract there are no functions with such function id and there is no fallback function that could handle the message. See [fallback](#fallback).
   * **61** - Deploying `StateInit` has no public key in `data` field.
   * **62** - Reserved for internal usage.
@@ -5810,7 +5805,7 @@ Before calling contract's function `main_external` does:
    - If signature isn't exists, `pubkey` header is defined and `pubkey` exists in the
    message, then an [exception with code 58](#solidity-runtime-errors) is thrown.
 2. Replay protection:
-   - [*time* header](#pragma-abiheader) exists (`pragma AbiHeader notime` is not used), then the contract checks whether
+   - the *time* header is always present, so the contract checks whether
    `oldTime` < `time` < `now * 1000 + 30 minutes`. If it's true, then `oldTime` is updated by new `time`.
    Otherwise, an exception is thrown.
    - there is `afterSignatureCheck` (despite usage of `time`), then make your own replay protection.
@@ -5819,7 +5814,7 @@ Before calling contract's function `main_external` does:
    `expire` > `now`.
    - there is `afterSignatureCheck` (despite usage of `expire`), then make your own check.
 
-See also: [pragma AbiHeader](#pragma-abiheader), [afterSignatureCheck](#aftersignaturecheck).
+See also: [ABI headers](#abi-headers), [afterSignatureCheck](#aftersignaturecheck).
 
 ### Gas optimization hints
 
