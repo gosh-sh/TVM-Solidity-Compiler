@@ -4628,6 +4628,7 @@ MemberList::MemberMap MagicType::nativeMembers(ASTNode const*) const
 			{"isInternal", TypeProvider::boolean()},
 			{"isTickTock", TypeProvider::boolean()},
 			{"isCrossDapp", TypeProvider::boolean()},
+			{"src_dapp_id", TypeProvider::uint256()},
 			{"body", TypeProvider::tvmslice()},
 			{"forwardFee", TypeProvider::coins()},
 			{"importFee", TypeProvider::coins()},

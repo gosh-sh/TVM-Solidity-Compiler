@@ -785,6 +785,44 @@ void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 			"ADDCONST -3",
 			"PICK",
 		}, 0, 1, true));
+	} else if (_node.memberName() == "src_dapp_id") { // msg.src_dapp_id
+		m_pusher.startContinuation();
+		m_pusher.push(createNode<HardCode>(std::vector<std::string>{
+				"DEPTH",
+				"ADDCONST -3",
+				"PICK",
+				"CTOS",
+				"LDU 1",
+				"SWAP",
+				"PUSHCONT {",
+				"	DROP",
+				"	PUSHINT 0",
+				"}",
+				"PUSHCONT {",
+				"	LDU 3",
+				"	LDMSGADDR",
+				"	LDMSGADDR",
+				"	LDGRAMS",
+				"	LDDICT",
+				"	LDGRAMS",
+				"	LDGRAMS",
+				"	LDU 64",
+				"	LDU 32",
+				"	BLKDROP2 9, 1",
+				"	LDU 1",
+				"	SWAP",
+				"	PUSHCONT {",
+				"		PLDU 256",
+				"	}",
+				"	PUSHCONT {",
+				"		DROP",
+				"		PUSHINT 0",
+				"	}",
+				"	IFELSE",
+				"}",
+				"IFELSE",
+		}, 0, 1, true));
+		m_pusher.pushRefContAndCallX(0, 1, true);
 	} else if (_node.memberName() == "forwardFee") { // msg.forwardFee
 		m_pusher.pushFragment(0, 1, "__forwardFee");
 	} else if (_node.memberName() == "importFee") { // msg.importFee

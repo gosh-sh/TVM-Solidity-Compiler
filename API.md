@@ -229,6 +229,7 @@ When deploying contracts, you should use the latest released version of Solidity
     * [msg.currencies](#msgcurrencies)
     * [msg.pubkey()](#msgpubkey)
     * [msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp](#msgisinternal-msgisexternal-msgisticktock-and-msgiscrossdapp)
+    * [msg.src_dapp_id](#msgsrc_dapp_id)
     * [msg.createdAt](#msgcreatedat)
     * [msg.data](#msgdata)
     * [msg.forwardFee](#msgforwardfee)
@@ -3832,6 +3833,27 @@ See also: [Contract execution](#contract-execution), [ABI headers](#abi-headers)
 ##### msg.isInternal, msg.isExternal, msg.isTickTock and msg.isCrossDapp
 
 Returns flag whether the contract is called by internal message, external message, tick/tock transactions or cross-dapp message.
+
+##### msg.src_dapp_id
+
+```TVMSolidity
+msg.src_dapp_id (uint256)
+```
+
+Returns the field **src_dapp_id** of the internal inbound message: the dApp the
+sending account belongs to. The node fills it in from the sender's own state,
+so it cannot be set by the caller, which makes it the counterpart of
+[address.dapp_id](#addressdapp_id) for the other side of a message.
+
+Returns `0` when the message carries no **src_dapp_id**, and for every message
+that is not an internal one. Use it together with `msg.sender` wherever a
+caller is authorized by address: an address carries no dApp, so `msg.sender`
+alone also matches the same address in another dApp.
+
+```TVMSolidity
+// only the wallet at `_wallet`, and only the one in this contract's own dApp
+require(msg.sender == _wallet && msg.src_dapp_id == address(this).dapp_id, 101);
+```
 
 ##### msg.createdAt
 

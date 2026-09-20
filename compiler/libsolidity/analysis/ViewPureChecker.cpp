@@ -453,6 +453,7 @@ void ViewPureChecker::endVisit(MemberAccess const& _memberAccess)
 			{MagicType::Kind::Message, "pubkey"},
 			{MagicType::Kind::Message, "sender"},
 			{MagicType::Kind::Message, "sig"},
+			{MagicType::Kind::Message, "src_dapp_id"},
 			{MagicType::Kind::Message, "value"},
 			{MagicType::Kind::MetaType, "creationCode"},
 			{MagicType::Kind::MetaType, "interfaceId"},
