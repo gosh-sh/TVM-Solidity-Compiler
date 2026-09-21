@@ -115,6 +115,7 @@ private:
 	void doWhile(WhileStatement const& _whileStatement);
 
 	void setGlobSenderAddressIfNeed();
+	void setGlobSrcDappIdIfNeed();
 	void setCtorFlag();
 	void setCopyleft();
 	Pointer<Function> generateMainExternalForAbiV2();

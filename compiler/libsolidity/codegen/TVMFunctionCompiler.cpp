@@ -323,6 +323,7 @@ TVMFunctionCompiler::generateOnTickTock(TVMCompilerContext& ctx, FunctionDefinit
 	TVMFunctionCompiler funCompiler{pusher, 0, function, false, false, 0};
 	funCompiler.setCopyleft();
 	funCompiler.setGlobSenderAddressIfNeed();
+	funCompiler.setGlobSrcDappIdIfNeed();
 	funCompiler.visitFunctionWithModifiers();
 
 
@@ -1616,6 +1617,13 @@ void TVMFunctionCompiler::setGlobSenderAddressIfNeed() {
 	}
 }
 
+void TVMFunctionCompiler::setGlobSrcDappIdIfNeed() {
+	if (m_pusher.ctx().usage().hasMsgSrcDappId()) {
+		m_pusher.pushInt(0);
+		m_pusher.setGlob(TvmConst::C7::SrcDappId);
+	}
+}
+
 void TVMFunctionCompiler::setCtorFlag() {
 	m_pusher.pushRoot();
 	m_pusher << "CTOS";
@@ -1659,6 +1667,7 @@ Pointer<Function> TVMFunctionCompiler::generateMainExternal(
 
 	f.setCopyleft();
 	f.setGlobSenderAddressIfNeed();
+	f.setGlobSrcDappIdIfNeed();
 
 	pusher.pushS(1);
 	pusher.pushFragmentInCallRef(0, 0, "c4_to_c7");
@@ -1819,7 +1828,39 @@ TVMFunctionCompiler::generateMainInternal(TVMCompilerContext& ctx, ContractDefin
 	// stack: int_msg_info
 
 	ContactsUsageScanner const &sc = pusher.ctx().usage();
-	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
+	bool const needSender = sc.hasMsgSender() || sc.hasResponsibleFunction();
+	if (sc.hasMsgSrcDappId()) {
+		pusher << "LDU 4       ; bounced tail";
+		pusher << "LDMSGADDR   ; bounced src tail";
+		if (needSender) {
+			pusher.exchange(1);
+			pusher.setGlob(TvmConst::C7::SenderAddress);
+		} else {
+			pusher.dropUnder(1, 1);
+		}
+		pusher.push(createNode<HardCode>(std::vector<std::string>{
+			"LDMSGADDR",
+			"LDGRAMS",
+			"LDDICT",
+			"LDGRAMS",
+			"LDGRAMS",
+			"LDU 64",
+			"LDU 32",
+			"BLKDROP2 7, 1",
+			"LDU 1",
+			"SWAP",
+			"PUSHCONT {",
+			"	PLDU 256",
+			"}",
+			"PUSHCONT {",
+			"	DROP",
+			"	PUSHINT 0",
+			"}",
+			"IFELSE",
+		}, 1, 1, true));
+		pusher.setGlob(TvmConst::C7::SrcDappId);
+		pusher << "MODPOW2 1";
+	} else if (needSender) {
 		pusher << "LDU 4       ; bounced tail";
 		pusher << "LDMSGADDR   ; bounced src tail";
 		pusher.drop();
@@ -1888,7 +1929,39 @@ TVMFunctionCompiler::generateMainCrossDapp(TVMCompilerContext& ctx, ContractDefi
 	// stack: cross_dapp_msg_info
 
 	ContactsUsageScanner const &sc = pusher.ctx().usage();
-	if (sc.hasMsgSender() || sc.hasResponsibleFunction()) {
+	bool const needSender = sc.hasMsgSender() || sc.hasResponsibleFunction();
+	if (sc.hasMsgSrcDappId()) {
+		pusher << "LDU 9       ; bounced tail";
+		pusher << "LDMSGADDR   ; bounced src tail";
+		if (needSender) {
+			pusher.exchange(1);
+			pusher.setGlob(TvmConst::C7::SenderAddress);
+		} else {
+			pusher.dropUnder(1, 1);
+		}
+		pusher.push(createNode<HardCode>(std::vector<std::string>{
+			"LDMSGADDR",
+			"LDGRAMS",
+			"LDDICT",
+			"LDGRAMS",
+			"LDGRAMS",
+			"LDU 64",
+			"LDU 32",
+			"BLKDROP2 7, 1",
+			"LDU 1",
+			"SWAP",
+			"PUSHCONT {",
+			"	PLDU 256",
+			"}",
+			"PUSHCONT {",
+			"	DROP",
+			"	PUSHINT 0",
+			"}",
+			"IFELSE",
+		}, 1, 1, true));
+		pusher.setGlob(TvmConst::C7::SrcDappId);
+		pusher << "MODPOW2 1";
+	} else if (needSender) {
 		pusher << "LDU 9       ; bounced tail";
 		pusher << "LDMSGADDR   ; bounced src tail";
 		pusher.drop();
