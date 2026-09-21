@@ -65,11 +65,13 @@ public:
 
 	bool hasMsgPubkey() const { return m_hasMsgPubkey; }
 	bool hasMsgSender() const { return m_hasMsgSender; }
+	bool hasMsgSrcDappId() const { return m_hasMsgSrcDappId; }
 	bool hasResponsibleFunction() const { return m_hasResponsibleFunction; }
 
 private:
 	bool m_hasMsgPubkey{};
 	bool m_hasMsgSender{};
+	bool m_hasMsgSrcDappId{};
 	bool m_hasResponsibleFunction{};
 	std::set<Declaration const*> m_usedFunctions;
 };

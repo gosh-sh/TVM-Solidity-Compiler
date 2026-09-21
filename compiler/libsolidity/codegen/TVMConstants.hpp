@@ -36,6 +36,7 @@ namespace TvmConst {
 		}
 		const int MsgPubkey = 5;
 		constexpr int ConstructorFlag = 6;
+		constexpr int SrcDappId = 7;
 		constexpr int SenderAddress = 9;
 		constexpr int FirstIndexForVariables = 10;
 	}

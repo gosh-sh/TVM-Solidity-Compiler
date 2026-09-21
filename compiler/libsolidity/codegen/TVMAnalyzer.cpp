@@ -199,6 +199,9 @@ bool ContactsUsageScanner::visit(const MemberAccess &_node) {
 			if (identifier->name() == "msg" && _node.memberName() == "sender") {
 				m_hasMsgSender = true;
 			}
+			if (identifier->name() == "msg" && _node.memberName() == "src_dapp_id") {
+				m_hasMsgSrcDappId = true;
+			}
 		}
 	}
 	return true;

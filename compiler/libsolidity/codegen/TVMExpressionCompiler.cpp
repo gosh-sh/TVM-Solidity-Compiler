@@ -785,6 +785,8 @@ void TVMExpressionCompiler::visitMsgMagic(MemberAccess const &_node) {
 			"ADDCONST -3",
 			"PICK",
 		}, 0, 1, true));
+	} else if (_node.memberName() == "src_dapp_id") {
+		m_pusher.getGlob(TvmConst::C7::SrcDappId);
 	} else if (_node.memberName() == "forwardFee") { // msg.forwardFee
 		m_pusher.pushFragment(0, 1, "__forwardFee");
 	} else if (_node.memberName() == "importFee") { // msg.importFee
