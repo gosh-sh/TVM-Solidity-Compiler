@@ -18,12 +18,12 @@ strip-ansi-escapes = '0.2'
 clap = { features = ['derive'], version = '4.5' }
 serde = { features = ['derive'], version = '1.0' }
 
-tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "05ff08483442be139ad0c6bfc1e037e6114ca450" }
-tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "05ff08483442be139ad0c6bfc1e037e6114ca450", features = [
+tvm_abi = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "0fda20a44bada00b1bdf1848a45c5c05eac14b4b" }
+tvm_assembler = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "0fda20a44bada00b1bdf1848a45c5c05eac14b4b", features = [
   'gosh',
 ] }
-tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "05ff08483442be139ad0c6bfc1e037e6114ca450" }
-tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "05ff08483442be139ad0c6bfc1e037e6114ca450" }
+tvm_block = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "0fda20a44bada00b1bdf1848a45c5c05eac14b4b" }
+tvm_types = { git = 'https://github.com/tvmlabs/tvm-sdk.git', rev = "0fda20a44bada00b1bdf1848a45c5c05eac14b4b" }
 
 
 [build-dependencies]
