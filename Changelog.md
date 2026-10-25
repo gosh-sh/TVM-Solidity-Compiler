@@ -1,3 +1,10 @@
+### 0.81.1 (2026-10-26)
+Bugfixes:
+* `gosh.keccak256` did not compile. The front-end emitted the `KECCAK256` instruction, but the pinned `tvm-sdk` assembler did not know the mnemonic and failed with `Unknown operation KECCAK256`. Code generation is unchanged for every source that does not call it.
+
+Other changes:
+* Moved `tvm-sdk` dependencies to release tag `v3.1.0.an`.
+
 ### 0.81.0 (2026-07-15)
 Compiler features:
 * Changed external outbound (event) message `CommonMsgInfo` header encoding.

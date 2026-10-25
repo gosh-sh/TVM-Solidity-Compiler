@@ -1048,7 +1048,7 @@ checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
 
 [[package]]
 name = "sold"
-version = "0.81.0"
+version = "0.81.1"
 dependencies = [
  "anyhow",
  "assert_cmd",
@@ -1164,8 +1164,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_abi"
-version = "3.0.6"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f#8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f"
+version = "3.1.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v3.1.0.an#fd76a8a928f6affcfc1aeddb7cc42f6cd11297a2"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1181,8 +1181,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_assembler"
-version = "3.0.6"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f#8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f"
+version = "3.1.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v3.1.0.an#fd76a8a928f6affcfc1aeddb7cc42f6cd11297a2"
 dependencies = [
  "anyhow",
  "clap",
@@ -1203,8 +1203,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_block"
-version = "3.0.6"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f#8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f"
+version = "3.1.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v3.1.0.an#fd76a8a928f6affcfc1aeddb7cc42f6cd11297a2"
 dependencies = [
  "anyhow",
  "base64",
@@ -1222,8 +1222,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_types"
-version = "3.0.6"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f#8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f"
+version = "3.1.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v3.1.0.an#fd76a8a928f6affcfc1aeddb7cc42f6cd11297a2"
 dependencies = [
  "aes",
  "anyhow",
@@ -1253,8 +1253,8 @@ dependencies = [
 
 [[package]]
 name = "tvm_vm"
-version = "3.0.6"
-source = "git+https://github.com/tvmlabs/tvm-sdk.git?rev=8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f#8b108bacf6c7de4d4374e0bfca1e9b63f71e4a9f"
+version = "3.1.0"
+source = "git+https://github.com/tvmlabs/tvm-sdk.git?tag=v3.1.0.an#fd76a8a928f6affcfc1aeddb7cc42f6cd11297a2"
 dependencies = [
  "anyhow",
  "chrono",
