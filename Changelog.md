@@ -1,3 +1,11 @@
+### 0.80.1 (2026-11-09)
+Bugfixes:
+* `gosh.keccak256` did not compile. The front-end emitted the `KECCAK256` instruction, but the pinned `tvm-sdk` assembler did not know the mnemonic and failed with `Unknown operation KECCAK256`. Code generation is unchanged for every source that does not call it.
+
+Other changes:
+* Moved `tvm-sdk` dependencies to release tag `v3.1.0.an`.
+* Branched from 0.80.0, not from 0.81.x: events keep the 0.80.0 external outbound (`ext_out_msg_info`) header encoding.
+
 ### 0.80.0 (2026-07-15)
 Compiler features:
 * Supported `zkhalo2verify`, `zkhalo2VerifyWithVK`, `check_layer_hash` instructions for Halo2 proof verification.
